@@ -1,7 +1,5 @@
 package com.googlecode.jtiger.assess.transgress.stat.service;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -37,8 +35,6 @@ public class TransgressStatManager extends BaseGenericsManager<TransgressStat> {
 	}
 
 	public List<Map<String, Object>> stat(StatCondition condition) {
-
-		
 
 		return statDao.stat(condition);
 	}

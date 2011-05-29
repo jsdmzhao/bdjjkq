@@ -3,10 +3,21 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="admin.transgress/statcfg" extends="default"
-	         namespace="/assess/transgress/statcfg">
+	<package name="admin.transgress.statcfg.condition" extends="default"
+	         namespace="/assess/transgress/statcfg/condition">
 		<action name="*" class="transgressCustomStatConditionAction" method="{1}">
-		    <result name="{1}">/WEB-INF/views/assess/transgress/statcfg/{1}.jsp</result>
+		    <result name="{1}">/WEB-INF/views/assess/transgress/statcfg/condition/{1}.jsp</result>
+		    <result name="success" type="chain">
+		    	<param name="actionName">list</param>
+		    </result>		    
+		</action>		
+	</package>
+	<package name="admin.transgress.statcfg.statItem" extends="default"
+	         namespace="/assess/transgress/statcfg/statItem">
+		<action name="*" class="transgressStatItemAction" method="{1}">
+		    <result name="edit">/WEB-INF/views/assess/transgress/statcfg/statitem/edit.jsp</result>
+		    <result name="view">/WEB-INF/views/assess/transgress/statcfg/statitem/edit.jsp</result>
+		    <result name="index">/WEB-INF/views/assess/transgress/statcfg/statitem/index.jsp</result>
 		    <result name="success" type="chain">
 		    	<param name="actionName">list</param>
 		    </result>		    
