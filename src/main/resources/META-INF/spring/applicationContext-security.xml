@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+	<!-- 可以处理Ajax请求的AuthenticationFailureHandler -->
+	<beans:bean id="authenticationFailureHandler"
+		class="com.googlecode.jtiger.modules.security.ext.AjaxAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/login.htm?login_error=t"></beans:property>
+	</beans:bean>
+	<!-- 处理用户成功登录 -->
+	<beans:bean id="authenticationSeccessHandler"
+		class="com.googlecode.jtiger.modules.security.ext.AuthenticationSuccessHandlerEx">
+		<beans:property name="alwaysUseDefaultTargetUrl" value="false"></beans:property>
+		<beans:property name="defaultTargetUrl" value="/personalcenter/index.htm"></beans:property>
+	</beans:bean>
+	<!-- 处理用户注销 -->
+	<beans:bean id="logoutSuccessHandlerEx" class="com.googlecode.jtiger.modules.security.ext.LogoutSuccessHandlerEx">
+	    <beans:property name="defaultTargetUrl" value="/login.htm"></beans:property>
+	</beans:bean>
+	<beans:bean id="filterSecurityInterceptor" class="com.googlecode.jtiger.modules.security.ext.FilterSecurityInterceptor">
+	    <beans:property name="accessDecisionManager" ref="accessDecisionManagerEx"></beans:property>
+	    <beans:property name="securityMetadataSource" ref="databaseInvocationSecurityMetadataSource"></beans:property>
+	    <beans:property name="authenticationManager" ref="authenticationManager"></beans:property>
+	</beans:bean>
+	<!-- HTTP security configurations -->
+	<http auto-config="true" use-expressions="true">
+		<form-login login-processing-url="/static/j_spring_security_check"
+			login-page="/login.htm" authentication-failure-url="/login.htm?login_error=t"
+			authentication-failure-handler-ref="authenticationFailureHandler"
+			authentication-success-handler-ref="authenticationSeccessHandler" />
+
+		<logout logout-url="/static/j_spring_security_logout" success-handler-ref="logoutSuccessHandlerEx" />
+		<!-- Remember Me -->
+		<remember-me key="artrai.com" token-validity-seconds="1209600" />
+		<!-- Configure these elements to secure URIs in your application -->
+		<intercept-url pattern="/admin/**" access="hasRole('${role.admin}')" />
+		<intercept-url pattern="/security/**" access="hasRole('${role.admin}')" />
+		<intercept-url pattern="/member/**" access="isAuthenticated()" />
+		<intercept-url pattern="/images/**" access="permitAll" />
+		<intercept-url pattern="/scripts/**" access="permitAll" />
+		<intercept-url pattern="/styles/**" access="permitAll" />
+		<intercept-url pattern="/static/**" access="permitAll" />
+		<intercept-url pattern="/login.htm" access="permitAll" />	
+		<intercept-url pattern="/**" access="permitAll" />
+		
+		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+		
+	</http>
+	<!-- 方法安全配置 -->
+	<global-method-security secured-annotations="enabled" />
+
+	<!-- Configure Authentication mechanism -->
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userManager">
+			<password-encoder ref="passwordEncoder"></password-encoder>
+		</authentication-provider>
+	</authentication-manager>
+
+	<!-- jcaptcha验证码配置 -->
+	<beans:bean id="imageCaptchaService"
+		class="com.octo.captcha.service.image.DefaultManageableImageCaptchaService">
+		<beans:constructor-arg
+			type="com.octo.captcha.service.captchastore.CaptchaStore" index="0">
+			<beans:bean
+				class="com.octo.captcha.service.captchastore.FastHashMapCaptchaStore" />
+		</beans:constructor-arg>
+		<!-- which captcha Engine you use -->
+		<beans:constructor-arg type="com.octo.captcha.engine.CaptchaEngine"
+			index="1">
+			<beans:bean
+				class="com.googlecode.jtiger.modules.security.jcaptcha.engine.CaptchaEngineEx" />
+		</beans:constructor-arg>
+		<!-- 生成的图片180秒过期 -->
+		<beans:constructor-arg index="2" value="180">
+		</beans:constructor-arg>
+		<!-- 最多保存的图片 -->
+		<beans:constructor-arg index="3" value="100000">
+		</beans:constructor-arg>
+		<beans:constructor-arg index="4" value="75000">
+		</beans:constructor-arg>
+	</beans:bean>
+
+</beans:beans>

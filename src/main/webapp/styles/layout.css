@@ -1,0 +1,86 @@
+html,body {
+	font: normal 12px ËÎÌו, sans-serif;
+	margin: 0;
+	padding: 0;
+	border: 0 none;
+	overflow: hidden;
+	height: 100%;
+}
+
+.x-panel {
+	border-style: solid;
+	border-color: #99bbe8;
+	border-width: 1px;
+}
+
+.x-panel-noborder,.x-panel-header-noborder,.x-panel-collapsed{
+	border:none;
+}
+
+.x-unselectable{
+	border-bottom:1px #99bbe8 solid;
+}
+/*
+.x-panel-bwrap {
+    overflow:hidden;
+    zoom:1;
+    border-bottom:1px #99bbe8 solid;
+}*/
+
+p {
+	margin: 5px;
+}
+
+span {
+	font: 12px ËÎÌו, sans-serif;
+}
+
+#ext-gen15 {
+	font: bold 12px ËÎÌו, sans-serif;
+}
+
+.icon {
+	margin-left: 10px;
+	margin-right: 5px;
+	border: none;
+}
+
+a[href='#']{
+	color:red;
+}
+
+.catalog{
+	background-image: url(../images/icons/folder.gif);
+}
+
+.article{
+	background-image: url(../images/icons/article.gif);
+}
+
+.software{
+	background-image: url(../images/icons/software.gif);
+}
+
+.template{
+	background-image: url(../images/icons/xhtml.gif);
+}
+
+.announce{
+	background-image: url(../images/exticons/album.gif);
+}
+
+.links{
+	background-image: url(../images/icons/link_m.gif);
+}
+
+.permit {
+	background-image: url(../images/icons/lock_go.gif);
+}
+
+.system{
+	background-image: url(../images/icons/square.gif);
+}
+
+.nav{
+	background-image: url(../images/exticons/expand-all.gif);
+}
