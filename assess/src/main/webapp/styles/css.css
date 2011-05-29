@@ -1,0 +1,128 @@
+/*
+灰色的按钮
+*/
+.btn-gray {
+	background: url("../images/icons.gif") no-repeat scroll -102px
+		-225px transparent;
+	border: 0 none;
+	color: #565656;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	height: 28px;
+	width: 103px;
+}
+
+.btn-gray-s {
+	background: url("../images/icons.gif") no-repeat scroll 0px
+		-255px transparent;
+	border: 0 none;
+	color: #565656;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	height: 28px;
+	width: 68px;
+}
+
+/*
+蓝色的按钮
+*/
+.btn-blue {
+	background: url("../images/icons.gif") no-repeat scroll -102px
+		-130px transparent;
+	border: 0 none;
+	color: #565656;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	height: 28px;
+	width: 103px;
+}
+
+.btn-blue-s {
+	background: url("../images/icons.gif") no-repeat scroll 0px
+		-159px transparent;
+	border: 0 none;
+	color: #565656;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: bold;
+	height: 28px;
+	width: 68px;
+}
+/*Jquery Tools Tab*/
+/* root element for tabs  */
+ul.tabs {
+	margin: 0 !important;
+	padding: 0;
+	height: 30px;
+	border-bottom: 1px solid #ccc;
+}
+
+/* single tab */
+ul.tabs li {
+	float: left;
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+
+/* link inside the tab. uses a background image */
+ul.tabs a {
+	float: left;
+	font-size: 13px;
+	font-family: Arial, serif, Georgia, "Times New Roman", Times;
+	display: block;
+	padding: 5px 30px 7px 30px;
+	text-decoration: none;
+	border: 1px solid #ccc;
+	border-bottom: 0px;
+	height: 18px;
+	background-color: #efefef;
+	color: #777;
+	margin-right: 2px;
+	position: relative;
+	top: 1px;
+	outline: 0;
+	-moz-border-radius: 4px 4px 0 0;
+}
+
+ul.tabs a:hover {
+	background-color: #F7F7F7;
+	color: #333;
+}
+
+/* selected tab */
+ul.tabs a.current {
+	background-color: #ddd;
+	border-bottom: 1px solid #ddd;
+	color: #000;
+	cursor: default;
+}
+
+/* tab pane */
+.panes .tab {
+	display: none;
+	border: 1px solid #ccc;
+	border-width: 0 1px 1px 1px;
+	min-height: 150px;
+	padding: 15px 20px;
+	background-color: #ddd;
+}
+
+.m_t_b {
+	margin-bottom: 2px;
+	margin-top: 2px;
+	border:1px solid #ccc;
+}
+
+.pborder{
+    border:1px solid #ccc;
+    padding:2px;
+}
+.attach {
+  background: url(../images/mail.png) no-repeat scroll -120px -40px transparent;
+  width:20px;
+  height:20px;
+}

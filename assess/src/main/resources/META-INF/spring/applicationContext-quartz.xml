@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans default-lazy-init="false">
+	<description>配置Quartz,指向定时任务</description>
+	<!-- 删除临时上传文件 -->
+	<bean id="deleteTempUploadsDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="fileSystemFileService" />
+		<property name="targetMethod" value="deleteTemps" />
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="deleteTempUploadsTrigger" 
+		  class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean="deleteTempUploadsDetail"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 0 0 * * ?</value>
+		</property>
+	</bean>
+	<!-- 启动Quartz任务 -->
+	<bean id="quartzSchedulerFactory"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<!-- 使用内存存储,否则可能自动装配dataSource -->
+		<property name="dataSource"><null/></property>
+		<!-- 系统启动后自动启动任务 -->
+		<property name="autoStartup" value="true"/>
+		<!-- 延时20秒启动 -->
+		<property name="startupDelay" value="20"/>
+		<property name="triggers">
+			<list>
+				<ref local="deleteTempUploadsTrigger" />				
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- 
+	    ####################################
+	           测试动态Cron配置,marker为testQuartz
+	    ####################################
+	 -->
+	<bean id="testQuartzDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="cronManager" />
+		<property name="targetMethod" value="testMethod" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<!-- 使用CronTriggerBeanEx -->
+	<bean id="testQuartzTrigger" 
+		  class="com.googlecode.jtiger.modules.quartz.service.CronTriggerBeanEx">
+		<property name="jobDetail">
+			<ref bean="testQuartzDetail"/>
+		</property>
+		<!-- 从数据库中取得cron，如果数据库没有，则新建一个，新建的在晚上12点启动 -->
+		<property name="cron">
+			<bean class="com.googlecode.jtiger.modules.quartz.service.CronExpressionFactoryBean">
+			    <!-- 这个marker很重要 -->
+			    <property name="cronMarker" value="testQuartz"></property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 动态配置的任务，每个任务都要一个单独的SchedulerFactory，id为markerSchedulerFactory -->
+	<bean id="testQuartzSchedulerFactory"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">		
+		<property name="dataSource"><null/></property>
+		<property name="autoStartup" value="true"/>
+		<property name="triggers">
+			<list>
+				<ref local="testQuartzTrigger" />				
+			</list>
+		</property>
+	</bean>
+</beans>

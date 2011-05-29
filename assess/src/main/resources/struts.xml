@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <constant name="struts.locale" value="zh_CN"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	<constant name="struts.custom.i18n.resources" value="application"></constant>
+	<constant name="struts.objectFactory " value="spring"></constant>
+	<constant name="struts.objectFactory.spring.autoWire" value="name"></constant>
+	<constant name="struts.devMode " value="false"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.action.extension" value="htm"></constant>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false"></constant>
+	<constant name="struts.enable.SlashesInActionNames" value="true"></constant>
+	<constant name="struts.mapper.alwaysSelectFullNamespace" value="false"></constant>
+	<constant name="struts.mapper.class" value="org.apache.struts2.dispatcher.mapper.DefaultActionMapper"></constant>
+	<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>
+	<constant name="struts.multipart.maxSize" value="1024000000"/>
+	<!--
+	<constant name="struts.multipart.saveDir" value="E:\temp"/>
+	-->
+	
+	<package name="default" extends="struts-default" namespace="">
+		<interceptors>
+			<interceptor-stack name="simpleStack">
+				<interceptor-ref name="store">
+					<param name="operationMode">AUTOMATIC</param>
+				</interceptor-ref>
+				<interceptor-ref name="exception" />				
+				<interceptor-ref name="params" />
+				<interceptor-ref name="prepare" />
+				<!--
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="servletConfig" />
+				-->
+				<interceptor-ref name="modelDriven" />
+				<interceptor-ref name="fileUpload" />
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams" />
+				<interceptor-ref name="params" />
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">
+						input,back,cancel
+					</param>
+					<param name="validateAnnotatedMethodOnly">
+						true
+					</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">
+						input,back,cancel
+					</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="simpleStack" />
+		<global-results>
+			<result name="invalid.token">/pages/error/token.jsp</result>
+			<result name="login">/login.jsp</result>	
+			<result name="waiting" >/WEB-INF/views/waiting.jsp</result>
+			<result name="error" >/common/artrai/failed.jsp</result>			
+		</global-results>
+	</package>
+	
+	<package name="json" extends="default">
+		<result-types>
+            <result-type name="json" class="org.apache.struts2.json.JSONResult"/>
+        </result-types>
+        <interceptors>
+            <interceptor name="json" class="org.apache.struts2.json.JSONInterceptor"/>
+        </interceptors>
+       
+	</package>
+	
+	<include file="com/googlecode/jtiger/**/struts*.xml"></include>
+	<include file="com/artrai/**/struts*.xml"></include>
+</struts>

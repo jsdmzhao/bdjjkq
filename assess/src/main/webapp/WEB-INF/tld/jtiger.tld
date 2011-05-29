@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd" 
+        version="2.0">  
+	    
+	<description>JTiger Taglibs</description>
+	<tlib-version>3.0</tlib-version>
+	<short-name>jtiger</short-name>
+	<uri>http://code.google.com/p/jtiger</uri>
+	<tag>
+    	<name>params</name>
+    	<tag-class>com.googlecode.jtiger.core.webapp.taglibs.ParametersTag</tag-class>
+    	<body-content>JSP</body-content>
+    	<attribute>
+    		<name>includes</name>
+    		<type>java.lang.String</type>
+    		
+    	</attribute>
+    	<attribute>
+    		<name>type</name>
+    		<type>java.lang.String</type>
+    		
+    	</attribute>
+    </tag>
+    <tag>
+    	<name>pageAndSize</name>
+    	<tag-class>com.googlecode.jtiger.core.webapp.taglibs.PageAndSizeTag</tag-class>
+    	<body-content>JSP</body-content>
+    	
+    	<attribute>
+    		<name>type</name>
+    		<type>java.lang.String</type>
+    		
+    	</attribute>
+    	
+    	<attribute>
+    		<name>pageKey</name>
+    		<type>java.lang.String</type>
+    	</attribute>
+    	<attribute>
+    		<name>sizeKey</name>
+    		<type>java.lang.String</type>
+    	</attribute>
+    </tag>
+    <tag>
+		<name>ifLogin</name>
+		<tag-class>
+			com.googlecode.jtiger.modules.security.tags.IfLoginTag
+		</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	<tag>
+		<name>ifNotLogin</name>
+		<tag-class>
+			com.googlecode.jtiger.modules.security.tags.IfNotLoginTag
+		</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+     <tag>
+		<name>title</name>
+		<tag-class>
+			com.googlecode.jtiger.core.webapp.taglibs.TitleTag
+		</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+		    <description><![CDATA[Comma splited strings those to be shown in HTML title tag.]]></description>
+    		<name>title</name>
+    		<rtexprvalue>true</rtexprvalue>
+    		<type>java.lang.String</type>
+    		
+    	</attribute>
+    	<attribute>
+    	    <description><![CDATA[Whether the HTML title disply application name, default is true.]]></description>
+    		<name>fromBegin</name>   		
+    		<type>java.lang.Boolean</type>
+    		
+    	</attribute>
+	</tag>
+	
+</taglib>

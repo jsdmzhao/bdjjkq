@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:aop="http://www.springframework.org/schema/aop" 
+xmlns:context="http://www.springframework.org/schema/context" 
+xmlns:jee="http://www.springframework.org/schema/jee"
+xmlns:task="http://www.springframework.org/schema/task" 
+xmlns:tx="http://www.springframework.org/schema/tx" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd   http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd  http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+default-lazy-init="true"  default-autowire="byName">
+
+	<!--
+		加载.properties文件，可以在XML文件的属性中使用${property}注入常量，
+		也可以在@Value标记中使用${property}注入常量.
+	-->
+	<context:property-placeholder location="classpath:application.properties"/>
+	<!-- Turn on AspectJ @Configurable support. -->
+	<context:spring-configured/>
+
+	<!--
+		这个声明会使得spring定位所有以 @Component, @Repository,@Controller和 @Service
+		标记的类
+	-->
+	<context:component-scan base-package="com.googlecode.jtiger"/>
+	<context:component-scan base-package="com.googlecode.jtiger.assess"/>
+	
+	
+	<!-- Data Source -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="user" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialPoolSize" value="${pool.initialPoolSize}" />
+        <property name="maxPoolSize" value="${pool.maxPoolSize}" />
+        <property name="idleConnectionTestPeriod" value="${pool.testPeriod}" />
+        <property name="automaticTestTable" value="${pool.testTable}" />
+	</bean>
+	<!-- Hibernate配置 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		
+		<property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                	${hibernate.dialect}
+                </prop>
+                <prop key="hibernate.show_sql">
+                	${hibernate.show_sql}
+                </prop>
+                <prop key="hibernate.cache.use_query_cache">
+                    ${hibernate.cache.use_query_cache}
+                </prop>
+                <prop key="hibernate.cache.provider_class">
+                    ${hibernate.cache.provider_class}
+                </prop>
+                <prop key="hibernate.jdbc.batch_size">
+                    ${hibernate.jdbc.batch_size}
+                </prop>
+                <prop key="hibernate.jdbc.batch_size">
+                    ${hibernate.jdbc.batch_size}
+                </prop>
+                <prop key="hibernate.cache.provider_configuration_file_resource_path">
+                    ${hibernate.cache.provider_configuration_file_resource_path}
+                </prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                
+            </props>
+        </property>
+		<property name="packagesToScan">
+		    <list>
+		        <value>com.googlecode.jtiger.**.model</value>
+		        <value>com.artrai.**.model</value>
+		    </list>
+		</property>
+	</bean>
+
+	<!-- 事务配置 -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	<!-- JdbcTemplate -->
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"></bean>
+	
+	<!-- 动态数据源配置 -->
+	<bean id="dynaDataSoruceFactory" class="com.googlecode.jtiger.core.dao.support.DynaDataSourceFactory">
+	    <property name="dynaDataSources">
+	       <list>
+	           <!-- 配置一个动态数据源，可以配置多个 -->
+	           <bean class="com.googlecode.jtiger.core.dao.support.DynaDataSource">
+	               <property name="dsName" value="testMySQL"></property><!-- 这个必须的，唯一的 -->
+	               <property name="driver" value="com.mysql.jdbc.Driver"></property>
+	               <property name="url" value="jdbc:mysql://localhost/artrai"></property>
+	               <property name="user" value="artrai"></property>
+	               <property name="password" value="artrai"></property>
+	               <property name="pingQuery" value="show tables"></property><!-- Oracle使用缺省值即可 -->
+	           </bean>
+	           
+	           <!-- 模拟连接违法库的数据源,这里其实连接的是本机oracle,运行环境下需要删除 -->
+	           <bean class="com.googlecode.jtiger.core.dao.support.DynaDataSource">
+	               <property name="dsName" value="weiFaDs"></property><!-- 这个必须的，唯一的 -->
+	               <property name="driver" value="oracle.jdbc.driver.OracleDriver"></property>
+	               <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl"></property>
+	               <property name="user" value="system"></property>
+	               <property name="password" value="orcl"></property>
+	               <property name="pingQuery" value="select sysdata from dual"></property><!-- Oracle使用缺省值即可 -->
+	           </bean>
+	           
+	            <!--违法库数据源 -->
+	           <bean class="com.googlecode.jtiger.core.dao.support.DynaDataSource">
+	               <property name="dsName" value="transgressDs"></property><!-- 这个必须的，唯一的 -->
+	               <property name="driver" value="oracle.jdbc.driver.OracleDriver"></property>
+	               <property name="url" value="jdbc:oracle:thin:@10.28.98.11:1521:orcl1"></property>
+	               <property name="user" value="test"></property>
+	               <property name="password" value="test"></property>
+	               <property name="pingQuery" value="select sysdata from dual"></property><!-- Oracle使用缺省值即可 -->
+	           </bean>
+	       </list>
+	    </property>
+	</bean>
+	<!-- Ehcache -->
+    <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+       <property name="configLocation" value="classpath:ehcache.xml"></property>
+       <property name="cacheManagerName" value="ehCacheManager"></property>
+    </bean>
+    <bean id="ehcache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+	  <property name="cacheManager" ref="ehCacheManager" /> 
+	</bean>
+    
+    <!-- Memcached 
+    <bean id="memcachedClient" class="com.googlecode.jtiger.modules.cache.MemcachedClientFactoryBean" destroy-method="destroy">
+        <property name="hosts" value="${memcached.hosts}"></property>
+    </bean>
+    -->
+    <bean id="transcoder" class="net.spy.memcached.transcoders.SerializingTranscoder"></bean>
+    <!-- Freemarker -->
+    <bean id="freemarkerConfiguration" class="com.googlecode.jtiger.modules.freemarker.FreeMarkerConfigurationFactoryBeanEx">
+        <property name="templateLoaderPaths">
+            <list>
+                <value>classpath*:com/googlecode/jtiger/**/ftl/</value>
+                <value>classpath*:com/artrai/**/ftl/</value>
+                <value>classpath:ftl/</value>
+            </list>
+        </property>
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="template_update_delay">0</prop>
+                <prop key="default_encoding">UTF-8</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+            </props>
+        </property>
+    </bean>
+    <!-- Async -->
+    <task:annotation-driven/>
+    
+    <!-- 密码加密 -->
+    <bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
+    </bean>
+</beans>
