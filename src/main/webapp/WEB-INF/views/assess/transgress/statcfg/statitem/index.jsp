@@ -42,19 +42,21 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 				<table style="padding-top: 3px;"> 
 					<tr> 
 						<td>
-							名称:<s:textfield name="model.name"></s:textfield>
+							&nbsp;&nbsp;&nbsp;&nbsp;名称:&nbsp;&nbsp;<s:textfield name="model.name"></s:textfield>
 						</td> 
+						
 						<td>
-							类别:
+							&nbsp;&nbsp;&nbsp;&nbsp;类别:&nbsp;&nbsp;
 							<s:select list="firstLevelTypes" id="topType" headerKey ="" headerValue = "请选择" 
                      			name="firstLevelTypeId" listKey="id" listValue="descns" cssClass="m_t_b" 
-                     			cssStyle="width:252px;padding-left:2px;"  
+                     			cssStyle="width:150px;padding-left:2px;"  
                      			onchange="initSubTypes($(this).val())"></s:select>
 						</td>
 						<td>
-							分类:<select name="secondLevelTypes"  class="m_t_b " id="secondLevelTypes" style="width:252px;padding-left:2px;" >
+							&nbsp;&nbsp;&nbsp;&nbsp;分类:&nbsp;&nbsp;<select name="secondLevelTypes"  class="m_t_b " id="secondLevelTypes" style="width:252px;padding-left:2px;" >
 						</select><span style="margin-left:5px;display:none;" id="l_typeB"><img src="${ctx}/images/loading.gif"></span>
 						</td>
+						
 					</tr> 
 			</table> 
 		</td>
@@ -62,7 +64,17 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 			&nbsp;&nbsp;&nbsp;&nbsp;		
 			<input type="submit" value="查询" class="button" style="margin-top: 3px;">			   			
 		</td>	 
-		</s:form>  		
+		</s:form>  	
+		<td align="right">
+		<table>
+			<tr>
+				<td><span class="ytb-sep"></span></td>
+				<td>
+					<a href="${ctx}/assess/transgress/statcfg/statItem/edit.htm"> 添加项目</a>	
+				</td>
+			</tr>
+		</table>
+		</td>	
   	  </tr>
   	</table>
    </div>   
@@ -84,19 +96,31 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	height="500px"	
 	minHeight="300" 
 	showHeader="true"	
-	toolbarContent="navigation|pagejump|pagesize|export|refresh|extend|status">
-    
+	toolbarContent="navigation|pagejump|pagesize|export|refresh|extend|status">    
 	<ec:row>
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>	
-		<ec:column width="350" property="name" title="项目名称" tipTitle="${item.name}" ellipsis="true" sortable="false"/>
- 	
-	   	
+		<ec:column width="300" property="name" title="项目名称" tipTitle="${item.name}" ellipsis="true" sortable="false"/>
+	 	<ec:column width="160" property="_1" title="操作" style="text-align:center" sortable="false">
+			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> |
+			 <a title="编辑" href="${ctx}/assess/transgress/statcfg/statItem/edit.htm?model.id=${item.id}">编辑 </a> |
+			 <a title="删除" href="#" onclick="remove(${item.id})">删除</a>
+		</ec:column>	   	
 	</ec:row>
 	</ec:table>
   </div>
   </div>
 </div>
 <script type="text/javascript">
+function remove(id) {
+    Ext.MessageBox.confirm('提示','确认要删除此项目吗？删除后不能恢复！', function(btn){
+        if (btn == 'yes') {
+          window.location = "${ctx}/assess/transgress/statcfg/statItem/remove.htm?model.id=" + id;
+        }
+    });
+}
+</script>
+<script type="text/javascript">
+
 /**
  * 根据选中的topType值初始化subTypes选择框
  */

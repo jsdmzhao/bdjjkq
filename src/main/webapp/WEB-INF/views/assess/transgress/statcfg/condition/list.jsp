@@ -11,8 +11,23 @@
 <%@include file="/common/validator.jsp"%>
 
 <script type="text/javascript">
-$(document).ready(function() {
-	$("#statCfgForm").validate();
+$("#statCfgForm").validate({
+	rules: {
+		'model.beginHourMinute':  {
+			required : true
+		},
+		'model.endHourMinute':  {
+			required : true
+		}
+	},
+	messages: {
+		'model.beginHourMinute': {
+			required: "请输入起始时间"
+		},
+		'model.endHourMinute':  {
+			required: "请输入截至时间"
+		}
+	}
 });
 </script>
 </head>
@@ -30,7 +45,8 @@ $(document).ready(function() {
 	<table width="100%">
 		<tr>
 			<td class="simple">起始时间：</td>
-			<td class="simple"><input type="text"
+			<td class="simple">
+			<input type="text"
 								name="model.beginHourMinute"
 								
 								value='${model.beginHourMinute }'
