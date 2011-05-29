@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="admin.cms.article" extends="default"
+	         namespace="/admin/cms/article">
+		<action name="*" class="articleAction" method="{1}">
+		    <result name="{1}">/WEB-INF/views/admin/cms/article/{1}.jsp</result>
+		    <result name="edit">/WEB-INF/views/admin/cms/article/edit.jsp</result>
+		    <result name="input">/WEB-INF/views/admin/cms/article/edit.jsp</result>
+		    <result name="success" type="redirect"><![CDATA[index.htm?model.catalog.id=${model.catalog.id}]]></result>
+		</action>		
+	</package>
+</struts>
+

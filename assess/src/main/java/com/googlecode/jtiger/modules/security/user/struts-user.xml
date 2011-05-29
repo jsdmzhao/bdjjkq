@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="admin.security" extends="json"
+	         namespace="/security">
+		<action name="*/*" class="{1}Action" method="{2}">
+		    <result name="{2}">/WEB-INF/views/admin/security/{1}/{2}.jsp</result>
+			<result name="index">/WEB-INF/views/admin/security/{1}/index.jsp</result>
+		    <result name="input">/WEB-INF/views/admin/security/{1}/edit.jsp</result>
+		    <!--
+		    <result name="success" type="chain">{1}/index</result>
+		    -->
+		    <result name="success" type="redirect">{1}/index.htm</result>
+		    <result name="changePassword">/WEB-INF/views/admin/security/user/changePassword.jsp</result>
+		    <result type="json" name="json">
+		        <param name="ignoreHierarchy">false</param>
+		        <param name="root">page</param>
+				<param name="excludeProperties">
+				</param>
+		    </result>
+		</action>		
+	</package>
+	<package name="user.userChangePassword" extends="json"
+	         namespace="/">
+		<action name="userChangePassword" class="userAction" method="userChangePassword"/>
+	</package>
+	<package name="admin.user" extends="default"
+	         namespace="/user">
+		<action name="*/*" class="userAction" method="{1}">
+		    <result name="userInfo">/WEB-INF/views/admin/security/user/userInfo.jsp</result>
+		    <result name="bingo">/WEB-INF/views/admin/security/user/regUserEdit.jsp</result>
+		</action>		
+	</package>
+	
+</struts>
+
