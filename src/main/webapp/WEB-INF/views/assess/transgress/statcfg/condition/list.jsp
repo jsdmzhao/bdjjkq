@@ -24,7 +24,7 @@ $(document).ready(function() {
 <div class="x-panel-body">
 <div><%@ include file="/common/messages.jsp"%>
 </div> 
-<s:form action="save" namespace="/assess/transgress/statcfg" theme="simple" name="statCfgForm" id="statCfgForm" validate="true" method="POST">
+<s:form action="save" namespace="/assess/transgress/statcfg/condition" theme="simple" name="statCfgForm" id="statCfgForm" validate="true" method="POST">
 <s:hidden name="model.id"></s:hidden>
 	<fieldset style="margin: 30px;"><legend>统计条件信息</legend>
 	<table width="100%">
