@@ -63,7 +63,11 @@
 			</div>	
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/transgress/statcfg/list.htm" target="main">统计条件</a>
+					<a href="${ctx}/assess/transgress/statcfg/condition/list.htm" target="main">统计条件</a>
+			</div>	
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/transgress/statcfg/statItem/index.htm" target="main">统计项目</a>
 			</div>		
 		</div>	
 		
