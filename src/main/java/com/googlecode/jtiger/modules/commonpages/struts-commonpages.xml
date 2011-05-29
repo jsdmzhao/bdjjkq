@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="commonpages" extends="json" namespace="/">
+		<action name="login" class="commonPagesAction" method="login">
+		    <result name="login">/login.jsp</result>
+		</action>	
+		<action name="index" class="commonPagesAction" method="index">
+		    <result name="index">/WEB-INF/views/index.jsp</result>
+		</action>	
+	</package>
+	
+	<package name="commonpages.admin" extends="json" namespace="/admin">
+		<action name="index" class="commonPagesAction" method="layout">
+		    <result name="layout">/WEB-INF/views/admin/layout.jsp</result>
+		</action>	
+	</package>
+</struts>
+

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="admin.transgress" extends="default"
+	         namespace="/assess/transgress/stat">
+		<action name="*" class="transgressStatAction" method="{1}">
+		    <result name="{1}">/WEB-INF/views/assess/transgress/stat/{1}.jsp</result>
+		    <result name="index">/WEB-INF/views/assess/transgress/stat/index.jsp</result>
+		    <result name="reportExcel">/WEB-INF/views/assess/transgress/stat/reportExcel.jsp</result>
+		</action>		
+	</package>
+</struts>
+
