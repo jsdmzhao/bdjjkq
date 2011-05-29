@@ -24,14 +24,14 @@
                 <table cellpadding="3" cellspacing="2">
                   <tr>
                      <td align="right" >名称：</td>
-                     <td align="left" ><s:text name="model.name"></s:text></td>
+                     <td align="left" ><s:textfield name="model.name"></s:textfield></td>
                   </tr>
                                  
                   <TR>
                   	 <td align="right">类别：</td>
                      <td align="left">
                      	<s:select list="firstLevelTypes" id="firstLevelType" headerKey ="" headerValue = "请选择" 
-                     	name="firstLevelType" listKey="id" listValue="name" cssClass="m_t_b" 
+                     	name="firstLevelType" listKey="id" listValue="descns" cssClass="m_t_b" 
                      	cssStyle="width:252px;padding-left:2px;"  
                      	onchange="initSubTypes($(this).val())"></s:select>
                      </td>
@@ -39,7 +39,7 @@
                   <TR>
                   	 <td align="right">分类：</td>
                      <td align="left">
-                     	<select name="subTypeId"  class="m_t_b " id="subType" style="width:252px;padding-left:2px;" >
+                     	<select name="secondLevelTypes"  class="m_t_b " id="secondLevelTypes" style="width:252px;padding-left:2px;" >
 						</select>
                      	<span style="margin-left:5px;display:none;" id="l_typeB"><img src="${ctx}/images/loading.gif"></span>
                      </td>
@@ -83,36 +83,37 @@ $("#save").validate({
 		}
 	}
 });
+
+
 /**
  * 根据选中的topType值初始化subTypes选择框
  */
-function initSubTypes(topType,curVal){
-	$('#subType').html('');
-	if(topType == ""){
-		$('#subType').html('');
+function initSubTypes(firstLevelTypeId,curVal){
+	$('secondLevelTypes').html('');
+	if(firstLevelTypeId == ''){
 		return;
-	}	
+	}
 	$.ajax({
-		url:"${ctx}/admin/artinfo/artinfotype/subTypeByParent.htm",
-		data:{'model.id':topType},
+		url:'${ctx}/assess/transgress/statcfg/statItem/getSecondLevelTypesByFirstLevel.htm',
+		data:{'firstLevelTypeId':firstLevelTypeId},
 		dataType:'json',
 		success:function(data){
 			var html = [];
 			html.push("<option value=''>请选择</option>");
-			$.each(data,function(idx,item){				
-				if(!curVal) {
-	    			  html.push("<option value='" + item.id + "'>" + item.name + "</option>");
-	    			} else {
-	    			  if(curVal == item.id) {
-	    				  html.push("<option selected value='" + item.id + "'>" + item.name + "</option>"); 
-	    				}
-	    			}
-		 		});
-	 		$('#subType').html(html.join(''));	 		
-	 		$('#l_typeB').hide();	 		
-			},
+			$.each(data,function(idx,item){
+				if(!curVal){
+					html.push("<option value='" + item.id + "'>" + item.code + "</option>");
+				}else{
+					if(curVal == item.id){
+						html.push("<option selected value='" + item.id + "'>" + item.code + "</option>"); 
+					}
+				}
+			});
+			$('#secondLevelTypes').html(html.join(''));
+			$('#l_typeB').hide();
+		},
 		beforeSend:function(){
-			$('#_typeB').show();
+			$('#l_typeB').show();
 		},
 		error:function(){
 			$('#l_typeB').hide();
@@ -120,6 +121,7 @@ function initSubTypes(topType,curVal){
 	});
 }
 </script>
+
 <s:if test="model.id != null && model.type.id != null && model.type.id != '' && model.type.parent != null ">
 <script>
 $(function(){
