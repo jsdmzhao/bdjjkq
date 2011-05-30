@@ -31,6 +31,7 @@
 	
 	
 	<div id="menu_sys">
+		<!-- 
 		<div style="padding-left:5px;">          
 			<div style="padding-top:2px">
 				<img src="${ctx}/images/icons/user.gif" class="icon">
@@ -42,21 +43,23 @@
 					<a href="${ctx}/security/role/index.htm" target="main">角色管理</a>
 			</div>
 			
-			
+			 -->
 			<!-- 
 			<div style="padding-top:2px">
 				<img src="${ctx}/images/icons/template.gif" class="icon">
 				<a href="${ctx}/admin/mail/view.htm" target="main">SMTP设置</a>
 			</div>
+			 -->
+			 <!-- 	
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/icons/template.gif" class="icon">
+				<a href="${ctx}/admin/cron/list.htm" target="main">定时任务设置</a>
+			</div>	
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/icons/template.gif" class="icon">
+				<a href="${ctx}/admin/cron/list.htm" target="main">定时任务设置</a>
+			</div>
 			 -->	
-			<div style="padding-top:2px">
-				<img src="${ctx}/images/icons/template.gif" class="icon">
-				<a href="${ctx}/admin/cron/list.htm" target="main">定时任务设置</a>
-			</div>	
-			<div style="padding-top:2px">
-				<img src="${ctx}/images/icons/template.gif" class="icon">
-				<a href="${ctx}/admin/cron/list.htm" target="main">定时任务设置</a>
-			</div>	
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
 					<a href="${ctx}/assess/transgress/stat/index.htm" target="main">违法统计</a>
