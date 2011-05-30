@@ -102,10 +102,10 @@ function initSubTypes(firstLevelTypeId,curVal){
 			html.push("<option value=''>请选择</option>");
 			$.each(data,function(idx,item){
 				if(!curVal){
-					html.push("<option value='" + item.id + "'>" + item.code + "</option>");
+					html.push("<option value='" + item.id + "'>" + item.descns + "</option>");
 				}else{
 					if(curVal == item.id){
-						html.push("<option selected value='" + item.id + "'>" + item.code + "</option>"); 
+						html.push("<option selected value='" + item.id + "'>" + item.descns + "</option>"); 
 					}
 				}
 			});
