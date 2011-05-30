@@ -59,7 +59,7 @@ body {
               <div id="login">
 	                <table width="280" border="0" align="center" cellpadding="0" cellspacing="0" class="bottom_border">
 	                <tr>
-	                  <td height="48"><div align="center"><span class="login_tt">登录Artrai </span></div></td>
+	                  <td height="48"><div align="center"><span class="login_tt">登录考核系统 </span></div></td>
 	                </tr>
 	              </table>
 	                <br />

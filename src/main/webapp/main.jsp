@@ -25,9 +25,15 @@ a:hover {
 <body>
   
   <div class="l_title">
+    
+    <%--
     <a href="${ctx}/index.htm" target="_blank" style="color:inherit;">
     <B><jtiger:title title=""></jtiger:title>后台管理系统</B>
     </a>
+     --%>
+     <span style="color:inherit;"><b>保定市交警支队勤务考核系统</b></span>
+     
+    
   </div>
 </body>
 </html>
