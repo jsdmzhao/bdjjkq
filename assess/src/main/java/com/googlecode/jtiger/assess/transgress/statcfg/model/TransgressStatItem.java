@@ -28,6 +28,8 @@ public class TransgressStatItem extends BaseIdModel {
 			0);
 	/** 关联违法行为代码字符串 */
 	private String transgressActionCodes;
+	/** 关联车辆使用性质代码字符串 */
+	private String vehicleUseCodes;
 	/** 保存二级类别的id,为的是在修改统计项时,能够显示用户已经关联到的违法行为,并且以这些违法行为以二级类别"分组" */
 	private String secondLevelTypeIds;
 
@@ -63,6 +65,14 @@ public class TransgressStatItem extends BaseIdModel {
 
 	public void setSecondLevelTypeIds(String secondLevelTypeIds) {
 		this.secondLevelTypeIds = secondLevelTypeIds;
+	}
+
+	public String getVehicleUseCodes() {
+		return vehicleUseCodes;
+	}
+
+	public void setVehicleUseCodes(String vehicleUseCodes) {
+		this.vehicleUseCodes = vehicleUseCodes;
 	}
 
 }

@@ -8,6 +8,7 @@ import com.googlecode.jtiger.assess.transgress.statcfg.StatCfgConstants;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressAction;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressType;
+import com.googlecode.jtiger.assess.transgress.statcfg.model.VehicleUseCode;
 import com.googlecode.jtiger.core.service.BaseGenericsManager;
 
 /**
@@ -73,7 +74,19 @@ public class TransgressStatItemManager extends
 	 * @return
 	 */
 	public TransgressAction getTransgressActionById(String id) {
-		String hql = "from TransgressAction ta where ta.id = ?";
+
 		return getDao().get(TransgressAction.class, id);
+	}
+
+	/**
+	 * 得到全部机动车使用性质代码实体
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<VehicleUseCode> getAllVehicleUseCodes() {
+		String hql = "from VehicleUseCode vuc order by vuc.id";
+
+		return getDao().query(hql);
 	}
 }
