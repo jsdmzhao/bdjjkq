@@ -31,7 +31,6 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 </style>
 </head>
 <body>
-<s:form id="removeForm" action="role/remove" method="POST"></s:form>
 <div class="x-panel">
   <div class="x-panel-header">违法统计</div>
     <div class="x-toolbar" style="height:26px;">
@@ -54,6 +53,17 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 								onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm'})"
 								class="Wdate" style="width: 128px; height: 16px"
 								readonly="readonly" /> 
+								
+								
+												
+	 <input class="plain" name="dc" value="" size="19">
+	 <a href="javascript:void(0)" 
+	 onclick="if(self.gfPop)gfPop.fPopCalendar(document.statForm.dc);return false;" HIDEFOCUS>
+	 <img name="popcal" align="absmiddle" src="${ctx}/scripts/wfcalendar/calbtn.gif" width="34" height="22" border="0" alt="">
+	 </a>
+		  <iframe src="${ctx}/scripts/wfcalendar/ipopeng.htm" name="gToday:datetime:${ctx}/scripts/wfcalendar/agenda.js:gfPop:${ctx}/scripts/wfcalendar/plugins_time.js" 
+  		id="gToday:datetime:${ctx}/scripts/wfcalendar/agenda.js:gfPop:$${ctx}/scripts/wfcalendar/plugins_time.js" width="174" height="189" scrolling="no" frameborder="0"
+  		style="visibility:visible;z-index:999;position:absolute;left:-500px;top:0px;"></iframe>
 					</td> 
 				</tr> 
 			</table> 
@@ -93,7 +103,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	  		
 	  		<td colspan="8" height="50px;"  >		  					
 	 			<div align="center" style="float: left;width: 35%;vertical-align: bottom;height: 50px; padding-top: 30px;">${statDate }</div> 	
-	  			<div align="center" style="font-size: 28;float: left;line-height: 50px;	">勤务工作考核通报表</div> 			
+	  			<div align="center" style="font-size: 28;float: left;line-height: 50px;	">${transgressStatProperties.title }</div> 			
 	  		</td>
 	  	</tr>	  	
 	  	<tr>
@@ -136,30 +146,21 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 				
 			</c:forEach>			
 		</ec:row>
-	<c:if test="${not empty( items)}">	
+		
 		<ec:extendrow location="bottom" >
-		   <tr>
-		      <td colspan="9" width="800">	      	
-		      		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查扣车辆停放点:焦庄停车场(一大队)     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   查扣车辆停放点:顺通停车场(四大队)	      			      		      
-		      </td>
-		   </tr>
-		   <tr>
-		      <td colspan="9" width="800">	      		      	
-		      		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查扣车辆停放点:金三角停车场(二大队)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   查扣车辆停放在北三环尹庄停车场、头台村金三角停车场(五大队)	      			      		      
-		      </td>
-		   </tr>
-		   <tr>
-		      <td colspan="9" width="800">	      		      	
-		      		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查扣车辆停放点:江城路停车场(三大队)  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   查扣车辆停放点在北三环(六大队)	      		      	
-		      </td>
-		   </tr>
-		   <tr>
-		   	<td colspan="9" width="800" align="right">
+			<tr>
+				<td colspan="${fn:length(title)==0?9:fn:length(title)}"></td>
+			</tr>
+		   ${transgressStatProperties.remark }
+		  
+		   <tr>		   
+		   	<td colspan="${fn:length(title)==0?9:fn:length(title)}" width="800" align="right">
 		   		统计日期区间: ${statBeginTime }  --  ${statEndTime }&nbsp;&nbsp;
 		   	</td>
 		   </tr>
+
 		</ec:extendrow>
-	</c:if>
+
 	</ec:table>
   </div>
   </div>
@@ -172,10 +173,13 @@ function onStat(){
 	frmCustomStat.endTime.value = frmStat.endTime.value;
 	frmCustomStat.submit();
 }
+
 </script>
 <s:form name="customStatForm" id="customStatForm" namespace="/assess/transgress/stat" action="reportExcel" theme="simple">
 	<input type="hidden" name="beginTime"></input>	   
 	<input type="hidden" name="endTime"></input>
 </s:form>
+
 </body>
+
 </html>
