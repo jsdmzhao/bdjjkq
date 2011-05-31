@@ -11,7 +11,13 @@ td {padding:3px;}
 <%@include file="/common/extjs.jsp" %>
 <%@include file="/common/meta.jsp" %>
 <script type="text/javascript" src="${ctx}/scripts/jqueryui/jquery-ui.js"></script>
-<script type="text/javascript" src="${ctx }/scripts/wfcalendar/agenda.js"></script>
+<%--<script type="text/javascript" src="${ctx }/scripts/wfcalendar/agenda.js"></script>
+<script type="text/javascript"  src="${ctx }/scripts/wfcalendar/datetime.js"></script>
+<script type="text/javascript"  src="${ctx }/scripts/wfcalendar/normal.js"></script>
+<script type="text/javascript"  src="${ctx }/scripts/wfcalendar/plugins.js"></script>
+<script type="text/javascript"  src="${ctx }/scripts/wfcalendar/plugins_time.js"></script>
+<script type="text/javascript"  src="${ctx }/scripts/wfcalendar/plugins_timeSec.js"></script>--%>
+<script type="text/javascript"  src="${ctx }/scripts/newcalendar/Calendar.js"></script>
 <style type="text/css">
 .ecSide .headZone {
     background-color: #fff;
@@ -32,12 +38,6 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 </style>
 </head>
 <body>
-<iframe width=188 height=166 
-name="gfPop:${ctx }/scripts/wfcalendar/plugins_time.js" 
-id="gToday:datetime:${ctx }/scripts/wfcalendar/agenda.js" 
-src="${ctx }/scripts/wfcalendar/ipopeng.htm" scrolling="no" frameborder="0" 
-style="visibility:visible; z-index:999; position:absolute; top:-500px; left:-500px;">
-</iframe>
 <div class="x-panel">
   <div class="x-panel-header">违法统计</div>
     <div class="x-toolbar" style="height:26px;">
@@ -48,28 +48,37 @@ style="visibility:visible; z-index:999; position:absolute; top:-500px; left:-500
 				<table style="padding-top: 3px;"> 
 					<tr> 
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;
-						从<input type="text"
+						从
+						<%--
+						<input type="text"
 								name="beginTime"
 								value='<s:date name="beginTime"format="yyyy-MM-dd HH:mm"/>'
 								onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm'})"
 								class="Wdate" style="width: 128px; height: 16px"
-								readonly="readonly" />&nbsp;&nbsp;&nbsp;&nbsp;
-						到 <input type="text"
+								readonly="readonly" /> --%>
+								<input type="text" name="beginTime" value="<s:date name="beginTime"format="yyyy-MM-dd HH:mm"/>" readOnly onClick="setDayHM(this);">
+								&nbsp;&nbsp;&nbsp;&nbsp;
+						到<%-- <input type="text"
 								name="endTime"
 								value='<s:date name="endTime" format="yyyy-MM-dd HH:mm"/>'
 								onfocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm'})"
 								class="Wdate" style="width: 128px; height: 16px"
-								readonly="readonly" /> 
-								
+								readonly="readonly" /> --%> 
+								<input type="text" name="endTime" value="<s:date name="endTime"format="yyyy-MM-dd HH:mm"/>" readOnly onClick="setDayHM(this);">
+
+<%--
+
+&nbsp;Date Field: <input class="plain" name="dc" value="" size="19">
+<a href="javascript:void(0)" onclick="if(self.gfPop)gfPop.fPopCalendar(document.demoform.dc);return false;" HIDEFOCUS>
+<img name="popcal" align="absmiddle" src="${ctx }/scripts/wfcalendar/calbtn.gif" width="34" height="22" border="0" alt=""></a>
 
 
-
-
-
-
-<input class="plain" name="dc" id="dc" value="" size="19">
-<a href="javascript:void(0)" onclick="gfPop.fPopCalendar(dc);return false;" 
-HIDEFOCUS><img name="popcal" align="absmiddle" src="${ctx }/scripts/wfcalendar/calbtn.gif" width="34" height="22" border="0" alt=""></a>
+<iframe width=188 height=166 
+name="gfPop:${ctx }/scripts/wfcalendar/plugins_time.js" 
+id="gfPop:${ctx }/scripts/wfcalendar/calendar/plugins_time.js" 
+ src="${ctx }/scripts/wfcalendar/ipopeng.htm" scrolling="no" 
+ frameborder="0" style="visibility:visible; z-index:999; position:absolute; top:-500px; left:-500px;">
+</iframe> --%>
 
 					</td> 
 				</tr> 
@@ -78,7 +87,10 @@ HIDEFOCUS><img name="popcal" align="absmiddle" src="${ctx }/scripts/wfcalendar/c
 		<td>
 			&nbsp;&nbsp;&nbsp;&nbsp;		
 			<input type="submit" value="统计" class="button" style="margin-top: 3px;">
-			&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onClick="onStat()" id="import">定制报表</a>		   				
+			&nbsp;&nbsp;&nbsp;&nbsp;
+			<!-- 
+			<a href="#" onClick="onStat()" id="import">定制报表</a>
+			 -->		   				
 		</td>	 
 		</s:form>  		
   	  </tr>
