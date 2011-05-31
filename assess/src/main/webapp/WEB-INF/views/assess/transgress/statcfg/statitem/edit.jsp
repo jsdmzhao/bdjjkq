@@ -7,6 +7,17 @@
 <%@include file="/common/meta.jsp" %>
 <title></title>
 <%@include file="/common/validator.jsp" %>
+<style type="text/css">
+.transgressTypeTitle{
+	text-align:left;
+	font-size:18px;
+	font-weight:bold;
+	color:#0066CC;
+}
+.transgressActionCheckBox{
+	text-align: left;
+}
+</style>
 </head>
 <body>
 <div class="x-panel">
@@ -16,7 +27,7 @@
     </div>
 	<s:form id="save" action="save" method="post">
 	<s:hidden id="model.id" name="model.id"/>
-	<table width="600px" align="center">
+	<table width="700px" align="center">
 		<tr>
 			<td align="center">
 			<fieldset> 
@@ -39,11 +50,42 @@
                   <TR>
                   	 <td align="right">分类：</td>
                      <td align="left">
-                     	<select name="secondLevelTypes"  class="m_t_b " id="secondLevelTypes" style="width:252px;padding-left:2px;" >
+                     	<select name="secondLevelTypes"  class="m_t_b " id="secondLevelTypes" style="width:252px;padding-left:2px;"
+                     	 onchange="initTransgressActionOptions($(this).val(),$(this).find('option:selected').text())" >
 						</select>
                      	<span style="margin-left:5px;display:none;" id="l_typeB"><img src="${ctx}/images/loading.gif"></span>
                      </td>
-                  </TR>                  
+                  </TR>   
+                  <tr>
+                  	<td colspan="2">
+                  		<table id="transgressActions" border="1" width="700px">                  			
+                  			<c:forEach items="${selectedSecondTypes}" var="sst">
+                  				<tr>
+                  					<td colspan="2">
+                  						<table width="700px;" border="1">
+                  							<tr><td class="transgressTypeTitle">${sst.descns }${sst.id}</td></tr>
+                  							<c:forEach items="${sst.transgressActions}" var="ta">
+                  								<tr>
+                  									<td align="left">
+                  										<c:choose>
+                  											<c:when test="${fn:indexOf(model.transgressActionCodes,ta.code)!= -1}">
+                  												<input type="checkbox" checked="checked" class="transgressActionCheckBox" name="transgressActionIds" value="${ta.id}"/>${ta.id}${ta.descns}${ta.code }
+                  											</c:when>
+                  											<c:otherwise>
+                  												<input  type="checkbox" class="transgressActionCheckBox" name="transgressActionIds" value="${ta.id}"/>${ta.id}${ta.descns}${ta.code}
+                  											</c:otherwise>
+                  										</c:choose>
+                  										
+                  									</td>
+                  								</tr>
+                  							</c:forEach>
+                  						</table>
+                  					</td>
+                  				</tr>                  				
+                  			</c:forEach>
+                  		</table>
+                  	</td>
+                  </tr>               
                 </table> 
               </fieldset>
               <table width="100%" style="margin-bottom:10px;">
@@ -120,20 +162,32 @@ function initSubTypes(firstLevelTypeId,curVal){
 		}
 	});
 }
-</script>
-
-<s:if test="model.id != null && model.type.id != null && model.type.id != '' && model.type.parent != null ">
-<script>
-$(function(){
-	initSubTypes("${model.type.parent.id}","${model.type.id}");
-	var topType = document.getElementById('topType');
-	for(var i = 0;i<topType.options.length;i++){
-		if(topType.options[i].value == '${model.type.parent.id}'){
-			topType.options[i].selected = true;
+function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
+	if(secondLevelTypeId  == ''){return;}
+	$.ajax({
+		url:'${ctx}/assess/transgress/statcfg/statItem/getTransgressActionsBySecondType.htm',
+		data:{'secondLevelTypeId':secondLevelTypeId},
+		dataType:'json',
+		success:function(data){
+			var rows = data.length;
+			//var trId = $('#transgressActions>tbody>tr:last').attr("id");
+			//trId++;
+			//var	str = "<tr id = '"+trId+"'><td width='30%'></td></tr>";
+			var html = [];
+			html.push("<tr><td><table border='1' width='100%'><tr><td class='transgressTypeTitle'>"+secondLevelTypeDescn+"<input type='hidden' disabled='disabled' name='secondLevelTypeIds' value='"+secondLevelTypeId+"'/></td></tr>");
+			$.each(data,function(idx,item){
+				html.push("<tr><td align='left'><input type='checkbox' name='transgressActionIds' value='"+item.id+"'/>"+item.descns + "</td></tr>");
+			});
+			html.push("</table></td></tr>");
+			
+			$('#transgressActions').append(html.join(''));
 		}
-	}
-});
-</script>	
-</s:if>
+	});
+}
+/**
+ * 根据选中的子类别,列出该子类别下的所有违法行为
+ */
+ 
+</script>
 </body>
 </html>
