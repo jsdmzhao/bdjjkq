@@ -32,8 +32,10 @@ public class TransgressStatItemAction extends
 
 	/** 统计项关联的违法行为代码数组 */
 	private String[] transgressActions;
-
+	/** 考虑到需要通过违法行为关联到违法类别从而能再次在界面中显示出"类别下"的违法行为,传递的不是违法行为code而是id */
 	private String[] transgressActionIds;
+	/** 界面传递过来的车辆使用性质代码 */
+	private String[] vehicleUseCodes;
 
 	@Override
 	public String edit() {
@@ -141,6 +143,8 @@ public class TransgressStatItemAction extends
 		 */
 		StringBuffer bufTypeId = new StringBuffer();
 		StringBuffer bufActionCode = new StringBuffer();
+		StringBuffer bufVehicleUseCodes = new StringBuffer();
+		// 考虑到需要通过违法行为关联到违法类别从而能再次在界面中显示出"类别下"的违法行为,传递的不是违法行为code而是id
 		if (transgressActionIds != null) {
 			List<String> typeList = new ArrayList<String>();
 
@@ -169,9 +173,27 @@ public class TransgressStatItemAction extends
 			}
 
 		}
+		if (vehicleUseCodes != null) {
+			for (int i = 0; i < vehicleUseCodes.length - 1; i++) {
+				bufVehicleUseCodes.append("'").append(vehicleUseCodes[i])
+						.append("'").append(",");
+			}
+		}
+		bufVehicleUseCodes.append("'").append(
+				vehicleUseCodes[vehicleUseCodes.length - 1]).append("'");
+		getModel().setVehicleUseCodes(bufVehicleUseCodes.toString());
 		getModel().setTransgressActionCodes(bufActionCode.toString());
 		getModel().setSecondLevelTypeIds(bufTypeId.toString());
-		return super.save();
+
+		try {
+			super.save();
+			render("success", "text/plain");
+		} catch (Exception e) {
+			e.printStackTrace();
+			render(e.getMessage(), "text/plain");
+		}
+
+		return null;
 	}
 
 	public String remove() {
@@ -267,6 +289,14 @@ public class TransgressStatItemAction extends
 
 	public void setTransgressActionIds(String[] transgressActionIds) {
 		this.transgressActionIds = transgressActionIds;
+	}
+
+	public String[] getVehicleUseCodes() {
+		return vehicleUseCodes;
+	}
+
+	public void setVehicleUseCodes(String[] vehicleUseCodes) {
+		this.vehicleUseCodes = vehicleUseCodes;
 	}
 
 }

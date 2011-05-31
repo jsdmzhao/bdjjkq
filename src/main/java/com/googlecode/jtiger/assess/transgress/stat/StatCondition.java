@@ -18,6 +18,8 @@ public final class StatCondition {
 	private String transgressActionCodesStr;
 	/** 要统计的大队编码 */
 	private String deptCode;
+	/** 机动车使用性质 */
+	private String vehicleUseCodes;
 
 	public String getTransgressActionCodesStr() {
 		return transgressActionCodesStr;
@@ -73,6 +75,14 @@ public final class StatCondition {
 
 	public void setDeptCode(String deptCode) {
 		this.deptCode = deptCode;
+	}
+
+	public String getVehicleUseCodes() {
+		return vehicleUseCodes;
+	}
+
+	public void setVehicleUseCodes(String vehicleUseCodes) {
+		this.vehicleUseCodes = vehicleUseCodes;
 	}
 
 }
