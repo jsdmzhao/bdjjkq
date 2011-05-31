@@ -11,6 +11,7 @@ td {padding:3px;}
 <%@include file="/common/extjs.jsp" %>
 <%@include file="/common/meta.jsp" %>
 <script type="text/javascript" src="${ctx}/scripts/jqueryui/jquery-ui.js"></script>
+<script type="text/javascript" src="${ctx }/scripts/wfcalendar/agenda.js"></script>
 <style type="text/css">
 .ecSide .headZone {
     background-color: #fff;
@@ -31,6 +32,12 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 </style>
 </head>
 <body>
+<iframe width=188 height=166 
+name="gfPop:${ctx }/scripts/wfcalendar/plugins_time.js" 
+id="gToday:datetime:${ctx }/scripts/wfcalendar/agenda.js" 
+src="${ctx }/scripts/wfcalendar/ipopeng.htm" scrolling="no" frameborder="0" 
+style="visibility:visible; z-index:999; position:absolute; top:-500px; left:-500px;">
+</iframe>
 <div class="x-panel">
   <div class="x-panel-header">违法统计</div>
     <div class="x-toolbar" style="height:26px;">
@@ -54,16 +61,16 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 								class="Wdate" style="width: 128px; height: 16px"
 								readonly="readonly" /> 
 								
-								
-												
-	 <input class="plain" name="dc" value="" size="19">
-	 <a href="javascript:void(0)" 
-	 onclick="if(self.gfPop)gfPop.fPopCalendar(document.statForm.dc);return false;" HIDEFOCUS>
-	 <img name="popcal" align="absmiddle" src="${ctx}/scripts/wfcalendar/calbtn.gif" width="34" height="22" border="0" alt="">
-	 </a>
-		  <iframe src="${ctx}/scripts/wfcalendar/ipopeng.htm" name="gToday:datetime:${ctx}/scripts/wfcalendar/agenda.js:gfPop:${ctx}/scripts/wfcalendar/plugins_time.js" 
-  		id="gToday:datetime:${ctx}/scripts/wfcalendar/agenda.js:gfPop:$${ctx}/scripts/wfcalendar/plugins_time.js" width="174" height="189" scrolling="no" frameborder="0"
-  		style="visibility:visible;z-index:999;position:absolute;left:-500px;top:0px;"></iframe>
+
+
+
+
+
+
+<input class="plain" name="dc" id="dc" value="" size="19">
+<a href="javascript:void(0)" onclick="gfPop.fPopCalendar(dc);return false;" 
+HIDEFOCUS><img name="popcal" align="absmiddle" src="${ctx }/scripts/wfcalendar/calbtn.gif" width="34" height="22" border="0" alt=""></a>
+
 					</td> 
 				</tr> 
 			</table> 
