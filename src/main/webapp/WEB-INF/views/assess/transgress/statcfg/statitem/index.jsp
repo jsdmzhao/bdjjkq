@@ -45,17 +45,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 							&nbsp;&nbsp;&nbsp;&nbsp;名称:&nbsp;&nbsp;<s:textfield name="model.name"></s:textfield>
 						</td> 
 						
-						<td>
-							&nbsp;&nbsp;&nbsp;&nbsp;类别:&nbsp;&nbsp;
-							<s:select list="firstLevelTypes" id="topType" headerKey ="" headerValue = "请选择" 
-                     			name="firstLevelTypeId" listKey="id" listValue="descns" cssClass="m_t_b" 
-                     			cssStyle="width:150px;padding-left:2px;"  
-                     			onchange="initSubTypes($(this).val())"></s:select>
-						</td>
-						<td>
-							&nbsp;&nbsp;&nbsp;&nbsp;分类:&nbsp;&nbsp;<select name="secondLevelTypes"  class="m_t_b " id="secondLevelTypes" style="width:252px;padding-left:2px;" >
-						</select><span style="margin-left:5px;display:none;" id="l_typeB"><img src="${ctx}/images/loading.gif"></span>
-						</td>
+						
 						
 					</tr> 
 			</table> 
