@@ -136,8 +136,11 @@ public class TransgressStatAction extends
 				 * statCondition.setTransgressActionCodesStr(actionCodeStr
 				 * .substring(0, actionCodeStr.length() - 1));
 				 */
+				//违法行为代码
 				statCondition.setTransgressActionCodesStr(itm
 						.getTransgressActionCodes());
+				//机动车使用性质
+				statCondition.setVehicleUseCodes(itm.getVehicleUseCodes());
 
 				// 得到当前登录用户所在部门的子部门代码编号,名称集合
 				Map<String, String> deptCodeMap = getDeptCodeList();

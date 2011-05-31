@@ -22,13 +22,16 @@ import com.googlecode.jtiger.core.dao.jdbc.BaseJdbcDao;
  */
 @Repository
 public class StatDao extends BaseJdbcDao {
-	//private static final String SQL_STAT1 = "SELECT COUNT(*) ROWS_COUNT FROM VIO_VIOLATION VV WHERE VV.WFXW IN (";
+	// private static final String SQL_STAT1 =
+	// "SELECT COUNT(*) ROWS_COUNT FROM VIO_VIOLATION VV WHERE VV.WFXW IN (";
 	private static final String SQL_STAT1 = "SELECT COUNT(*) ROWS_COUNT FROM vio_admin.vio_violation  VV WHERE VV.WFXW IN (";
 	private static final String SQL_STAT2 = ") ";
 	private static final String SQL_STAT_BEGIN_TIME1 = "and VV.WFSJ >= to_date('";
 	private static final String SQL_STAT_BEGIN_TIME2 = "','yyyy-mm-dd hh24:mi:ss') ";
 	private static final String SQL_STAT_END_TIME1 = "and VV.WFSJ <= to_date('";
 	private static final String SQL_STAT_END_TIME2 = "','yyyy-mm-dd hh24:mi:ss') and trim(VV.FXJG) like ";
+	private static final String SQL_STAT_VEHICLE1 = " and vv.SYXZ IN(";
+	private static final String SQL_STAT_VEHICLE2 = ")";
 
 	@Override
 	protected String getDataSourceName() {
@@ -67,6 +70,11 @@ public class StatDao extends BaseJdbcDao {
 		// 设定要部门条件
 		buf.append("'").append(condition.getDeptCode()).append("%'");
 
+		
+		//如果车辆使用性质信息不为空,则加上使用性质条件
+		if(StringUtils.isNotBlank(condition.getVehicleUseCodes())){
+			buf.append(SQL_STAT_VEHICLE1).append(condition.getVehicleUseCodes()).append(SQL_STAT_VEHICLE2);
+		}
 		System.out.println(buf.toString());
 		list = getJdbcTemplate()
 				.query(buf.toString(), new ColumnMapRowMapper());
