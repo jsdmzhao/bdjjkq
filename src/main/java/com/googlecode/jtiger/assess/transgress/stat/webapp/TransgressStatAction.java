@@ -23,6 +23,7 @@ import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressCustomSta
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressCustomStatConditionManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressStatItemManager;
+import com.googlecode.jtiger.assess.transgress.statproperties.service.TransgressStatPropertiesManager;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 
 @SuppressWarnings("serial")
@@ -46,6 +47,14 @@ public class TransgressStatAction extends
 	private List items = new ArrayList();
 	@SuppressWarnings("unchecked")
 	private List title = new ArrayList();
+	@Autowired
+	private TransgressStatPropertiesManager tspm;
+
+	@Override
+	public String index() {
+		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
+		return INDEX;
+	}
 
 	/**
 	 * 统计方法
@@ -159,6 +168,8 @@ public class TransgressStatAction extends
 				statCondition.getBeginHourMinute());
 		getRequest().setAttribute("statEndTime",
 				statCondition.getEndHourMinute());
+
+		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
 		return INDEX;
 	}
 

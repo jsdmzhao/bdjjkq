@@ -9,7 +9,7 @@ public final class StatCondition {
 	private String beginHourMinute;
 	/** 结束时分 --定制每天查询 */
 	private String endHourMinute;
-	
+
 	/** 开始时间--选定时间区间查询 */
 	private Date beginTime;
 	/** 截至时间--选定时间区间查询 */

@@ -15,7 +15,7 @@
 	<package name="admin.transgress.statcfg.statItem" extends="default"
 	         namespace="/assess/transgress/statcfg/statItem">
 		<action name="*" class="transgressStatItemAction" method="{1}">
-		    <result name="edit">/WEB-INF/views/assess/transgress/statcfg/statitem/edit.jsp</result>
+		    <result name="input">/WEB-INF/views/assess/transgress/statcfg/statitem/edit.jsp</result>
 		    <result name="view">/WEB-INF/views/assess/transgress/statcfg/statitem/edit.jsp</result>
 		    <result name="index">/WEB-INF/views/assess/transgress/statcfg/statitem/index.jsp</result>
 		    <result name="success" type="chain">

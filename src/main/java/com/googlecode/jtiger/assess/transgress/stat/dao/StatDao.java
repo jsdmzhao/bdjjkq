@@ -22,7 +22,8 @@ import com.googlecode.jtiger.core.dao.jdbc.BaseJdbcDao;
  */
 @Repository
 public class StatDao extends BaseJdbcDao {
-	private static final String SQL_STAT1 = "SELECT COUNT(*) ROWS_COUNT FROM VIO_VIOLATION VV WHERE VV.WFXW IN (";
+	//private static final String SQL_STAT1 = "SELECT COUNT(*) ROWS_COUNT FROM VIO_VIOLATION VV WHERE VV.WFXW IN (";
+	private static final String SQL_STAT1 = "SELECT COUNT(*) ROWS_COUNT FROM vio_admin.vio_violation  VV WHERE VV.WFXW IN (";
 	private static final String SQL_STAT2 = ") ";
 	private static final String SQL_STAT_BEGIN_TIME1 = "and VV.WFSJ >= to_date('";
 	private static final String SQL_STAT_BEGIN_TIME2 = "','yyyy-mm-dd hh24:mi:ss') ";
