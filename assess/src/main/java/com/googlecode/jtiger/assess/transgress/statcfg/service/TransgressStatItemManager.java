@@ -19,6 +19,9 @@ import com.googlecode.jtiger.core.service.BaseGenericsManager;
 @Service
 public class TransgressStatItemManager extends
 		BaseGenericsManager<TransgressStatItem> {
+	/**
+	 * 根据id得到违法类别
+	 */
 	public TransgressType getTransgressTypeById(String id) {
 		return getDao().get(TransgressType.class, id);
 	}
@@ -30,7 +33,7 @@ public class TransgressStatItemManager extends
 	 */
 	@SuppressWarnings("unchecked")
 	public List<TransgressType> getFirstLevelTypes() {
-		String hql = "from TransgressType tt where tt.type = ?";
+		String hql = "from TransgressType tt where tt.type = ? order by tt.code";
 
 		return getDao().query(hql, StatCfgConstants.TRANSGRESSS_TYPE_1);
 	}
@@ -44,7 +47,7 @@ public class TransgressStatItemManager extends
 	@SuppressWarnings("unchecked")
 	public List<TransgressType> getSecondLevelTypesByFirstLevel(
 			String firstLevelTypeId) {
-		String hql = "from TransgressType tt where tt.parentTransgressType.id = ?";
+		String hql = "from TransgressType tt where tt.parentTransgressType.id = ? order by tt.code";
 
 		return getDao().query(hql, firstLevelTypeId);
 	}
@@ -58,8 +61,19 @@ public class TransgressStatItemManager extends
 	@SuppressWarnings("unchecked")
 	public List<TransgressAction> getTransgressActionsBySecondLevelType(
 			String secondLevelTypeId) {
-		String hql = "from TransgressAction ta where ta.transgressType.id = ?";
+		String hql = "from TransgressAction ta where ta.transgressType.id = ? order by ta.code";
 
 		return getDao().query(hql, secondLevelTypeId);
+	}
+
+	/**
+	 * 根据id得到违法行为
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public TransgressAction getTransgressActionById(String id) {
+		String hql = "from TransgressAction ta where ta.id = ?";
+		return getDao().get(TransgressAction.class, id);
 	}
 }
