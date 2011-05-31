@@ -41,18 +41,29 @@ public class TransgressStatItemAction extends
 			setModel(getManager().get(getModel().getId()));
 		}
 
-		getRequest().setAttribute("firstLevelTypes", getFirstLevelTypes());
+		// 得到实体中保存的二级类别id字符串,以能够显示出其已有"关联"(通过违法行为间接关联)的二级类别
 		String secondTypeIds = getModel().getSecondLevelTypeIds();
+		// 如果字符串不为空,则意味着关联到了二级类别
 		if (StringUtils.isNotBlank(secondTypeIds)) {
+
 			List<TransgressType> selectedSecondTypes = new ArrayList<TransgressType>();
+			// 根据","得到id数组
 			String[] sendTypeId = secondTypeIds.split(",");
+			// 遍历数组,得到二级类别实体集合
 			for (String id : sendTypeId) {
 				TransgressType tt = getManager().getTransgressTypeById(id);
 				selectedSecondTypes.add(tt);
 			}
+			// 传递到页面以展示本统计项目已经关联到的二级类别
 			getRequest().setAttribute("selectedSecondTypes",
 					selectedSecondTypes);
 		}
+
+		// 列出所有机动车使用性质实体
+		getRequest().setAttribute("allVehicleUseCodes",
+				getManager().getAllVehicleUseCodes());
+		// 列出所有一级违法类别
+		getRequest().setAttribute("firstLevelTypes", getFirstLevelTypes());
 		// getRequest().setAttribute("secondLevelTypes",
 		// getManager().getSecondLevelTypesByFirstLevel(firstLevelTypeId))
 
@@ -95,18 +106,18 @@ public class TransgressStatItemAction extends
 	public String index() {
 		String hql = "from TransgressStatItem tsi where 1=1";
 		List<Object> args = new ArrayList<Object>();
-		if(getModel() != null && getModel().getName() != null){
+		if (getModel() != null && getModel().getName() != null) {
 			hql += " and tsi.name like ?";
 			args.add(MatchMode.ANYWHERE.toMatchString(getModel().getName()));
 		}
 		hql += " order by tsi.id";
-		
-		page = getManager().pageQuery(pageOfBlock(), hql,args.toArray());
+
+		page = getManager().pageQuery(pageOfBlock(), hql, args.toArray());
 		restorePageData(page);
-		
-		//getRequest().setAttribute("items", getManager().get());
+
+		// getRequest().setAttribute("items", getManager().get());
 		// firstLevelTypes = getFirstLevelTypes();
-		//getRequest().setAttribute("firstLevelTypes", getFirstLevelTypes());
+		// getRequest().setAttribute("firstLevelTypes", getFirstLevelTypes());
 		return INDEX;
 	}
 
