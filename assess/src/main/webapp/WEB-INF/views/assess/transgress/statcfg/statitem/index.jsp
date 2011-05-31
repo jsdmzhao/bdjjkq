@@ -102,11 +102,15 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 </div>
 <script type="text/javascript">
 function remove(id) {
-    Ext.MessageBox.confirm('提示','确认要删除此项目吗？删除后不能恢复！', function(btn){
+    /*Ext.MessageBox.confirm('提示','确认要删除此项目吗？删除后不能恢复！', function(btn){
         if (btn == 'yes') {
           window.location = "${ctx}/assess/transgress/statcfg/statItem/remove.htm?model.id=" + id;
         }
-    });
+    });*/
+    if(!confirm("确定要删除该统计项目吗?")){
+        return;
+    }
+    window.location = "${ctx}/assess/transgress/statcfg/statItem/remove.htm?model.id=" + id;
 }
 </script>
 <script type="text/javascript">

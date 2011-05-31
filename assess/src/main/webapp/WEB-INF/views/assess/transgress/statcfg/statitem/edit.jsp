@@ -7,6 +7,9 @@
 <%@include file="/common/meta.jsp" %>
 <title></title>
 <%@include file="/common/validator.jsp" %>
+<%@include file="/common/ec.jsp" %>
+<%@include file="/common/extjs.jsp" %>
+<script type="text/javascript" src="${ctx}/scripts/jquery.form.js"></script>
 <style type="text/css">
 .transgressTypeTitle{
 	text-align:left;
@@ -25,17 +28,40 @@
     <div class="x-toolbar" style="text-align: right;">
 		<a href="index.htm">管理首页</a>
     </div>
-	<s:form id="save" action="save" method="post">
+	<s:form id="saveFrm" action="save" method="post">
 	<s:hidden id="model.id" name="model.id"/>
-	<table width="700px" align="center">
+	<table width="800px" align="center">
 		<tr>
 			<td align="center">
 			<fieldset> 
-              <legend>编辑统计项信息</legend>
-                <table cellpadding="3" cellspacing="2">
+              <legend>编辑统计条件信息</legend>
+                <table cellpadding="3" cellspacing="2" width="100%">
                   <tr>
-                     <td align="right" >名称：</td>
-                     <td align="left" ><s:textfield name="model.name"></s:textfield></td>
+                     <td align="right" width="10%">名称：</td>
+                     <td align="left" width="20%"  ><s:textfield name="model.name"></s:textfield></td>
+                     <td rowspan="4"  width="15%">车辆使用性质</td>
+                     <td rowspan="4" width="55%">
+                     	<table  width="100%">
+                     		<c:forEach items="${allVehicleUseCodes}" var="vuc" varStatus="status">              
+                     				<c:if test="${status.index%4== 0}">
+                     					<tr>
+                     				</c:if>
+                     				<td align="left">                     				
+	                  					<c:choose>
+	                  						<c:when test="${fn:indexOf(model.vehicleUseCodes,vuc.code)!= -1}">
+	                  						<input type="checkbox" checked="checked" name="vehicleUseCodes" value="${vuc.code}"/>${vuc.name}
+	                  						</c:when>
+	                  						<c:otherwise>
+	                  						<input type="checkbox"  name="vehicleUseCodes" value="${vuc.code}"/>${vuc.name}
+	                  						</c:otherwise>
+	                  					</c:choose>                     				
+                     				</td>
+                     				<c:if test="${status.index%4== 3}">
+                     					</tr>
+                     				</c:if>               
+                     		</c:forEach>
+                     	</table>
+                     </td>
                   </tr>
                                  
                   <TR>
@@ -56,13 +82,19 @@
                      	<span style="margin-left:5px;display:none;" id="l_typeB"><img src="${ctx}/images/loading.gif"></span>
                      </td>
                   </TR>   
+                   <TR>
+                  	 <td align="right"></td>
+                     <td align="left">
+                     	
+                     </td>
+                  </TR>  
                   <tr>
-                  	<td colspan="2">
-                  		<table id="transgressActions" border="1" width="700px">                  			
+                  	<td colspan="4">
+                  		<table id="transgressActions" border="1" width="100%">                  			
                   			<c:forEach items="${selectedSecondTypes}" var="sst">
                   				<tr>
-                  					<td colspan="2">
-                  						<table width="700px;" border="1">
+                  					<td colspan="4">
+                  						<table width="100%" border="1">
                   							<tr><td class="transgressTypeTitle">${sst.descns }${sst.id}</td></tr>
                   							<c:forEach items="${sst.transgressActions}" var="ta">
                   								<tr>
@@ -188,6 +220,33 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
  * 根据选中的子类别,列出该子类别下的所有违法行为
  */
  
+</script>
+<script type="text/javascript">
+
+$(function(){
+    $('#saveFrm').ajaxForm({
+   	 success:function(data) {   		 
+   		
+   		Ext.my().msg('', '保存统计条件信息成功' );
+   		pause(2000); 
+   		location.href = '${ctx}/assess/transgress/statcfg/statItem/index.htm';
+   		
+   	 },
+   	 error:function(xhr) {
+   		 Ext.my().msg('', '保存统计条件信息失败' );
+   	 }
+    });
+});
+function pause(milliSecond){
+	var now = new Date();
+	var exitTime = now.getTime()+milliSecond;
+	while(true){
+		now = new Date();
+		if(now.getTime()>exitTime){
+			return;
+		}
+	}
+}
 </script>
 </body>
 </html>
