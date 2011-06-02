@@ -178,9 +178,10 @@ public class TransgressStatItemAction extends
 				bufVehicleUseCodes.append("'").append(vehicleUseCodes[i])
 						.append("'").append(",");
 			}
+			bufVehicleUseCodes.append("'").append(
+					vehicleUseCodes[vehicleUseCodes.length - 1]).append("'");
 		}
-		bufVehicleUseCodes.append("'").append(
-				vehicleUseCodes[vehicleUseCodes.length - 1]).append("'");
+	
 		getModel().setVehicleUseCodes(bufVehicleUseCodes.toString());
 		getModel().setTransgressActionCodes(bufActionCode.toString());
 		getModel().setSecondLevelTypeIds(bufTypeId.toString());

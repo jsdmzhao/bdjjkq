@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.xwork.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.stereotype.Repository;
 
@@ -22,9 +24,11 @@ import com.googlecode.jtiger.core.dao.jdbc.BaseJdbcDao;
  */
 @Repository
 public class StatDao extends BaseJdbcDao {
+	protected Logger logger = LoggerFactory.getLogger(getClass());
 	// private static final String SQL_STAT1 =
 	// "SELECT COUNT(*) ROWS_COUNT FROM VIO_VIOLATION VV WHERE VV.WFXW IN (";
-	private static final String SQL_STAT1 = "SELECT COUNT(*) ROWS_COUNT FROM vio_admin.vio_violation  VV WHERE VV.WFXW IN (";
+	//private static final String SQL_STAT1 = "SELECT COUNT(*) ROWS_COUNT FROM vio_admin.vio_violation  VV WHERE VV.WFXW IN (";
+	private static final String SQL_STAT1 = "SELECT COUNT(*) ROWS_COUNT FROM vio_violation  VV WHERE VV.WFXW IN (";
 	private static final String SQL_STAT2 = ") ";
 	private static final String SQL_STAT_BEGIN_TIME1 = "and VV.WFSJ >= to_date('";
 	private static final String SQL_STAT_BEGIN_TIME2 = "','yyyy-mm-dd hh24:mi:ss') ";
@@ -75,7 +79,8 @@ public class StatDao extends BaseJdbcDao {
 		if(StringUtils.isNotBlank(condition.getVehicleUseCodes())){
 			buf.append(SQL_STAT_VEHICLE1).append(condition.getVehicleUseCodes()).append(SQL_STAT_VEHICLE2);
 		}
-		System.out.println(buf.toString());
+		
+		logger.debug(buf.toString());
 		list = getJdbcTemplate()
 				.query(buf.toString(), new ColumnMapRowMapper());
 

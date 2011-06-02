@@ -101,7 +101,7 @@ public class TransgressStatAction extends
 			statCondition.setBeginHourMinute(yestDayStr + " "
 					+ customCondition.getBeginHourMinute());
 		} else {
-			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			statCondition.setBeginHourMinute(sf.format(beginTime));
 			statCondition.setEndHourMinute(sf.format(endTime));
 		}

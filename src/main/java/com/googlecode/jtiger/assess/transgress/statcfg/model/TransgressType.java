@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
 import com.googlecode.jtiger.core.model.BaseIdModel;
@@ -64,7 +65,8 @@ public class TransgressType extends BaseIdModel {
 		this.parentTransgressType = parentTransgressType;
 	}
 
-	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "parentTransgressType")
+	@OneToMany(cascade = {},  fetch = FetchType.LAZY, mappedBy = "parentTransgressType")
+	@OrderBy(value = "id ASC")
 	public Set<TransgressType> getChildsTransgressTypes() {
 		return childsTransgressTypes;
 	}
