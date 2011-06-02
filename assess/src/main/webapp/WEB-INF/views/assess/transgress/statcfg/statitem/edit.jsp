@@ -95,16 +95,16 @@
                   				<tr>
                   					<td colspan="4">
                   						<table width="100%" border="1">
-                  							<tr><td class="transgressTypeTitle">${sst.descns }${sst.id}</td></tr>
+                  							<tr><td class="transgressTypeTitle">${sst.descns }</td></tr>
                   							<c:forEach items="${sst.transgressActions}" var="ta">
                   								<tr>
                   									<td align="left">
                   										<c:choose>
                   											<c:when test="${fn:indexOf(model.transgressActionCodes,ta.code)!= -1}">
-                  												<input type="checkbox" checked="checked" class="transgressActionCheckBox" name="transgressActionIds" value="${ta.id}"/>${ta.id}${ta.descns}${ta.code }
+                  												<input type="checkbox" checked="checked" class="transgressActionCheckBox" name="transgressActionIds" value="${ta.id}"/>${ta.code }:${ta.descns}
                   											</c:when>
                   											<c:otherwise>
-                  												<input  type="checkbox" class="transgressActionCheckBox" name="transgressActionIds" value="${ta.id}"/>${ta.id}${ta.descns}${ta.code}
+                  												<input  type="checkbox" class="transgressActionCheckBox" name="transgressActionIds" value="${ta.id}"/>${ta.code}:${ta.descns}
                   											</c:otherwise>
                   										</c:choose>
                   										
@@ -208,7 +208,7 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
 			var html = [];
 			html.push("<tr><td><table border='1' width='100%'><tr><td class='transgressTypeTitle'>"+secondLevelTypeDescn+"<input type='hidden' disabled='disabled' name='secondLevelTypeIds' value='"+secondLevelTypeId+"'/></td></tr>");
 			$.each(data,function(idx,item){
-				html.push("<tr><td align='left'><input type='checkbox' name='transgressActionIds' value='"+item.id+"'/>"+item.descns + "</td></tr>");
+				html.push("<tr><td align='left'><input type='checkbox' name='transgressActionIds' value='"+item.id+"'/>"+item.code+":"+item.descns + "</td></tr>");
 			});
 			html.push("</table></td></tr>");
 			

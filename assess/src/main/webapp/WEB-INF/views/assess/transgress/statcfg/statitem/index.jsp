@@ -91,7 +91,8 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>	
 		<ec:column width="300" property="name" title="项目名称" tipTitle="${item.name}" ellipsis="true" sortable="false"/>
 	 	<ec:column width="160" property="_1" title="操作" style="text-align:center" sortable="false">
-			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> |
+	 	<%--
+			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> | --%>
 			 <a title="编辑" href="${ctx}/assess/transgress/statcfg/statItem/edit.htm?model.id=${item.id}">编辑 </a> |
 			 <a title="删除" href="#" onclick="remove(${item.id})">删除</a>
 		</ec:column>	   	
