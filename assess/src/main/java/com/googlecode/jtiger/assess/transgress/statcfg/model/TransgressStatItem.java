@@ -23,9 +23,9 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
 public class TransgressStatItem extends BaseIdModel {
 	/** 名称 */
 	private String name;
-	/** 关联违法行为集合 */
+	/** 关联违法行为集合
 	private Set<TransgressAction> transgressActions = new HashSet<TransgressAction>(
-			0);
+			0); */
 	/** 关联违法行为代码字符串 */
 	private String transgressActionCodes;
 	/** 关联车辆使用性质代码字符串 */
@@ -41,14 +41,14 @@ public class TransgressStatItem extends BaseIdModel {
 		this.name = name;
 	}
 
-	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "transgressStatItem")
+	/*@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "transgressStatItem")
 	public Set<TransgressAction> getTransgressActions() {
 		return transgressActions;
 	}
 
 	public void setTransgressActions(Set<TransgressAction> transgressActions) {
 		this.transgressActions = transgressActions;
-	}
+	}*/
 
 	@Column(columnDefinition = "varchar2(1000)")
 	public String getTransgressActionCodes() {

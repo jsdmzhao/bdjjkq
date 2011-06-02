@@ -25,7 +25,7 @@ public class TransgressAction extends BaseIdModel {
 	/** 违法类别 */
 	private TransgressType transgressType;
 	
-	private TransgressStatItem transgressStatItem;
+	//private TransgressStatItem transgressStatItem;
 
 	public String getCode() {
 		return code;
@@ -52,7 +52,7 @@ public class TransgressAction extends BaseIdModel {
 	public void setTransgressType(TransgressType transgressType) {
 		this.transgressType = transgressType;
 	}
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	/*@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "transgress_stat_id")
 	public TransgressStatItem getTransgressStatItem() {
 		return transgressStatItem;
@@ -60,5 +60,5 @@ public class TransgressAction extends BaseIdModel {
 
 	public void setTransgressStatItem(TransgressStatItem transgressStatItem) {
 		this.transgressStatItem = transgressStatItem;
-	}
+	}*/
 }
