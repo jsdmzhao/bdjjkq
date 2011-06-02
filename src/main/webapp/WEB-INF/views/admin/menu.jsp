@@ -72,11 +72,11 @@
 			 -->	
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/transgress/statcfg/statItem/index.htm" target="main">统计项目</a>
+					<a href="${ctx}/assess/transgress/statcfg/statItem/index.htm" target="main">统计条件</a>
 			</div>		
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/transgress/properties/edit.htm" target="main">报表表头备注</a>
+					<a href="${ctx}/assess/transgress/properties/edit.htm" target="main">报表表头及备注</a>
 			</div>	
 		</div>	
 		
