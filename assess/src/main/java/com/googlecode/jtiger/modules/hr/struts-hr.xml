@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+    <package name="hr" extends="json"
+	         namespace="/hr">
+    	<action name="dept/*" class="deptAction" method="{1}">
+		    <result name="index">/WEB-INF/views/hr/dept/index.jsp</result>
+		    <result name="input">/WEB-INF/views/hr/dept/edit.jsp</result>
+		    <result name="success">/WEB-INF/views/hr/dept/edit.jsp</result>
+		    <result name="success-rme" type="redirect">dept/edit.htm?runState=1</result>
+		    <result type="json" name="json">
+		        <param name="ignoreHierarchy">false</param>
+		        <param name="root">depts</param>
+		    </result>
+		</action>
+		<action name="employee/*" class="employeeAction" method="{1}">
+		    <result name="index">/WEB-INF/views/hr/employee/index.jsp</result>
+		    <result name="input">/WEB-INF/views/hr/employee/edit.jsp</result>
+		    <result name="layout">/WEB-INF/views/hr/employee/layout.jsp</result>
+		    <result name="success" type="redirect">
+		    	<param name="location">employee/index.htm?deptId=${deptId}&amp;runState=1</param>
+		    	<param name="parse">true</param>
+		    </result>
+		    <result type="json" name="json">
+		        <param name="ignoreHierarchy">false</param>
+		        <param name="root">deptEmps</param>
+		    </result>
+		    <result type="json" name="jsonCheckLoginId">
+		   		<param name="root">loginIdCheckMsg</param>
+			</result>
+		</action>	
+		<action name="*/*" class="{1}Action" method="{2}">
+		    <result name="index">/WEB-INF/views/hr/{1}/index.jsp</result>
+		    <result name="input">/WEB-INF/views/hr/{1}/edit.jsp</result>
+		    <result name="success" type="redirect">{1}/index.htm</result>
+		</action>	
+	</package>
+</struts>
