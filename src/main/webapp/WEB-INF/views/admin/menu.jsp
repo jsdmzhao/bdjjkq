@@ -29,10 +29,27 @@
 	</div>
 	 -->	
 	
-	
-	<div id="menu_sys">
-		<!-- 
+	<div id="hr">
 		<div style="padding-left:5px;">          
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/arrow_3.png" class="icon">
+				<a href="${ctx}/hr/company/index.htm" target="main">企业/公司/机关信息</a>
+			</div>
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/arrow_3.png" class="icon">
+				<a href="${ctx}/hr/dept/index.htm" target="main">部门管理</a>
+			</div>
+			
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/arrow_3.png" class="icon">
+				<a href="${ctx}/hr/employee/layout.htm" target="main">职员管理</a>
+			</div>
+			
+			
+		</div>
+	</div>
+	<div id="menu_sys">
+	<div style="padding-left:5px;">    
 			<div style="padding-top:2px">
 				<img src="${ctx}/images/icons/user.gif" class="icon">
 				<a href="${ctx}/security/user/index.htm" target="main">超级用户</a>
@@ -43,7 +60,10 @@
 					<a href="${ctx}/security/role/index.htm" target="main">角色管理</a>
 			</div>
 			
-			 -->
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/security/resource/index.htm" target="main">资源管理</a>
+			</div>
 			<!-- 
 			<div style="padding-top:2px">
 				<img src="${ctx}/images/icons/template.gif" class="icon">
