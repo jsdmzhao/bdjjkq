@@ -237,7 +237,7 @@ public abstract class GenHelper {
    */
   public static Map<Integer, Class<?>> getTypesMap() {
     Map<Integer, Class<?>> map = new HashMap<Integer, Class<?>>();
-    map.put(Types.SMALLINT, Boolean.class);
+    map.put(Types.BIT, Boolean.class);
     map.put(Types.BOOLEAN, Boolean.class);
     map.put(Types.CHAR, String.class);
     map.put(Types.DATE, Date.class);
