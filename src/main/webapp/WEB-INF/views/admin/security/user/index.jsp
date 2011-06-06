@@ -23,7 +23,8 @@
         <s:form action="user/index" theme="simple">
 	                     用户名：<s:textfield name="model.loginId" size="15"/>
 	                     状&nbsp;&nbsp;态：<s:select name="model.status" list='#{"1":"可用","0":"禁用"}' headerKey="" headerValue="全部"/>
-	        &nbsp;&nbsp;<s:submit value="查询" cssClass="button"></s:submit>
+	        &nbsp;&nbsp;<s:submit value="查询"></s:submit>&nbsp;&nbsp;
+	        <input type="button" value="导出" onclick="ECSideUtil.doExport('xls','user.xls','','ec');">
          </s:form>
         </td>
          <td align="right">
@@ -49,7 +50,7 @@
 	<ec:table items="items" var="item" retrieveRowsCallback="limit" sortRowsCallback="limit" 
 	action="index.htm"
 	useAjax="true" doPreload="false"
-	maxRowsExported="10000000" 
+	maxRowsExported="1000" 
 	pageSizeList="30,50,100,500,1000" 
 	editable="false" 
 	sortable="true"	
@@ -60,7 +61,8 @@
 	width="100%" 	
 	height="277px"	
 	minHeight="200"
-	toolbarContent="navigation|pagejump|pagesize|refresh|extend|status"   
+	xlsFileName="user.xls" 		
+	toolbarContent="navigation|pagejump|pagesize|export|refresh|extend|status"   
 	>
 	<ec:row>
 	    <ec:column width="50" property="_s" title="选择" sortable="false" style="text-align:center">
