@@ -39,13 +39,13 @@
                     layoutConfig:{
                         animate:true
                     },
-                    items: [/*{                    
-                        title:'内容管理',
-                        html:document.getElementById('catalog').innerHTML,
+                    items: [{                    
+                        title:'组织机构',
+                        html:document.getElementById('hr').innerHTML,
                         border:false,
-                        iconCls:'catalog'
+                        iconCls:'hr'
                     },
-                    */
+                    
                     {                    
                         title:'系统配置',
                         html:document.getElementById('menu_sys').innerHTML,
