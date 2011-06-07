@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.googlecode.jtiger.core.model.BaseIdModel;
 
 @Entity
-@Table(name = "resources")
+@Table(name = "assess_resources")
 public class Resource extends BaseIdModel {
   /**
    * 资源名称

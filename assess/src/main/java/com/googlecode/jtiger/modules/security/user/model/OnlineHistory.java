@@ -19,7 +19,7 @@ import com.googlecode.jtiger.core.util.DateUtil;
  *
  */
 @Entity
-@Table(name = "online_histories")
+@Table(name = "assess_online_histories")
 public class OnlineHistory extends BaseIdModel {
 
   private Date loginTime;
