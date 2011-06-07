@@ -33,7 +33,7 @@ import com.googlecode.jtiger.core.model.BaseModel;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "roles", uniqueConstraints = {})
+@Table(name = "assess_roles", uniqueConstraints = {})
 public class Role extends BaseModel implements Serializable {
 
   /**
@@ -97,7 +97,7 @@ public class Role extends BaseModel implements Serializable {
   @Id
   @GeneratedValue(generator = "uuid")
   @GenericGenerator(name = "uuid", strategy = "uuid")
-  @Column(name = "ID",  nullable = false, length = 32)//unique = true,
+  @Column(name = "ID",  nullable = false, length = 32)
   public String getId() {
     return this.id;
   }
@@ -210,7 +210,7 @@ public class Role extends BaseModel implements Serializable {
    * @return the resources
    */
   @ManyToMany(targetEntity = Resource.class, cascade = {}, fetch = FetchType.LAZY)
-  @JoinTable(name = "role_res", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "res_id") })
+  @JoinTable(name = "assess_role_res", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "res_id") })
   public Set<Resource> getResources() {
     return resources;
   }

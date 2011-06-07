@@ -6,12 +6,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.googlecode.jtiger.core.Constants;
 import com.googlecode.jtiger.core.model.BasePicModel;
 import com.googlecode.jtiger.core.util.DateUtil;
+import com.googlecode.jtiger.modules.hr.employee.model.Employee;
 import com.googlecode.jtiger.modules.security.user.UserConstants;
 
 /**
@@ -33,7 +36,7 @@ import com.googlecode.jtiger.modules.security.user.UserConstants;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "users", uniqueConstraints = {})
+@Table(name = "assess_users", uniqueConstraints = {})
 public class User extends BasePicModel implements UserDetails, Serializable {
 
   /**
@@ -171,7 +174,8 @@ public class User extends BasePicModel implements UserDetails, Serializable {
    */
   private Set<Role> roles = new HashSet<Role>(0);
   
-    
+  
+  private Set<Employee> employees = new HashSet<Employee>(0);
   /**
    * 机构类型名称
    */
@@ -278,7 +282,7 @@ public class User extends BasePicModel implements UserDetails, Serializable {
 
 
   @ManyToMany(targetEntity = Role.class, cascade = {}, fetch = FetchType.LAZY)
-  @JoinTable(name = "user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
+  @JoinTable(name = "assess_user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
   public Set<Role> getRoles() {
     return this.roles;
   }
@@ -653,6 +657,16 @@ public class User extends BasePicModel implements UserDetails, Serializable {
   @Transient
   public String getHowLongTxt() {
     return DateUtil.millisecond2String(howLong);
+  }
+
+  public void setEmployees(Set<Employee> employees) {
+    this.employees = employees;    
+  }
+  
+  @OneToMany(cascade = {CascadeType.ALL }, fetch = FetchType.LAZY, 
+      mappedBy = "user")
+  public Set<Employee> getEmployees() {
+    return employees;
   }
 
 }

@@ -11,7 +11,7 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
  *
  */
 @Entity
-@Table(name = "crons")
+@Table(name = "assess_crons")
 public class Cron extends BaseIdModel {
   
   

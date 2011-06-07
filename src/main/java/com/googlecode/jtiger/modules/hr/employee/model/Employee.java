@@ -28,7 +28,7 @@ import com.googlecode.jtiger.modules.security.user.model.User;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "employees")
+@Table(name = "assess_employees")
 public class Employee extends BaseIdModel implements Serializable {
 
   /**

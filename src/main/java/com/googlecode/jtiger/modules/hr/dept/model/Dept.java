@@ -28,7 +28,7 @@ import com.googlecode.jtiger.modules.hr.employee.model.Employee;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "depts", uniqueConstraints = { })
+@Table(name = "assess_depts", uniqueConstraints = { })
 public class Dept extends BaseModel implements Serializable {
   /**
    * id

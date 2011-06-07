@@ -13,7 +13,7 @@ import org.hibernate.annotations.GenericGenerator;
  *
  */
 @Entity
-@Table(name = "smtp_config")
+@Table(name = "assess_smtp_config")
 public class SmtpConfig {
   /**
    * Default SMTP port
