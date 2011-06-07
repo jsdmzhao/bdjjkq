@@ -11,7 +11,7 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
 import com.googlecode.jtiger.modules.cms.article.model.Article;
 
 @Entity
-@Table(name = "cms_attachments")
+@Table(name = "assess_cms_attachments")
 public class Attachment extends BaseIdModel {
   /**
    * 访问附件的URL

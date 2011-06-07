@@ -22,7 +22,7 @@ import com.googlecode.jtiger.modules.cms.article.model.Article;
  *
  */
 @Entity
-@Table(name = "cms_catalogs")
+@Table(name = "assess_cms_catalogs")
 public class Catalog extends BaseIdModel {
   /**
    * 名称

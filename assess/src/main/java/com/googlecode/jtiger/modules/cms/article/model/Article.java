@@ -18,7 +18,7 @@ import com.googlecode.jtiger.modules.cms.attachment.model.Attachment;
 import com.googlecode.jtiger.modules.cms.catalog.model.Catalog;
 
 @Entity
-@Table(name = "cms_articles")
+@Table(name = "assess_cms_articles")
 public class Article extends BaseIdModel {
   /**
    * 标题
