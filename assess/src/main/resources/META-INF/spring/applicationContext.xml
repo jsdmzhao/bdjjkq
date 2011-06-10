@@ -99,7 +99,7 @@ default-lazy-init="true"  default-autowire="byName">
 	           
 	           <!-- 模拟连接违法库的数据源,这里其实连接的是本机oracle,运行环境下需要删除 -->
 	           <bean class="com.googlecode.jtiger.core.dao.support.DynaDataSource">
-	               <property name="dsName" value="weiFaDs"></property><!-- 这个必须的，唯一的 -->
+	               <property name="dsName" value="dsLocal"></property><!-- 这个必须的，唯一的 -->
 	               <property name="driver" value="oracle.jdbc.driver.OracleDriver"></property>
 	               <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl"></property>
 	               <property name="user" value="system"></property>
@@ -109,7 +109,7 @@ default-lazy-init="true"  default-autowire="byName">
 	           
 	            <!--违法库数据源 -->
 	           <bean class="com.googlecode.jtiger.core.dao.support.DynaDataSource">
-	               <property name="dsName" value="transgressDs"></property><!-- 这个必须的，唯一的 -->
+	               <property name="dsName" value="dsRemote"></property><!-- 这个必须的，唯一的 -->
 	               <property name="driver" value="oracle.jdbc.driver.OracleDriver"></property>
 	               <property name="url" value="jdbc:oracle:thin:@10.28.98.11:1521:orcl1"></property>
 	               <property name="user" value="test"></property>
