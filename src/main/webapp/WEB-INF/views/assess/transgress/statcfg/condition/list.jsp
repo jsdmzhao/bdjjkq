@@ -6,25 +6,30 @@
 <html>
 <head>
 <title>统计条件配置</title>
+<%@include file="/common/validator.jsp" %>
+<%@include file="/common/ec.jsp" %>
 <%@include file="/common/extjs.jsp"%>
 <%@include file="/common/meta.jsp"%>
-<%@include file="/common/validator.jsp"%>
+
 
 <script type="text/javascript">
+$(function(){
+	$("#statCfgForm").validate();
+});
 $("#statCfgForm").validate({
 	rules: {
-		'model.beginHourMinute':  {
+		'beginHourMinute':  {
 			required : true
 		},
-		'model.endHourMinute':  {
+		'endHourMinute':  {
 			required : true
 		}
 	},
 	messages: {
-		'model.beginHourMinute': {
+		'beginHourMinute': {
 			required: "请输入起始时间"
 		},
-		'model.endHourMinute':  {
+		'endHourMinute':  {
 			required: "请输入截至时间"
 		}
 	}
@@ -39,29 +44,41 @@ $("#statCfgForm").validate({
 <div class="x-panel-body">
 <div><%@ include file="/common/messages.jsp"%>
 </div> 
-<s:form action="save" namespace="/assess/transgress/statcfg/condition" theme="simple" name="statCfgForm" id="statCfgForm" validate="true" method="POST">
+<s:form action="save" namespace="/assess/transgress/statcfg/condition" theme="simple" name="statCfgForm" id="statCfgForm"  method="POST">
 <s:hidden name="model.id"></s:hidden>
 	<fieldset style="margin: 30px;"><legend>统计条件信息</legend>
-	<table width="100%">
+	<table width="100%" >
 		<tr>
-			<td class="simple">起始时间：</td>
+			<td class="simple" align="center">起始时间：</td>
 			<td class="simple">
-			<input type="text"
-								name="model.beginHourMinute"
+			<!--<input type="text"
+								name="beginHourMinute"
 								
 								value='${model.beginHourMinute }'
 								onfocus="WdatePicker({skin:'whyGreen',dateFmt:'HH:mm:ss'})"
 								class="Wdate" style="width: 128px; height: 16px"
-								readonly="readonly" class="required"/><font color='red'>*</font></td>
+								readonly="readonly" class="required"/><font color='red'>*</font>
+			-->
+			<input type="text" size="16" class="required" name="beginHourMinute" id="beginHourMinute" value='${model.beginHourMinute}' />
+						<a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('beginHourMinute'));return false;" HIDEFOCUS>
+					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
+					width="34" height="22" border="0" align="absmiddle"></a>
+			</td>
 		</tr>
 		<tr>
-			<td class="simple">截至时间：</td>
-			<td class="simple"><input type="text"
+			<td class="simple" align="center">截至时间：</td>
+			<td class="simple"><!--<input type="text"
 								name="model.endHourMinute"
 								value='${model.endHourMinute}'
 								onfocus="WdatePicker({skin:'whyGreen',dateFmt:'HH:mm:ss'})"
 								class="Wdate" style="width: 128px; height: 16px"
-								readonly="readonly" class="required"/><font color='red'>*</font></td>
+								readonly="readonly" class="required"/><font color='red'>*</font>
+								
+							--><input type="text" size="16" class="required" name="endHourMinute" id="endHourMinute" value='${model.endHourMinute}' />
+						<a href="javascript:void(0)" class="required" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('endHourMinute'));return false;" HIDEFOCUS>
+					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
+					width="34" height="22" border="0" align="absmiddle"></a>
+			</td>
 		</tr>		
 	</table>
 	<table width="100%" style="margin-bottom: 10px;">
@@ -72,7 +89,15 @@ $("#statCfgForm").validate({
 	</table>
 	</fieldset>
 </s:form>
+
 </div>
+
 </div>
+<iframe width=188 height=166 
+	name="gToday:datetime:${ctx}/js/calendar/agenda.js:gfPop:${ctx}/js/calendar/plugins_time.js" 
+	id="gToday:datetime:${ctx}/js/calendar/agenda.js:gfPop:${ctx}/js/calendar/plugins_time.js" 
+	src="${ctx}/js/calendar/ipopeng.html" scrolling="no" frameborder="0" 
+	style="visibility:visible; z-index:999; position:absolute; top:-500px; left:-500px;">
+</iframe>	
 </body>
 </html>

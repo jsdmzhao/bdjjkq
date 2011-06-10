@@ -4,11 +4,12 @@
 <%@include file="/common/taglibs.jsp" %>
 <html>
 <head>
-<%@include file="/common/meta.jsp" %>
+
 <title></title>
 <%@include file="/common/validator.jsp" %>
 <%@include file="/common/ec.jsp" %>
-<%@include file="/common/extjs.jsp" %>
+<%--@include file="/common/extjs.jsp" --%>
+<%@include file="/common/meta.jsp" %>
 <script type="text/javascript" src="${ctx}/scripts/jquery.form.js"></script>
 <style type="text/css">
 .transgressTypeTitle{
@@ -25,6 +26,12 @@
     margin-left:-9px;
     border:solid 1px #97B7E7;
 }
+.SSTDIV{
+	float: left;
+	width : 50%;
+	max-height:300px;
+	
+}
 </style>
 </head>
 <body>
@@ -33,33 +40,55 @@
     <div class="x-toolbar" style="text-align: right;">
 		<a href="index.htm">管理首页</a>
     </div>
-	<s:form id="saveFrm" action="save" method="post">
+	<s:form id="statForm" namespace="/assess/transgress/simpleStat" action="simpleStat" method="post">
 	<s:hidden id="model.id" name="model.id"/>
-	<table width="800px" align="center">
+	<table width="900px" align="center">
 		<tr>
 			<td align="center">
 			<fieldset> 
               <legend>编辑统计条件信息</legend>
                 <table cellpadding="3" cellspacing="2" width="100%">
                   <tr>
-                     <td align="right" width="15%">名称：</td>
-                     <td align="left" width="20%"  ><s:textfield name="model.name"></s:textfield></td>
-                     <td rowspan="3"  width="15%" align="right">车辆使用性质：</td>
+                  	<td align="right" width="15%">
+						起始时间：
+					</td>
+					<td align="left" width="15%">
+						<input type="text" size="16"  name="beginTime" id="beginTime" value="<s:date name="beginTime"format="yyyy-MM-dd HH:mm"/>" />
+						<a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('beginTime'));return false;" HIDEFOCUS>
+					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
+					width="34" height="22" border="0" align="absmiddle"></a>
+					</td>
+					<td align="right" width="15%">	
+						截至时间：
+					</td>
+					<td align="left" width="55%">
+						<input type="text" size="16"  name="endTime" id="endTime" value="<s:date name="endTime"format="yyyy-MM-dd HH:mm"/>" />
+						<a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('endTime'));return false;" HIDEFOCUS>
+					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
+					width="34" height="22" border="0" align="absmiddle"></a>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+					</td> 
+                  </tr>
+                  <tr>
+                     <td align="right" width="15%">单位名称：</td>
+                     <td align="left" width="15%"  >
+                     	
+                     	<select name="deptId" style="width:200px;padding-left:2px;">
+                     		<option value="">请选择</option>
+                     		<c:forEach items="${depts}" var="dept">
+                     			<option value=${dept.id }>${dept.name }</option>
+                     		</c:forEach>
+                     	</select>
+					 </td>
+                     <td rowspan="3"  width="15%" align="right">车&nbsp;&nbsp;&nbsp;辆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>使用性质：</td>
                      <td rowspan="3" width="55%">
-                     	<table  width="100%">
+                     	<table  width="100%" style="margin-left: -9px;">
                      		<c:forEach items="${allVehicleUseCodes}" var="vuc" varStatus="status">              
                      				<c:if test="${status.index%5== 0}">
                      					<tr>
                      				</c:if>
                      				<td align="left">                     				
-	                  					<c:choose>
-	                  						<c:when test="${fn:indexOf(model.vehicleUseCodes,vuc.code)!= -1}">
-	                  						<input type="checkbox" checked="checked" name="vehicleUseCodes" value="${vuc.code}"/>${vuc.name}
-	                  						</c:when>
-	                  						<c:otherwise>
-	                  						<input type="checkbox"  name="vehicleUseCodes" value="${vuc.code}"/>${vuc.name}
-	                  						</c:otherwise>
-	                  					</c:choose>                     				
+	                  						<input type="checkbox"  name="vehicleUseCodes" value="${vuc.code}"/>${vuc.name}                  				
                      				</td>
                      				<c:if test="${status.index%5== 4}">
                      					</tr>
@@ -70,16 +99,20 @@
                   </tr>
                                  
                   <TR>
-                  	 <td align="right">类别：</td>
+                  	 <td align="right">违法类别：</td>
                      <td align="left">
-                     	<s:select list="firstLevelTypes" id="firstLevelType"  headerKey ="" headerValue = "请选择" 
-                     	name="firstLevelType" listKey="id" listValue="descns" cssClass="m_t_b" 
-                     	cssStyle="width:200px;padding-left:2px;"  
-                     	onchange="initSubTypes($(this).val())"></s:select>
+                     	
+                     	<select name="firstLevelType" onchange="initSubTypes($(this).val())" style="width:200px;padding-left:2px;">
+                     		<option value="">请选择</option>
+                     		<c:forEach items="${firstLevelTypes}" var="flt">
+                     			<option value="${flt.code }">${flt.descns }</option>
+                     		</c:forEach>
+                     	</select>
                      </td>
+                     
                   </TR>
                   <TR>
-                  	 <td align="right">分类：</td>
+                  	 <td align="right">违法分类：</td>
                      <td align="left">
                      	<select name="secondLevelTypes"  class="m_t_b " id="secondLevelTypes" style="width:200px;padding-left:2px;"
                      	 onchange="initTransgressActionOptions($(this).val(),$(this).find('option:selected').text())" >
@@ -87,50 +120,22 @@
                      	<span style="margin-left:5px;display:none;" id="l_typeB"><img src="${ctx}/images/loading.gif"></span>
                      </td>
                   </TR>   
-                  <TR>
+                  
+                   <TR>
                   	 <td align="right">时间依据：</td>
-                  	 <td><input type="radio" name="timeCondition" value="FXSJ" ${model.findOrDealWith eq 'FXSJ' ?  'checked="checked"' : ''} >发现时间</input>						
-					<input type="radio" name="timeCondition" value="CLSJ" ${model.findOrDealWith eq 'CLSJ' ?  'checked="checked"' : ''}>处理时间</input></td>
+                  	 <td><input type="radio" name="timeCondition" value="FXSJ" checked="checked">发现时间</input>						
+					<input type="radio" name="timeCondition" value="CLSJ">处理时间</input></td>
                      <td align="right">
                      	是否关联&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>违法强制表：</td>
                      	<td align="left">
-						<input type="radio" name="unionForce"  value="true" ${model.unionForce ? 'checked="checked"' : '' }>关联</input>
-						<input type="radio" name="unionForce" value="" ${!model.unionForce ? 'checked="checked"' : '' }>不关联</input>
-                     </td>
-                  </TR>  
-                   <TR>
-                  	 <td align="right"></td>
-                     <td align="left">
-                     	
+						<input type="radio" name="unionForce"  value="true">关联</input>
+						<input type="radio" name="unionForce" value="" checked="checked">不关联</input>
                      </td>
                   </TR>  
                   <tr>
                   	<td colspan="4">
-                  		<table id="transgressActions" border="1" width="100%">                  			
-                  			<c:forEach items="${selectedSecondTypes}" var="sst">
-                  				<tr>
-                  					<td colspan="4">
-                  						<table width="100%" class="sstTable"  id="SST${sst.id}">
-                  							<tr><td class="transgressTypeTitle">${sst.descns }</td></tr>
-                  							<c:forEach items="${sst.transgressActions}" var="ta">
-                  								<c:set value="'${ta.code}'" var="co"></c:set>
-                  								<tr>
-                  									<td align="left">
-                  										<c:choose>
-                  											<c:when test="${fn:indexOf(model.transgressActionCodes,co)!= -1}">
-                  												<input type="checkbox" checked="checked" class="transgressActionCheckBox" name="transgressActionIds" value="${ta.id}"/>${ta.code }:${ta.descns}
-                  											</c:when>
-                  											<c:otherwise>
-                  												<input  type="checkbox" class="transgressActionCheckBox" name="transgressActionIds" value="${ta.id}"/>${ta.code}:${ta.descns}
-                  											</c:otherwise>
-                  										</c:choose>                  										
-                  									</td>
-                  								</tr>
-                  							</c:forEach>
-                  						</table>
-                  					</td>
-                  				</tr>                  				
-                  			</c:forEach>
+                  		<table  border="1"  id="transgressActions" width="100%">                  			
+                  			
                   		</table>
                   	</td>
                   </tr>               
@@ -138,9 +143,8 @@
               </fieldset>
               <table width="100%" style="margin-bottom:10px;">
 				<tr>
-					<td style="text-align:center;">
-						<s:submit value="保存" cssClass="button"/> 
-						<s:reset value="重置" cssClass="button"/>
+					<td style="text-align:center;">						
+						<input type="button" value="统计" class="button" onclick="statIt()"></input>					
                     </td>
               	</tr>
               </table>
@@ -151,28 +155,6 @@
 </div>
 
 <script type="text/javascript">
-$("#save").validate({
-	rules: {
-		'model.type.id':  {
-			required : true
-		},
-		'model.state':  {
-			required : true
-		},
-		'model.integral':  {
-			required : true,
-			number : true
-		}
-	},
-	messages: {
-		'model.type.id': {
-			required: "请选择类型"
-		},
-		'model.state':  {
-			required: "选择审核结果"
-		}
-	}
-});
 
 
 /**
@@ -224,9 +206,9 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
 			var html = [];
 			html.push("<tr><td><table class='sstTable' id='SST"+secondLevelTypeId+"' width='100%'><tr><td class='transgressTypeTitle'>"+secondLevelTypeDescn+"<input type='hidden' disabled='disabled' name='secondLevelTypeIds' value='"+secondLevelTypeId+"'/></td></tr>");
 			$.each(data,function(idx,item){
-				html.push("<tr><td align='left'><input type='checkbox' name='transgressActionIds' value='"+item.id+"'/>"+item.code+":"+item.descns + "</td></tr>");
+				html.push("<tr><td align='left'><input type='checkbox' name='transgressActionCodes' value='"+item.code+"'/>"+item.code+":"+item.descns + "</td></tr>");
 			});
-			html.push("</table></td></tr>");
+			html.push("</table><div></td></tr>");
 			
 			$('#transgressActions').append(html.join(''));
 		}
@@ -238,31 +220,28 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
  
 </script>
 <script type="text/javascript">
-
-$(function(){
-    $('#saveFrm').ajaxForm({
-   	 success:function(data) {   		 
-   		
-   		Ext.my().msg('', '保存统计条件信息成功' );
-   		pause(2000); 
-   		location.href = '${ctx}/assess/transgress/statcfg/statItem/index.htm';
-   		
-   	 },
-   	 error:function(xhr) {
-   		 Ext.my().msg('', '保存统计条件信息失败' );
-   	 }
-    });
-});
-function pause(milliSecond){
-	var now = new Date();
-	var exitTime = now.getTime()+milliSecond;
-	while(true){
-		now = new Date();
-		if(now.getTime()>exitTime){
+function statIt(){
+	var checkArr ;
+	checkArr = document.getElementsByName("transgressActionCodes");
+	if(checkArr.length==0){
+		alert("请选择违法行为!");
+		return;
+	}
+	for(var i =0;i<checkArr.length;i++){
+		if(checkArr[i].checked){
+			document.getElementById("statForm").submit();
 			return;
 		}
 	}
+	alert("请选择违法行为!");
+	return;
 }
 </script>
+				<iframe width=188 height=166 
+				name="gToday:datetime:${ctx}/js/calendar/agenda.js:gfPop:${ctx}/js/calendar/plugins_time.js" 
+				id="gToday:datetime:${ctx}/js/calendar/agenda.js:gfPop:${ctx}/js/calendar/plugins_time.js" 
+				src="${ctx}/js/calendar/ipopeng.html" scrolling="no" frameborder="0" 
+				style="visibility:visible; z-index:999; position:absolute; top:-500px; left:-500px;">
+			</iframe>
 </body>
 </html>
