@@ -108,7 +108,7 @@ public class TransgressStatAction extends
 		// 表头
 
 		title.add("");// 第一行第一列
-		title.add("当日合计");
+		title.add("合计");
 		title.add("一大队");
 		title.add("二大队");
 		title.add("三大队");
@@ -141,6 +141,10 @@ public class TransgressStatAction extends
 						.getTransgressActionCodes());
 				//机动车使用性质
 				statCondition.setVehicleUseCodes(itm.getVehicleUseCodes());
+				//是否关联Force表
+				statCondition.setUnionForce(itm.getUnionForce());
+				//发现时间/处理时间
+				statCondition.setTimeCondition(itm.getFindOrDealWith());
 
 				// 得到当前登录用户所在部门的子部门代码编号,名称集合
 				Map<String, String> deptCodeMap = getDeptCodeList();
@@ -155,7 +159,7 @@ public class TransgressStatAction extends
 					List<Map<String, Object>> list = getManager().stat(
 							statCondition);
 					BigDecimal current = (BigDecimal) list.get(0).get(
-							"ROWS_COUNT");
+							"TOTAL_COUNT");
 					itemResult.add(current);
 					total = total.add(current);
 
@@ -175,6 +179,8 @@ public class TransgressStatAction extends
 		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
 		return INDEX;
 	}
+	
+	
 
 	/**
 	 * 构建统计条件

@@ -1,5 +1,8 @@
 package com.googlecode.jtiger.assess.transgress.statcfg.webapp;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -21,10 +24,27 @@ public class TransgressCustomStatConditionAction
 
 	public String list() {
 		setModel(getManager().get().get(0));
-		//beginHourMinute = getManager().get().get(0).getBeginHourMinute();
-		//endHourMinute = getManager().get().get(0).getEndHourMinute();
-		
+		beginHourMinute = getManager().get().get(0).getBeginHourMinute();
+		endHourMinute = getManager().get().get(0).getEndHourMinute();
+
 		return "list";
+	}
+
+	@Override
+	public String save() {
+		SimpleDateFormat dateSf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		SimpleDateFormat sf = new SimpleDateFormat("HH:mm");
+
+		try {
+			getModel().setBeginHourMinute(
+					sf.format(dateSf.parse(beginHourMinute)));
+			getModel().setEndHourMinute(
+					sf.format(dateSf.parse(endHourMinute)));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return super.save();
 	}
 
 	public String getBeginHourMinute() {

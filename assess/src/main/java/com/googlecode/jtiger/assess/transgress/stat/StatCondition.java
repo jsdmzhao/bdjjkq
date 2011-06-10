@@ -20,6 +20,11 @@ public final class StatCondition {
 	private String deptCode;
 	/** 机动车使用性质 */
 	private String vehicleUseCodes;
+	/** 时间条件 发现时间/处理时间 */
+	private String timeCondition;
+
+	/** 是否关联到vio_force表 ,默认false */
+	private Boolean unionForce = false;
 
 	public String getTransgressActionCodesStr() {
 		return transgressActionCodesStr;
@@ -83,6 +88,22 @@ public final class StatCondition {
 
 	public void setVehicleUseCodes(String vehicleUseCodes) {
 		this.vehicleUseCodes = vehicleUseCodes;
+	}
+
+	public String getTimeCondition() {
+		return timeCondition;
+	}
+
+	public void setTimeCondition(String timeCondition) {
+		this.timeCondition = timeCondition;
+	}
+
+	public Boolean getUnionForce() {
+		return unionForce;
+	}
+
+	public void setUnionForce(Boolean unionForce) {
+		this.unionForce = unionForce;
 	}
 
 }
