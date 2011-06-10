@@ -46,12 +46,20 @@
                         iconCls:'hr'
                     },
                     
+                    
                     {                    
-                        title:'系统配置',
-                        html:document.getElementById('menu_sys').innerHTML,
+                        title:'常量考核查询统计',
+                        html:document.getElementById('menu_constStat').innerHTML,
                         border:false,
                         iconCls:'permit'
-                    }]
+                    },
+                    {                    
+                        title:'常量考核统计设置',
+                        html:document.getElementById('menu_constStat_cfg').innerHTML,
+                        border:false,
+                        iconCls:'permit'
+                    }
+                    ]
                 },
                 
                {
