@@ -94,7 +94,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	 	<%--
 			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> | --%>
 			 <a title="编辑" href="${ctx}/assess/transgress/statcfg/statItem/edit.htm?model.id=${item.id}">编辑 </a> |
-			 <a title="删除" href="#" onclick="remove(${item.id})">删除</a>
+			 <a title="删除" href="#" onclick="remove('${item.id}')">删除</a>
 		</ec:column>	   	
 	</ec:row>
 	</ec:table>
