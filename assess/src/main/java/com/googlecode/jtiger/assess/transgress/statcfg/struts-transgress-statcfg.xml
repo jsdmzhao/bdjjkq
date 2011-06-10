@@ -8,7 +8,7 @@
 		<action name="*" class="transgressCustomStatConditionAction" method="{1}">
 		    <result name="{1}">/WEB-INF/views/assess/transgress/statcfg/condition/{1}.jsp</result>
 		    <result name="success" type="chain">
-		    	<param name="actionName">list</param>
+		    	<param name="actionName">index</param>
 		    </result>		    
 		</action>		
 	</package>
@@ -18,9 +18,11 @@
 		    <result name="input">/WEB-INF/views/assess/transgress/statcfg/statitem/edit.jsp</result>
 		    <result name="view">/WEB-INF/views/assess/transgress/statcfg/statitem/edit.jsp</result>
 		    <result name="index">/WEB-INF/views/assess/transgress/statcfg/statitem/index.jsp</result>
-		    <result name="success" type="chain">
-		    	<param name="actionName">list</param>
-		    </result>		    
+		    
+		   <result name="success" type="redirect">index.htm</result>
+		    <!-->result name="success" type="chain">
+		    	<param name="actionName">index</param>
+		    </result-->		    
 		</action>		
 	</package>
 </struts>
