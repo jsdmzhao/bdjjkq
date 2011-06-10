@@ -48,6 +48,7 @@
 			
 		</div>
 	</div>
+	<!--  
 	<div id="menu_sys">
 	<div style="padding-left:5px;">    
 			<div style="padding-top:2px">
@@ -79,17 +80,32 @@
 				<img src="${ctx}/images/icons/template.gif" class="icon">
 				<a href="${ctx}/admin/cron/list.htm" target="main">定时任务设置</a>
 			</div>
-			 -->	
-			<div style="padding-top:2px">
+			 ->	
+			
+		</div>	
+		
+    </div>-->
+    <div id="menu_constStat">
+		<div style="padding-left:5px;">  
+			 <div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
 					<a href="${ctx}/assess/transgress/stat/index.htm" target="main">违法统计</a>
 			</div>
-			<!--
-			<div style="padding-top:2px">
+			 <div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/transgress/statcfg/condition/list.htm" target="main">统计条件</a>
+					<a href="${ctx}/assess/transgress/simpleStat/index.htm" target="main">单项统计</a>
 			</div>
-			 -->	
+			
+			
+		</div>
+	</div>
+	 <div id="menu_constStat_cfg">
+		<div style="padding-left:5px;">
+		  <div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/transgress/statcfg/condition/list.htm" target="main">统计时间设置</a>
+			</div>
+	
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
 					<a href="${ctx}/assess/transgress/statcfg/statItem/index.htm" target="main">统计条件</a>
@@ -97,9 +113,8 @@
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
 					<a href="${ctx}/assess/transgress/properties/edit.htm" target="main">报表表头及备注</a>
-			</div>	
-		</div>	
-		
-    </div>
+			</div>	 
+		</div>
+	</div>
 </div>
 	
