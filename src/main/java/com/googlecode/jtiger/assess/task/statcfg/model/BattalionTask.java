@@ -37,6 +37,8 @@ public class BattalionTask extends BaseIdModel {
 	private Float decreasePoint;
 	/** 加分 (超额1人,加xx分) */
 	private Float addPoint;
+	/** 考核年月 */
+	private String yearAndMonth;
 
 	private Set<LochusTask> LochusTasks = new HashSet<LochusTask>(0);
 
@@ -107,6 +109,14 @@ public class BattalionTask extends BaseIdModel {
 
 	public void setLochusTasks(Set<LochusTask> lochusTasks) {
 		LochusTasks = lochusTasks;
+	}
+
+	public String getYearAndMonth() {
+		return yearAndMonth;
+	}
+
+	public void setYearAndMonth(String yearAndMonth) {
+		this.yearAndMonth = yearAndMonth;
 	}
 
 }

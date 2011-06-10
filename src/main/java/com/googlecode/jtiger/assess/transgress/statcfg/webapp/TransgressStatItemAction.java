@@ -36,6 +36,8 @@ public class TransgressStatItemAction extends
 	private String[] transgressActionIds;
 	/** 界面传递过来的车辆使用性质代码 */
 	private String[] vehicleUseCodes;
+	/** 是否union VIO_FORCE表 */
+	private String unionForce;
 
 	@Override
 	public String edit() {
@@ -169,7 +171,6 @@ public class TransgressStatItemAction extends
 					bufTypeId.append(typeList.get(i)).append(",");
 				}
 				bufTypeId.append(typeList.get(typeList.size() - 1));
-
 			}
 
 		}
@@ -181,10 +182,19 @@ public class TransgressStatItemAction extends
 			bufVehicleUseCodes.append("'").append(
 					vehicleUseCodes[vehicleUseCodes.length - 1]).append("'");
 		}
-	
+
 		getModel().setVehicleUseCodes(bufVehicleUseCodes.toString());
 		getModel().setTransgressActionCodes(bufActionCode.toString());
 		getModel().setSecondLevelTypeIds(bufTypeId.toString());
+		//是否连接force表
+		if (StringUtils.isNotBlank(unionForce)) {
+			getModel().setUnionForce(true);
+		} else {
+			getModel().setUnionForce(false);
+		}
+		//发现时间/处理时间
+		getModel().setFindOrDealWith(getRequest().getParameter("timeCondition"));
+		
 
 		try {
 			super.save();
@@ -298,6 +308,14 @@ public class TransgressStatItemAction extends
 
 	public void setVehicleUseCodes(String[] vehicleUseCodes) {
 		this.vehicleUseCodes = vehicleUseCodes;
+	}
+
+	public String getUnionForce() {
+		return unionForce;
+	}
+
+	public void setUnionForce(String unionForce) {
+		this.unionForce = unionForce;
 	}
 
 }

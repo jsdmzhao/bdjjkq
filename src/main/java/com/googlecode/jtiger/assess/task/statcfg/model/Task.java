@@ -37,7 +37,7 @@ public class Task extends BaseIdModel {
 	/** 特殊项,(例如:醉酒拘留1人,加10分) */
 	private String specialItem;
 	/** 特殊项关联的违法行为 */
-	private String specialItemTransgressActionCodes;
+	private String specialItemTACodes;
 	/** 特殊项关联的车辆使用性质 */
 	private String specialVehicleUseCodes;
 	/** 特殊项分值 */
@@ -113,14 +113,7 @@ public class Task extends BaseIdModel {
 		this.specialItem = specialItem;
 	}
 
-	public String getSpecialItemTransgressActionCodes() {
-		return specialItemTransgressActionCodes;
-	}
 
-	public void setSpecialItemTransgressActionCodes(
-			String specialItemTransgressActionCodes) {
-		this.specialItemTransgressActionCodes = specialItemTransgressActionCodes;
-	}
 
 	public String getSpecialVehicleUseCodes() {
 		return specialVehicleUseCodes;
@@ -163,6 +156,14 @@ public class Task extends BaseIdModel {
 
 	public void setBattalionTasks(Set<BattalionTask> battalionTasks) {
 		this.battalionTasks = battalionTasks;
+	}
+
+	public String getSpecialItemTACodes() {
+		return specialItemTACodes;
+	}
+
+	public void setSpecialItemTACodes(String specialItemTACodes) {
+		this.specialItemTACodes = specialItemTACodes;
 	}
 
 }

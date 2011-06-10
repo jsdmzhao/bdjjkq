@@ -11,5 +11,13 @@
 		    <result name="reportExcel">/WEB-INF/views/assess/transgress/stat/reportExcel.jsp</result>
 		</action>		
 	</package>
+	<package name="admin.transgress.simpleStat" extends="default"
+	         namespace="/assess/transgress/simpleStat">
+		<action name="*" class="simpleTransgressStatAction" method="{1}">
+		    <result name="{1}">/WEB-INF/views/assess/transgress/simplestat/{1}.jsp</result>
+		    <result name="index">/WEB-INF/views/assess/transgress/simplestat/index.jsp</result>
+		    <result name="stat">/WEB-INF/views/assess/transgress/simplestat/stat.jsp</result>
+		</action>		
+	</package>
 </struts>
 

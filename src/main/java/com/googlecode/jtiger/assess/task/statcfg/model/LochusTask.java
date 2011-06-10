@@ -34,6 +34,8 @@ public class LochusTask extends BaseIdModel {
 	private Float decreasePoint;
 	/** 加分 (超额1人,加xx分) */
 	private Float addPoint;
+	/** 考核年月 */
+	private String yearAndMonth;
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
@@ -93,5 +95,13 @@ public class LochusTask extends BaseIdModel {
 
 	public void setAddPoint(Float addPoint) {
 		this.addPoint = addPoint;
+	}
+
+	public String getYearAndMonth() {
+		return yearAndMonth;
+	}
+
+	public void setYearAndMonth(String yearAndMonth) {
+		this.yearAndMonth = yearAndMonth;
 	}
 }
