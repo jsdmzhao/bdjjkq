@@ -139,7 +139,8 @@
               <table width="100%" style="margin-bottom:10px;">
 				<tr>
 					<td style="text-align:center;">
-						<s:submit value="保存" cssClass="button"/> 
+					<%-- <s:submit value="保存" cssClass="button"/> --%>						
+						<input type="button" value="保存" class="button" onclick="saveIt()"></input>		
 						<s:reset value="重置" cssClass="button"/>
                     </td>
               	</tr>
@@ -238,9 +239,9 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
  
 </script>
 <script type="text/javascript">
-
-$(function(){
-    $('#saveFrm').ajaxForm({
+/*
+$(function(){	
+    $('#saveFrm').ajaxForm({    	
    	 success:function(data) {   		 
    		
    		Ext.my().msg('', '保存统计条件信息成功' );
@@ -252,7 +253,7 @@ $(function(){
    		 Ext.my().msg('', '保存统计条件信息失败' );
    	 }
     });
-});
+});*/
 function pause(milliSecond){
 	var now = new Date();
 	var exitTime = now.getTime()+milliSecond;
@@ -262,6 +263,22 @@ function pause(milliSecond){
 			return;
 		}
 	}
+}
+function saveIt(){
+	var checkArr ;
+	checkArr = document.getElementsByName("transgressActionIds");
+	if(checkArr.length==0){
+		alert("请选择违法行为!");
+		return;
+	}
+	for(var i =0;i<checkArr.length;i++){
+		if(checkArr[i].checked){
+			document.getElementById("saveFrm").submit();
+			return;
+		}
+	}
+	alert("请选择违法行为!");
+	return;
 }
 </script>
 </body>
