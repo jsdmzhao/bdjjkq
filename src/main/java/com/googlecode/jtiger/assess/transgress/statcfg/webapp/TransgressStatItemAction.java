@@ -195,19 +195,22 @@ public class TransgressStatItemAction extends
 		//发现时间/处理时间
 		getModel().setFindOrDealWith(getRequest().getParameter("timeCondition"));
 		
-
-		try {
+		super.save();
+		/*try {
 			super.save();
 			render("success", "text/plain");
 		} catch (Exception e) {
 			e.printStackTrace();
 			render(e.getMessage(), "text/plain");
 		}
-
 		return null;
+		*/
+
+		return SUCCESS;
 	}
 
 	public String remove() {
+		super.remove();
 		return SUCCESS;
 	}
 
