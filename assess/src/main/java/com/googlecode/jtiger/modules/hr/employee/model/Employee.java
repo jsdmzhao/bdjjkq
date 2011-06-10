@@ -45,6 +45,10 @@ public class Employee extends BaseIdModel implements Serializable {
    * 证件号码
    */
   private String credentialNo;
+  /**
+   * 警号
+   */
+  private String policeNo;
 
   /**
    * 学历
@@ -446,4 +450,12 @@ public class Employee extends BaseIdModel implements Serializable {
   public String toString() {
     return new ToStringBuilder(this).append("id", getId()).toString();
   }
+
+public String getPoliceNo() {
+	return policeNo;
+}
+
+public void setPoliceNo(String policeNo) {
+	this.policeNo = policeNo;
+}
 }

@@ -28,307 +28,331 @@ import com.googlecode.jtiger.modules.hr.employee.model.Employee;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "assess_depts", uniqueConstraints = { })
+@Table(name = "assess_depts", uniqueConstraints = {})
 public class Dept extends BaseModel implements Serializable {
-  /**
-   * id
-   */
-  private Integer id;
+	/**
+	 * id
+	 */
+	private Integer id;
 
-  /**
-   * 部门描述
-   */
-  private String descn;
+	/**
+	 * 部门描述
+	 */
+	private String descn;
 
-  /**
-   * 部门名称
-   */
-  private String name;
+	/**
+	 * 部门名称
+	 */
+	private String name;
 
-  /**
-   * 部门编号规则：上级部门编号+两位数字，从1自动排；
-   */
-  private String serialNo;
-  
-  /**
-   * 部门类别
-   */
-  private String deptSort = "0";
+	/**
+	 * 部门编号规则：上级部门编号+两位数字，从1自动排；
+	 */
+	private String serialNo;
+	/**
+	 * 大队/中队编号
+	 */
+	private String deptCode;
 
-  /**
-   * 上级部门
-   */
-  private Dept parentDept;
-  /**
-   * 部门主管
-   */
-  private Employee leader;
-  /**
-   * 上级主管
-   */
-  private Employee superior;
-  /**
-   * 上级分管领导
-   */
-  private Employee subSuperior;
-  /**
-   * 电话
-   */
-  private String phone;
-  /**
-   * 传真
-   */
-  private String fax;
-  /**
-   * 邮编
-   */
-  private String zip;
-  /**
-   * 地址
-   */
-  private String address;
-  /**
-   * 网站
-   */
-  private String homePage;
-  /**
-   * 电子信箱
-   */
-  private String email;
-  /**
-   * 开户行
-   */
-  private String bank;
-  /**
-   * 账号
-   */
-  private String bankAccount;
+	/**
+	 * 部门类别
+	 */
+	private String deptSort = "0";
+	/**
+	 * 机构类别
+	 */
+	private String deptType = "0";
 
-  /**
-   * 部门记录
-   */
-  private Set<Dept> childDepts = new HashSet<Dept>(0);
+	/**
+	 * 上级部门
+	 */
+	private Dept parentDept;
+	/**
+	 * 部门主管
+	 */
+	private Employee leader;
+	/**
+	 * 上级主管
+	 */
+	private Employee superior;
+	/**
+	 * 上级分管领导
+	 */
+	private Employee subSuperior;
+	/**
+	 * 电话
+	 */
+	private String phone;
+	/**
+	 * 传真
+	 */
+	private String fax;
+	/**
+	 * 邮编
+	 */
+	private String zip;
+	/**
+	 * 地址
+	 */
+	private String address;
+	/**
+	 * 网站
+	 */
+	private String homePage;
+	/**
+	 * 电子信箱
+	 */
+	private String email;
+	/**
+	 * 开户行
+	 */
+	private String bank;
+	/**
+	 * 账号
+	 */
+	private String bankAccount;
 
-  /**
-   * 部门下的员工
-   */
-  private Set<Employee> employees = new HashSet<Employee>(0);
-  
-  /**
-   * 缺省构造
-   */
-  public Dept() {
-  }
+	/**
+	 * 部门记录
+	 */
+	private Set<Dept> childDepts = new HashSet<Dept>(0);
 
-  @Id
-  @GeneratedValue(generator = "hibseq")
-  @GenericGenerator(name = "hibseq", strategy = "hilo")
-  @Column(name = "ID", /*unique = true, */nullable = false)
-  public Integer getId() {
-    return this.id;
-  }
+	/**
+	 * 部门下的员工
+	 */
+	private Set<Employee> employees = new HashSet<Employee>(0);
 
-  public void setId(Integer id) {
-    this.id = id;
-  }
+	/**
+	 * 缺省构造
+	 */
+	public Dept() {
+	}
 
-  @Column(name = "descn")
-  public String getDescn() {
-    return this.descn;
-  }
+	@Id
+	@GeneratedValue(generator = "hibseq")
+	@GenericGenerator(name = "hibseq", strategy = "hilo")
+	@Column(name = "ID", /* unique = true, */nullable = false)
+	public Integer getId() {
+		return this.id;
+	}
 
-  public void setDescn(String descn) {
-    this.descn = descn;
-  }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-  @Column(name = "name")
-  public String getName() {
-    return this.name;
-  }
+	@Column(name = "descn")
+	public String getDescn() {
+		return this.descn;
+	}
 
-  public void setName(String name) {
-    this.name = name;
-  }
+	public void setDescn(String descn) {
+		this.descn = descn;
+	}
 
-  @Column(name = "serial_no")
-  public String getSerialNo() {
-    return this.serialNo;
-  }
+	@Column(name = "name")
+	public String getName() {
+		return this.name;
+	}
 
-  public void setSerialNo(String serialNo) {
-    this.serialNo = serialNo;
-  }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-  @Column(name = "dept_sort")
-  public String getDeptSort() {
-    return deptSort;
-  }
+	@Column(name = "serial_no")
+	public String getSerialNo() {
+		return this.serialNo;
+	}
 
-  public void setDeptSort(String deptSort) {
-    this.deptSort = deptSort;
-  }
-  
-  @ManyToOne(cascade = { }, fetch = FetchType.LAZY)
-  @JoinColumn(name = "leader")
-  public Employee getLeader() {
-    return leader;
-  }
+	public void setSerialNo(String serialNo) {
+		this.serialNo = serialNo;
+	}
 
-  public void setLeader(Employee leader) {
-    this.leader = leader;
-  }
+	@Column(name = "dept_sort")
+	public String getDeptSort() {
+		return deptSort;
+	}
 
-  @ManyToOne(cascade = { }, fetch = FetchType.LAZY)
-  @JoinColumn(name = "superior")
-  public Employee getSuperior() {
-    return superior;
-  }
+	public void setDeptSort(String deptSort) {
+		this.deptSort = deptSort;
+	}
 
-  public void setSuperior(Employee superior) {
-    this.superior = superior;
-  }
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "leader")
+	public Employee getLeader() {
+		return leader;
+	}
 
-  @ManyToOne(cascade = { }, fetch = FetchType.LAZY)
-  @JoinColumn(name = "sub_superior")
-  public Employee getSubSuperior() {
-    return subSuperior;
-  }
+	public void setLeader(Employee leader) {
+		this.leader = leader;
+	}
 
-  public void setSubSuperior(Employee subSuperior) {
-    this.subSuperior = subSuperior;
-  }
-  
-  @Column(name = "phone")
-  public String getPhone() {
-    return phone;
-  }
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "superior")
+	public Employee getSuperior() {
+		return superior;
+	}
 
-  public void setPhone(String phone) {
-    this.phone = phone;
-  }
+	public void setSuperior(Employee superior) {
+		this.superior = superior;
+	}
 
-  @Column(name = "fax")
-  public String getFax() {
-    return fax;
-  }
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "sub_superior")
+	public Employee getSubSuperior() {
+		return subSuperior;
+	}
 
-  public void setFax(String fax) {
-    this.fax = fax;
-  }
+	public void setSubSuperior(Employee subSuperior) {
+		this.subSuperior = subSuperior;
+	}
 
-  @Column(name = "zip")
-  public String getZip() {
-    return zip;
-  }
+	@Column(name = "phone")
+	public String getPhone() {
+		return phone;
+	}
 
-  public void setZip(String zip) {
-    this.zip = zip;
-  }
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 
-  @Column(name = "address")
-  public String getAddress() {
-    return address;
-  }
+	@Column(name = "fax")
+	public String getFax() {
+		return fax;
+	}
 
-  public void setAddress(String address) {
-    this.address = address;
-  }
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
 
-  @Column(name = "home_page")
-  public String getHomePage() {
-    return homePage;
-  }
+	@Column(name = "zip")
+	public String getZip() {
+		return zip;
+	}
 
-  public void setHomePage(String homePage) {
-    this.homePage = homePage;
-  }
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
 
-  @Column(name = "email")
-  public String getEmail() {
-    return email;
-  }
+	@Column(name = "address")
+	public String getAddress() {
+		return address;
+	}
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-  @Column(name = "bank")
-  public String getBank() {
-    return bank;
-  }
+	@Column(name = "home_page")
+	public String getHomePage() {
+		return homePage;
+	}
 
-  public void setBank(String bank) {
-    this.bank = bank;
-  }
+	public void setHomePage(String homePage) {
+		this.homePage = homePage;
+	}
 
-  @Column(name = "bank_account")
-  public String getBankAccount() {
-    return bankAccount;
-  }
+	@Column(name = "email")
+	public String getEmail() {
+		return email;
+	}
 
-  public void setBankAccount(String bankAccount) {
-    this.bankAccount = bankAccount;
-  }
-  
-  @ManyToOne(cascade = { }, fetch = FetchType.LAZY)
-  @JoinColumn(name = "parent_id")
-  public Dept getParentDept() {
-    return this.parentDept;
-  }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-  public void setParentDept(Dept parentDept) {
-    this.parentDept = parentDept;
-  }
+	@Column(name = "bank")
+	public String getBank() {
+		return bank;
+	}
 
-  @OneToMany(cascade = { }, fetch = FetchType.LAZY, mappedBy = "parentDept")
-  public Set<Dept> getChildDepts() {
-    return this.childDepts;
-  }
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
 
-  public void setChildDepts(Set<Dept> childDepts) {
-    this.childDepts = childDepts;
-  }
+	@Column(name = "bank_account")
+	public String getBankAccount() {
+		return bankAccount;
+	}
 
-  @OneToMany(cascade = { }, fetch = FetchType.LAZY, mappedBy = "dept")
-  public Set<Employee> getEmployees() {
-    return this.employees;
-  }
+	public void setBankAccount(String bankAccount) {
+		this.bankAccount = bankAccount;
+	}
 
-  public void setEmployees(Set<Employee> employees) {
-    this.employees = employees;
-  }
-  
-  @Transient
-  public boolean getHasChild() {
-    return this.getChildDepts().size() > 0;
-  }
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id")
+	public Dept getParentDept() {
+		return this.parentDept;
+	}
 
-  /**
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
-  public boolean equals(Object other) {
-    if (this == other) {
-      return true;
-    }
-    if (!(other instanceof Dept)) {
-      return false;
-    }
-    Dept castOther = (Dept) other;
-    return new EqualsBuilder().append(this.getId(), castOther.getId())
-        .isEquals();
-  }
+	public void setParentDept(Dept parentDept) {
+		this.parentDept = parentDept;
+	}
 
-  /**
-   * @see java.lang.Object#hashCode()
-   */
-  public int hashCode() {
-    return new HashCodeBuilder().append(getId()).toHashCode();
-  }
+	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "parentDept")
+	public Set<Dept> getChildDepts() {
+		return this.childDepts;
+	}
 
-  /**
-   * @see java.lang.Object#toString()
-   */
-  public String toString() {
-    return new ToStringBuilder(this).append("id", getId()).toString();
-  }
+	public void setChildDepts(Set<Dept> childDepts) {
+		this.childDepts = childDepts;
+	}
+
+	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "dept")
+	public Set<Employee> getEmployees() {
+		return this.employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+
+	@Transient
+	public boolean getHasChild() {
+		return this.getChildDepts().size() > 0;
+	}
+
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean equals(Object other) {
+		if (this == other) {
+			return true;
+		}
+		if (!(other instanceof Dept)) {
+			return false;
+		}
+		Dept castOther = (Dept) other;
+		return new EqualsBuilder().append(this.getId(), castOther.getId())
+				.isEquals();
+	}
+
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	public int hashCode() {
+		return new HashCodeBuilder().append(getId()).toHashCode();
+	}
+
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	public String toString() {
+		return new ToStringBuilder(this).append("id", getId()).toString();
+	}
+
+	public String getDeptCode() {
+		return deptCode;
+	}
+
+	public void setDeptCode(String deptCode) {
+		this.deptCode = deptCode;
+	}
+
+	public String getDeptType() {
+		return deptType;
+	}
+
+	public void setDeptType(String deptType) {
+		this.deptType = deptType;
+	}
 }

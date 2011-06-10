@@ -6,6 +6,7 @@ import java.util.Map;
 
 /**
  * OA项目中的常量
+ * 
  * @author Sam Lee
  */
 public final class HrConstants {
@@ -104,11 +105,11 @@ public final class HrConstants {
 	 * 学历常量，5-本科以上
 	 */
 	public static final String DOCTOR = "5";
-	
+
 	/**
-     * 学历常量，6-中专
-     */
-    public static final String TECHNICAL_SCHOOL = "6";
+	 * 学历常量，6-中专
+	 */
+	public static final String TECHNICAL_SCHOOL = "6";
 
 	/**
 	 * 就业状态，0-不需要就业
@@ -169,21 +170,21 @@ public final class HrConstants {
 	 * 角色名称常量:ROLE_MAST-班主任
 	 */
 	public static final String ROLE_MAST = "ROLE_MAST";
-	
+
 	/**
-     * 角色名称常量:ROLE_TEACHER-教师
-     */
-    public static final String ROLE_TEACHER = "ROLE_TEACHER";
-    
-    /**
-     * 角色名称常量:ROLE_TEACH_QUALITY-教质经理
-     */
-    public static final String ROLE_TEACH_QUALITY = "ROLE_TEACH_QUALITY";
-    
-    /**
-     * 角色名称常量:ROLE_ACADEMIC-学术经理
-     */
-    public static final String ROLE_ACADEMIC = "ROLE_ACADEMIC";
+	 * 角色名称常量:ROLE_TEACHER-教师
+	 */
+	public static final String ROLE_TEACHER = "ROLE_TEACHER";
+
+	/**
+	 * 角色名称常量:ROLE_TEACH_QUALITY-教质经理
+	 */
+	public static final String ROLE_TEACH_QUALITY = "ROLE_TEACH_QUALITY";
+
+	/**
+	 * 角色名称常量:ROLE_ACADEMIC-学术经理
+	 */
+	public static final String ROLE_ACADEMIC = "ROLE_ACADEMIC";
 
 	/**
 	 * 角色名称常量:ROLE_CORP_SERV-就业服务部
@@ -204,38 +205,46 @@ public final class HrConstants {
 	 * 角色名称常量:ROLE_ADMIN-系统管理员
 	 */
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
-	
+
 	/**
 	 * 角色名称常量:ROLE_EXAMINATION-审核就业状态
 	 */
 	public static final String ROLE_EXAMINATION = "ROLE_EXAMINATION";
-	
+
 	/**
 	 * 角色名称常量:ROLE_ASSET_MANAGER-资产管理员
 	 */
 	public static final String ROLE_ASSET_MANAGER = "ROLE_ASSET_MANAGER";
-	
+
 	/**
 	 * 角色名称常量:ROLE_SERVICE-行政主管
 	 */
 	public static final String ROLE_SERVICE = "ROLE_SERVICE";
-	
+
 	/**
 	 * 角色名称常量:ROLE_NOTICE_PROMULGATOR-通知公告管理员
 	 */
-	public static final String ROLE_NOTICE_PROMULGATOR =
-		"ROLE_NOTICE_PROMULGATOR";
-	
+	public static final String ROLE_NOTICE_PROMULGATOR = "ROLE_NOTICE_PROMULGATOR";
+
 	/**
 	 * 角色名称常量:ROLE_DEPT_MANAGER-部门经理
 	 */
 	public static final String ROLE_DEPT_MANAGER = "ROLE_DEPT_MANAGER";
-	
+
 	/**
 	 * 角色名称常量：ROLE_ATTENDANCE_MANAGER考勤管理员
 	 */
-	public static final String ROLE_ATTENDANCE_MANAGER = 
-		"ROLE_ATTENDANCE_MANAGER";
+	public static final String ROLE_ATTENDANCE_MANAGER = "ROLE_ATTENDANCE_MANAGER";
+	/** 机构类别-支队 */
+	public static final String DEPT_TYPE_0 = "0";
+	/** 机构类别-大队(市) */
+	public static final String DEPT_TYPE_1 = "1";
+	/** 机构类别-大队(县) */
+	public static final String DEPT_TYPE_2 = "2";
+	/** 机构类别-中队(市) */
+	public static final String DEPT_TYPE_3 = "3";
+	/** 机构类别-中队(县) */
+	public static final String DEPT_TYPE_4 = "4";
 
 	/**
 	 * 未审核，已通过审核，未通过审核Map
