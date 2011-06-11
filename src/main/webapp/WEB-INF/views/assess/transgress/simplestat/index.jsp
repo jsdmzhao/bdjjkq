@@ -32,6 +32,10 @@
 	max-height:300px;
 	
 }
+.clossBtn{
+	margin-left: 20px;
+	
+}
 </style>
 </head>
 <body>
@@ -199,16 +203,17 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
 		data:{'secondLevelTypeId':secondLevelTypeId},
 		dataType:'json',
 		success:function(data){
+			var tableId = '"'+'SST'+secondLevelTypeId+'"';
 			var rows = data.length;
 			//var trId = $('#transgressActions>tbody>tr:last').attr("id");
 			//trId++;
 			//var	str = "<tr id = '"+trId+"'><td width='30%'></td></tr>";
 			var html = [];
-			html.push("<tr><td><table class='sstTable' id='SST"+secondLevelTypeId+"' width='100%'><tr><td class='transgressTypeTitle'>"+secondLevelTypeDescn+"<input type='hidden' disabled='disabled' name='secondLevelTypeIds' value='"+secondLevelTypeId+"'/></td></tr>");
+			html.push("<tr><td><table class='sstTable' id='SST"+secondLevelTypeId+"' width='100%'><tr><td class='transgressTypeTitle'>"+secondLevelTypeDescn+"&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'  onclick='checkAll("+tableId+",this)'>全选<input type='hidden' disabled='disabled' name='secondLevelTypeIds' value='"+secondLevelTypeId+"'/><img  class='clossBtn' src='${ctx}/images/icons/delete.gif' onclick='closeTable("+tableId+")'>关闭</td></tr>");
 			$.each(data,function(idx,item){
 				html.push("<tr><td align='left'><input type='checkbox' name='transgressActionCodes' value='"+item.code+"'/>"+item.code+":"+item.descns + "</td></tr>");
 			});
-			html.push("</table><div></td></tr>");
+			html.push("</table></td></tr>");
 			
 			$('#transgressActions').append(html.join(''));
 		}
@@ -235,6 +240,18 @@ function statIt(){
 	}
 	alert("请选择违法行为!");
 	return;
+}
+function checkAll(arg1,arg2){
+	if(arg2.checked){
+		$("#"+arg1+" :checkbox").attr("checked",true);
+	}else{
+		$("#"+arg1+" :checkbox").attr("checked",false);
+	}	
+	
+	
+}
+function closeTable(arg){
+	 $("#"+arg).parent().parent().remove();
 }
 </script>
 				<iframe width=188 height=166 

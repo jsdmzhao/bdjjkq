@@ -25,6 +25,10 @@
     margin-left:-9px;
     border:solid 1px #97B7E7;
 }
+.clossBtn{
+	margin-left: 20px;
+	
+}
 </style>
 </head>
 <body>
@@ -89,7 +93,7 @@
                   </TR>   
                   <TR>
                   	 <td align="right">时间依据：</td>
-                  	 <td><input type="radio" name="timeCondition" value="FXSJ" ${model.findOrDealWith eq 'FXSJ' ?  'checked="checked"' : ''} >发现时间</input>						
+                  	 <td><input type="radio" name="timeCondition" value="FXSJ" ${model.findOrDealWith ne 'CLSJ' ?  'checked="checked"' : ''} >发现时间</input>						
 					<input type="radio" name="timeCondition" value="CLSJ" ${model.findOrDealWith eq 'CLSJ' ?  'checked="checked"' : ''}>处理时间</input></td>
                      <td align="right">
                      	是否关联&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>违法强制表：</td>
@@ -111,7 +115,7 @@
                   				<tr>
                   					<td colspan="4">
                   						<table width="100%" class="sstTable"  id="SST${sst.id}">
-                  							<tr><td class="transgressTypeTitle">${sst.descns }</td></tr>
+                  							<tr><td class="transgressTypeTitle">${sst.descns }&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'  onclick='checkAll("SST${sst.id}",this)'>全选<img  class='clossBtn' src='${ctx}/images/icons/delete.gif' onclick='closeTable("SST${sst.id}")'>关闭</td></tr>
                   							<c:forEach items="${sst.transgressActions}" var="ta">
                   								<c:set value="'${ta.code}'" var="co"></c:set>
                   								<tr>
@@ -218,12 +222,13 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
 		data:{'secondLevelTypeId':secondLevelTypeId},
 		dataType:'json',
 		success:function(data){
+			var tableId = '"'+'SST'+secondLevelTypeId+'"';
 			var rows = data.length;
 			//var trId = $('#transgressActions>tbody>tr:last').attr("id");
 			//trId++;
 			//var	str = "<tr id = '"+trId+"'><td width='30%'></td></tr>";
 			var html = [];
-			html.push("<tr><td><table class='sstTable' id='SST"+secondLevelTypeId+"' width='100%'><tr><td class='transgressTypeTitle'>"+secondLevelTypeDescn+"<input type='hidden' disabled='disabled' name='secondLevelTypeIds' value='"+secondLevelTypeId+"'/></td></tr>");
+			html.push("<tr><td><table class='sstTable' id='SST"+secondLevelTypeId+"' width='100%'><tr><td class='transgressTypeTitle'>"+secondLevelTypeDescn+"&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'  onclick='checkAll("+tableId+",this)'>全选<input type='hidden' disabled='disabled' name='secondLevelTypeIds' value='"+secondLevelTypeId+"'/><img  class='clossBtn' src='${ctx}/images/icons/delete.gif' onclick='closeTable("+tableId+")'>关闭</td></tr>");
 			$.each(data,function(idx,item){
 				html.push("<tr><td align='left'><input type='checkbox' name='transgressActionIds' value='"+item.id+"'/>"+item.code+":"+item.descns + "</td></tr>");
 			});
@@ -263,6 +268,18 @@ function pause(milliSecond){
 			return;
 		}
 	}
+}
+function checkAll(arg1,arg2){
+	if(arg2.checked){
+		$("#"+arg1+" :checkbox").attr("checked",true);
+	}else{
+		$("#"+arg1+" :checkbox").attr("checked",false);
+	}	
+	
+	
+}
+function closeTable(arg){
+	 $("#"+arg).parent().parent().remove();
 }
 function saveIt(){
 	var checkArr ;
