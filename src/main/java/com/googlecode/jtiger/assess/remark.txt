@@ -1,4 +1,0 @@
-部署程序到服务器步骤
-1.修改appliction.properties中连接本地数据库连接的url,用户名,密码
-2.修改applictionContext.xml中的数据源
-3.修改dao类中查询库表名,加上表空间

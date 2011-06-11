@@ -2,9 +2,13 @@ package com.googlecode.jtiger.assess.transgress.statcfg.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.googlecode.jtiger.core.model.BaseIdModel;
+import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 
 /**
  * 违法统计项目,项目中关联违法行为
@@ -30,9 +34,11 @@ public class TransgressStatItem extends BaseIdModel {
 	private String secondLevelTypeIds;
 	/** 是否关联到vio_force表 */
 	private Boolean unionForce = false;
-	
+
 	/** 发现时间/处理时间 */
 	private String findOrDealWith = "FXSJ";
+	/** 统计项关联的部门 */
+	private Dept dept;
 
 	public String getName() {
 		return name;
@@ -84,6 +90,7 @@ public class TransgressStatItem extends BaseIdModel {
 	public void setUnionForce(Boolean unionForce) {
 		this.unionForce = unionForce;
 	}
+
 	@Column(columnDefinition = "varchar2(10) default 'FXSJ'")
 	public String getFindOrDealWith() {
 		return findOrDealWith;
@@ -91,6 +98,16 @@ public class TransgressStatItem extends BaseIdModel {
 
 	public void setFindOrDealWith(String findOrDealWith) {
 		this.findOrDealWith = findOrDealWith;
+	}
+
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "dept_id")
+	public Dept getDept() {
+		return dept;
+	}
+
+	public void setDept(Dept dept) {
+		this.dept = dept;
 	}
 
 }
