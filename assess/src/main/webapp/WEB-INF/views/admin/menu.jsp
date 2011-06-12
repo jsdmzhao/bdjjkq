@@ -120,17 +120,21 @@
 		<div style="padding-left:5px;">
 		  <div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/taskConstIndex.htm" target="main">任务管理</a>
+					<a href="${ctx}/assess/task/statcfg/taskConstIndex.htm" target="main">任务常量管理</a>
 			</div>
 	
+			 <div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/task/statcfg/taskDutyIndex.htm" target="main">日常勤务管理</a>
+			</div>
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/transgress/statcfg/statItem/index.htm" target="main">统计条件</a>
-			</div>		
+					<a href="${ctx}/assess/task/statcfg/taskDutyIndex.htm" target="main">B组考核标准管理</a>
+			</div>
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/transgress/properties/edit.htm" target="main">报表表头及备注</a>
-			</div>	 
+					<a href="${ctx}/assess/task/statcfg/taskDutyIndex.htm" target="main">重奖,一票否决管理</a>
+			</div>
 		</div>
 	</div>
 </div>
