@@ -7,8 +7,8 @@
 	         namespace="/assess/task/statcfg">
 		<action name="*" class="taskAction" method="{1}">
 		    <result name="{1}">/WEB-INF/views/assess/task/statcfg/{1}.jsp</result>
-		    <result name="saveTaskConstSuccess" type="redirect">taskConstIndex.htm</result>
-		    
+		    <result name="listTaskConst" type="redirect">taskConstIndex.htm</result>
+		    <result name="listTaskDuty" type="redirect">taskDutyIndex.htm</result>
 		   	    
 		</action>		
 	</package>
