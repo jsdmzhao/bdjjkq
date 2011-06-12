@@ -58,6 +58,12 @@
                         html:document.getElementById('menu_constStat_cfg').innerHTML,
                         border:false,
                         iconCls:'permit'
+                    },
+                    {                    
+                        title:'考核任务设置',
+                        html:document.getElementById('menu_task_cfg').innerHTML,
+                        border:false,
+                        iconCls:'permit'
                     }
                     ]
                 },

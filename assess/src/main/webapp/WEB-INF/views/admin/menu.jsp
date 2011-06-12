@@ -116,5 +116,22 @@
 			</div>	 
 		</div>
 	</div>
+	 <div id="menu_task_cfg">
+		<div style="padding-left:5px;">
+		  <div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/task/statcfg/taskConstIndex.htm" target="main">任务管理</a>
+			</div>
+	
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/transgress/statcfg/statItem/index.htm" target="main">统计条件</a>
+			</div>		
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/transgress/properties/edit.htm" target="main">报表表头及备注</a>
+			</div>	 
+		</div>
+	</div>
 </div>
 	
