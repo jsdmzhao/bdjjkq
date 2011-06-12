@@ -89,7 +89,33 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	toolbarContent="navigation|pagejump|pagesize|export|refresh|extend|status">    
 	<ec:row>
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>	
-		<ec:column width="300" property="name" title="项目名称" tipTitle="${item.name}" ellipsis="true" sortable="false"/>
+		<ec:column width="100" property="name" title="任务名称" tipTitle="${item.name}" ellipsis="true" sortable="false"/>
+		<ec:column width="100" property="transgressStatItem.name" title="任务统计项" tipTitle="${item.specialTransgressStatItem.name}" ellipsis="true" sortable="false"/>
+		<ec:column width="60" property="total" title="总分" tipTitle="${item.total}" ellipsis="true" sortable="false"/>
+		<ec:column width="60" property="aimCount" title="目标数量" tipTitle="${item.aimCount}" ellipsis="true" sortable="false"/>
+		<ec:column width="90" property="addPoint" title="超1例加分" tipTitle="${item.addPoint}" ellipsis="true" sortable="false"/>
+		<ec:column width="90" property="decreasePoint" title="少1例减分" tipTitle="${item.decreasePoint}" ellipsis="true" sortable="false"/>
+		<ec:column width="100" property="_4" title="额外加分项"  style="text-align:center;">
+	   	   <c:choose>
+	   	   	<c:when test="${item.hasSpecial}">
+	   	   		${item.specialTransgressStatItem.name }
+	   	   	</c:when>
+	   	   	<c:otherwise>
+	   	   		无
+	   	   	</c:otherwise>
+	   	   </c:choose>
+	   	</ec:column>
+	   	<ec:column width="100" property="_4" title="额外加分分值"  style="text-align:center;">
+	   	   <c:choose>
+	   	   	<c:when test="${item.hasSpecial}">
+	   	   		${item.specialPoint }
+	   	   	</c:when>
+	   	   	<c:otherwise>
+	   	   		--
+	   	   	</c:otherwise>
+	   	   </c:choose>
+	   	</ec:column>
+	   		
 	 	<ec:column width="160" property="_1" title="操作" style="text-align:center" sortable="false">
 	 	<%--
 			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> | --%>
@@ -108,10 +134,10 @@ function remove(id) {
           window.location = "${ctx}/assess/transgress/statcfg/statItem/remove.htm?model.id=" + id;
         }
     });*/
-    if(!confirm("确定要删除该统计项目吗?")){
+    if(!confirm("确定要删除该任务吗?")){
         return;
     }
-    window.location = "${ctx}/assess/task/statcfg/remove.htm?model.id=" + id;
+    window.location = "${ctx}/assess/task/statcfg/removeTaskConst.htm?model.id=" + id;
 }
 </script>
 <script type="text/javascript">
