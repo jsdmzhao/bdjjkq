@@ -40,8 +40,8 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 	 * 
 	 * @return
 	 */
-	public String dutyIndex() {
-		commonIndex(AssessConstants.DUTY);
+	public String taskDutyIndex() {
+		commonIndex(AssessConstants.TASK_DUTY);
 		return "taskDutyIndex";
 	}
 
@@ -79,25 +79,49 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 
 		return "editTaskConst";
 	}
-	/**
-	 * 保存任务常量方法
-	 * @return
-	 */
-	public String saveTaskConst(){
-		//类型为任务常量
-		getModel().setTaskConstOrDuty(AssessConstants.TASK_CONST);
-		super.save();
-		return "saveTaskConstSuccess";
-	}
 
 	/**
 	 * 编辑日常勤务方法
 	 * 
 	 * @return
 	 */
-	public String editDuty() {
+	public String editTaskDuty() {
 		super.edit();
-		return "editDuty.jsp";
+		return "editTaskDuty";
+	}
+
+	/**
+	 * 保存任务常量方法
+	 * 
+	 * @return
+	 */
+	public String saveTaskConst() {
+		// 类型为任务常量
+		getModel().setTaskConstOrDuty(AssessConstants.TASK_CONST);
+		super.save();
+		return "listTaskConst";
+	}
+
+	/**
+	 * 保存日常勤务方法
+	 * 
+	 * @return
+	 */
+	public String saveTaskDuty() {
+		// 类型为任务常量
+		getModel().setTaskConstOrDuty(AssessConstants.TASK_DUTY);
+		super.save();
+		return "listTaskDuty";
+	}
+
+	/**
+	 * 删除任务常量方法
+	 * 
+	 * @return
+	 */
+	public String removeTaskConst() {
+		super.remove();
+		return "listTaskConst";
 	}
 
 	public List<TransgressStatItem> getTransgressStatItems() {

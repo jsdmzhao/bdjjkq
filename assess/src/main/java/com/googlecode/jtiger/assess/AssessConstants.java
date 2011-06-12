@@ -18,6 +18,6 @@ public final class AssessConstants {
 	/** 任务常量 */
 	public static final String TASK_CONST = "TASK_CONST";
 	/** 日常勤务 */
-	public static final String DUTY = "DUTY";
+	public static final String TASK_DUTY = "TASK_DUTY";
 
 }

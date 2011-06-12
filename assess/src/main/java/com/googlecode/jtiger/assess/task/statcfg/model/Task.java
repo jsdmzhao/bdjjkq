@@ -41,6 +41,8 @@ public class Task extends BaseIdModel {
 	private String aimCount;
 	/** 减分 (少1人,扣xx分 ) */
 	private Float decreasePoint;
+	/** 是否有特殊(额外加分项) */
+	private Boolean hasSpecial;
 	/** 加分 (超额1人,加xx分) */
 	private Float addPoint;
 	/** 特殊项,(例如:醉酒拘留1人,加10分) */
@@ -171,6 +173,15 @@ public class Task extends BaseIdModel {
 
 	public void setTaskConstOrDuty(String taskConstOrDuty) {
 		this.taskConstOrDuty = taskConstOrDuty;
+	}
+
+	@Column(columnDefinition = "SMALLINT default 0")
+	public Boolean getHasSpecial() {
+		return hasSpecial;
+	}
+
+	public void setHasSpecial(Boolean hasSpecial) {
+		this.hasSpecial = hasSpecial;
 	}
 
 }
