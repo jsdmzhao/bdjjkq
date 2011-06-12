@@ -33,7 +33,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 <body>
 <s:form id="removeForm" action="role/remove" method="POST"></s:form>
 <div class="x-panel">
-  <div class="x-panel-header">管理任务常量</div>
+  <div class="x-panel-header">管理日常勤务</div>
     <div class="x-toolbar" style="height:26px;">
       <table width="99%" >
   	  <tr style="margin-top:  7px;"> 		
@@ -60,7 +60,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 			<tr>
 				<td><span class="ytb-sep"></span></td>
 				<td>
-					<a href="${ctx}/assess/task/statcfg/editTaskConst.htm"> 添加任务常量</a>	
+					<a href="${ctx}/assess/task/statcfg/editTaskDuty.htm"> 添加日常勤务</a>	
 				</td>
 			</tr>
 		</table>
@@ -72,7 +72,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
    <div class="x-panel-body">
      <div style="margin-left:-3px;" align="center">
 	<ec:table items="items" var="item" retrieveRowsCallback="process" sortRowsCallback="process" 
-	action="taskConstIndex.htm"
+	action="taskDutyIndex.htm"
 	useAjax="true" doPreload="false"
 	maxRowsExported="1000" 
 	pageSizeList="20,50,100" 
