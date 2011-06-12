@@ -27,16 +27,14 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
  */
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "assess_task")
+@Table(name = "assess_tasks")
 public class Task extends BaseIdModel {
 	/** 名称 */
 	private String name;
-	/** 关联违法行为代码字符串 */
-	// private String transgressActionCodes;
+
 	/** 关联违法行为统计项 */
 	private TransgressStatItem transgressStatItem;
-	/** 关联车辆使用性质代码字符串 */
-	private String vehicleUseCodes;
+
 	/** 总分(完成任务得xx分) */
 	private Float total;
 	/** 目标数量--指标 (不低于xx) */
@@ -47,15 +45,16 @@ public class Task extends BaseIdModel {
 	private Float addPoint;
 	/** 特殊项,(例如:醉酒拘留1人,加10分) */
 	private String specialItem;
-	/** 特殊项关联的违法行为 */
-	// private String specialItemTACodes;
+	/** 特殊项关联违法行为统计项 */
 	private TransgressStatItem specialTransgressStatItem;
 	/** 特殊项关联的车辆使用性质 */
-	private String specialVehicleUseCodes;
+	// private String specialVehicleUseCodes;
 	/** 特殊项分值 */
 	private Float specialPoint;
 	/** 组别,A组/B组 */
 	private String teamType;
+	/** 任务常量/日常 */
+	private String taskConstOrDuty;
 	/** 常规项/重奖项/一票否决项/其他奖项 */
 	private String itemtype;
 	/** 关联大队任务 */
@@ -67,22 +66,6 @@ public class Task extends BaseIdModel {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * public String getTransgressActionCodes() { return transgressActionCodes;
-	 * }
-	 * 
-	 * public void setTransgressActionCodes(String transgressActionCodes) {
-	 * this.transgressActionCodes = transgressActionCodes; }
-	 */
-
-	public String getVehicleUseCodes() {
-		return vehicleUseCodes;
-	}
-
-	public void setVehicleUseCodes(String vehicleUseCodes) {
-		this.vehicleUseCodes = vehicleUseCodes;
 	}
 
 	public Float getTotal() {
@@ -125,14 +108,6 @@ public class Task extends BaseIdModel {
 		this.specialItem = specialItem;
 	}
 
-	public String getSpecialVehicleUseCodes() {
-		return specialVehicleUseCodes;
-	}
-
-	public void setSpecialVehicleUseCodes(String specialVehicleUseCodes) {
-		this.specialVehicleUseCodes = specialVehicleUseCodes;
-	}
-
 	public Float getSpecialPoint() {
 		return specialPoint;
 	}
@@ -168,12 +143,6 @@ public class Task extends BaseIdModel {
 		this.battalionTasks = battalionTasks;
 	}
 
-	/*
-	 * public String getSpecialItemTACodes() { return specialItemTACodes; }
-	 * 
-	 * public void setSpecialItemTACodes(String specialItemTACodes) {
-	 * this.specialItemTACodes = specialItemTACodes; }
-	 */
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "stat_item_id")
 	public TransgressStatItem getTransgressStatItem() {
@@ -193,6 +162,15 @@ public class Task extends BaseIdModel {
 	public void setSpecialTransgressStatItem(
 			TransgressStatItem specialTransgressStatItem) {
 		this.specialTransgressStatItem = specialTransgressStatItem;
+	}
+
+	@Column(columnDefinition = "varchar2(10)")
+	public String getTaskConstOrDuty() {
+		return taskConstOrDuty;
+	}
+
+	public void setTaskConstOrDuty(String taskConstOrDuty) {
+		this.taskConstOrDuty = taskConstOrDuty;
 	}
 
 }
