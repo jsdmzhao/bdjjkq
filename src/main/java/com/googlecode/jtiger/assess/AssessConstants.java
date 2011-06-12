@@ -15,5 +15,9 @@ public final class AssessConstants {
 	/** VIO_FORCE表名,,默认为公安网库表名 */
 	public static final String VIO_FORCE = ResBundleUtil.getString(
 			Constants.RESOURCE_BUNDLE, "vio_force", "vio_admin.vio_force");
+	/** 任务常量 */
+	public static final String TASK_CONST = "TASK_CONST";
+	/** 日常勤务 */
+	public static final String DUTY = "DUTY";
 
 }
