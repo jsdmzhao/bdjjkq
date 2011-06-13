@@ -61,6 +61,7 @@ public class Task extends BaseIdModel {
 	private String itemtype;
 	/** 关联大队任务 */
 	private Set<BattalionTask> battalionTasks = new HashSet<BattalionTask>(0);
+	private Set<TaskDutyDetail> taskDutyDetails = new HashSet<TaskDutyDetail>(0);
 
 	public String getName() {
 		return name;
@@ -182,6 +183,15 @@ public class Task extends BaseIdModel {
 
 	public void setHasSpecial(Boolean hasSpecial) {
 		this.hasSpecial = hasSpecial;
+	}
+
+	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "task")
+	public Set<TaskDutyDetail> getTaskDutyDetails() {
+		return taskDutyDetails;
+	}
+
+	public void setTaskDutyDetails(Set<TaskDutyDetail> taskDutyDetails) {
+		this.taskDutyDetails = taskDutyDetails;
 	}
 
 }
