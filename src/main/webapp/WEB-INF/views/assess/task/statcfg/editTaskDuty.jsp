@@ -58,34 +58,76 @@
                   <c:forEach items="${model.taskDutyDetails}" var="detail">
                   	<tr>
                   		<td align="right" width="20%">评分项目：</td>
-	                     <td align="left" width="30%"><s:textfield name="detailItem" cssStyle="width:250px;"></s:textfield></td>
+	                     <td align="left" width="30%">
+	                     	<s:textfield name="detail.name" cssStyle="width:250px;"></s:textfield>
+	                     	<s:hidden name="detail.id"></s:hidden>
+	                     </td>
 	                     <td align="right" width="10%" >加/减分：</td>	                     
 	                     <td align="left" width="10%">
-		                      <select name="addOrDecrease" >
+		                      <select name="detail.addOrDecrease" >
 		                      	<option value="">请选择</option>
 		                     	<option value="0">减分</option>
 		                     	<option value="1">加分</option>
 		                     </select>
 	                     </td>
 	                     <td align="right" width="10%">分值：</td>
-	                     <td align="left" width="8%"><s:textfield name="model.decreasePoint"></s:textfield></td>
+	                     <td align="left" width="8%"><s:textfield name="detail.point"></s:textfield></td>
                   	</tr>
                   </c:forEach>                                                                           
-                  <TR>
-                  	 <td align="right" width="20%">评分项目：</td>
-                     <td align="left" width="30%"><s:textfield name="detailItem" cssStyle="width:250px;"></s:textfield></td>
-                     <td align="right" width="10%" >加/减分：</td>
-                     <td align="left" width="10%">
-	                     <select name="addOrDecrease">
-	                        <option value="">请选择</option>
-	                     	<option value="0">减分</option>
-	                     	<option value="1">加分</option>
-	                     </select>
-                     </td>
-                     <td align="right" width="8%" >分值：</td>
-                     <td align="left" width="8%"><s:textfield name="model.decreasePoint" cssStyle="width:60px;"></s:textfield></td>
-                     <td id="labelTdRow"><u id="labelURow" class="fakelink"  onclick="addLabelRow(this)">添加新行</u></td>
-                  </TR>
+                  <tr id="dutyItemName1">
+                  		<td align="right" width="20%">评分项目：</td>
+	                     <td align="left" width="30%">
+	                     	<s:textfield name="model.dutyItemName1" cssStyle="width:250px;"></s:textfield>
+	                     	<s:hidden name="detail.id"></s:hidden>
+	                     </td>
+	                     <td align="right" width="10%" >加/减分：</td>	                     
+	                     <td align="left" width="10%">
+		                      <select name="model.addOrDecrease1" >
+		                      	<option value="">请选择</option>
+		                     	<option value="0">减分</option>
+		                     	<option value="1">加分</option>
+		                     </select>
+	                     </td>
+	                     <td align="right" width="10%">分值：</td>
+	                     <td align="left" width="8%"><s:textfield name="model.dutyItemPoint1"></s:textfield></td>
+	                     <td id="labelTdRow"><u id="labelURow" class="fakelink" onclick="addLabelRow(this)"></u></td>
+                  	</tr>
+                 <tr id="dutyItemName2">
+                  		<td align="right" width="20%">评分项目：</td>
+	                     <td align="left" width="30%">
+	                     	<s:textfield name="model.dutyItemName2" cssStyle="width:250px;"></s:textfield>
+	                     	<s:hidden name="detail.id"></s:hidden>
+	                     </td>
+	                     <td align="right" width="10%" >加/减分：</td>	                     
+	                     <td align="left" width="10%">
+		                      <select name="model.addOrDecrease2" >
+		                      	<option value="">请选择</option>
+		                     	<option value="0">减分</option>
+		                     	<option value="1">加分</option>
+		                     </select>
+	                     </td>
+	                     <td align="right" width="10%">分值：</td>
+	                     <td align="left" width="8%"><s:textfield name="model.dutyItemPoint2"></s:textfield></td>
+	                     <td id="labelTdRow"><input type="checkbox" id="checkDutyItemName2" onclick="enableIt('dutyItemName2',this)">启用 </td>
+                  	</tr>
+                  	<tr id="dutyItemName3">
+                  		<td align="right" width="20%">评分项目：</td>
+	                     <td align="left" width="30%">
+	                     	<s:textfield name="model.dutyItemName3" cssStyle="width:250px;"></s:textfield>
+	                     	<s:hidden name="detail.id"></s:hidden>
+	                     </td>
+	                     <td align="right" width="10%" >加/减分：</td>	                     
+	                     <td align="left" width="10%">
+		                      <select name="model.addOrDecrease3" >
+		                      	<option value="">请选择</option>
+		                     	<option value="0">减分</option>
+		                     	<option value="1">加分</option>
+		                     </select>
+	                     </td>
+	                     <td align="right" width="10%">分值：</td>
+	                     <td align="left" width="8%"><s:textfield name="model.dutyItemPoint3"></s:textfield></td>
+	                     <td id="labelTdRow"><input type="checkbox" id="checkDutyItemName3" onclick="enableIt('dutyItemName3',this)">启用 </td>
+                  	</tr>                                                    
                  </table> 
               </fieldset>
               <table width="100%" style="margin-bottom:10px;">
@@ -104,39 +146,84 @@
 </div>
 
 <script type="text/javascript">
+$(document).ready(
+		<c:if test="${empty model.dutyItemName2}">
+		 function(){
+			 	$("#dutyItemName2").children().attr("disabled","disabled")
+				$("#dutyItemName2").children().attr("disabled","disabled");
+				$("#dutyItemName2" +" select").attr("disabled","disabled");
+				$("#dutyItemName2" +" select option").attr("disabled","disabled");
+				$("#dutyItemName2" +" input").attr("disabled","disabled");
+				$("#checkDutyItemName2").attr("disabled","");
+				
+			   }
+        </c:if>
+  
+);
+$(document).ready(
+		<c:if test="${empty model.dutyItemName3}">
+		 function(){
+			 	$("#dutyItemName3").children().attr("disabled","disabled")
+				$("#dutyItemName3").children().attr("disabled","disabled");
+				$("#dutyItemName3" +" select").attr("disabled","disabled");
+				$("#dutyItemName3" +" select option").attr("disabled","disabled");
+				$("#dutyItemName3" +" input").attr("disabled","disabled");
+				$("#checkDutyItemName3").attr("disabled","");
+			   }
+        </c:if>
+  
+);
+function enableIt(arg1,arg2){
+	if(arg2.checked){
+		$("#"+arg1).children().attr("disabled","");
+		$("#"+arg1 +" select").attr("disabled","");
+		$("#"+arg1 +" select option").attr("disabled","");
+		$("#"+arg1 +" input").attr("disabled","");
+	}else{
+		$("#"+arg1).children().attr("disabled","disabled")
+		$("#"+arg1).children().attr("disabled","disabled");
+		$("#"+arg1 +" select").attr("disabled","disabled");
+		$("#"+arg1 +" select option").attr("disabled","disabled");
+		$("#"+arg1 +" input").attr("disabled","disabled");
+		arg2.disabled = "";
+	}
+	vali();
+}
+function vali(){
 $("#saveFrm").validate({
 	rules: {
 		'model.name':  {
 			required : true
 		},
-		'detailItem':  {
+		'model.dutyItemName1':  {
 			required : true
 		},
-		'model.transgressStatItem.id':  {
+		'model.dutyItemName2':  {
 			required : true
 		},
-		'model.aimCount':{
-			required : true,
-			digits   : true,
-			min      : 0
+		'model.dutyItemName3':  {
+			required : true
 		},
-		'model.addPoint':{
+		'model.addOrDecrease1':{
+			required : true
+		},
+		'model.addOrDecrease2':{
+			required : true
+		},
+		'model.addOrDecrease3':{
+			required : true
+		}
+		,'model.dutyItemPoint1':{
 			required : true,
 			number   : true,
 			min      : 0
 		}
-		,'model.decreasePoint':{
+		,'model.dutyItemPoint2':{
 			required : true,
 			number   : true,
 			min      : 0
 		},
-		'model.specialItem':{
-			required : true
-		},
-		'model.specialTransgressStatItem.id':{
-			required : true
-		},
-		'model.specialPoint':{
+		'model.dutyItemPoint3':{
 			required : true,
 			number   : true,
 			min      : 0
@@ -146,46 +233,49 @@ $("#saveFrm").validate({
 		'model.name': {
 			required: "请输入名称"			
 		},
-		'model.total':  {
-			required: "请输入完成任务得分",
-			number:   "请输入数字",
-			min     : "请输入数字"
+		'model.dutyItemName1':  {
+			required : "请输入名称"
 		},
-		'model.transgressStatItem.id':{
-			required:"请选择违法项目"
+		'model.dutyItemName2':  {
+			required : "请输入名称"
 		},
-		'model.aimCount':{
-			required : "请输入目标数量",
-			digits : "请输入数字",
-			min     : "请输入数字"
+		'model.dutyItemName3':  {
+			required : "请输入名称"
 		},
-		'model.addPoint':{
-			required : "请输入加分分数",
-			number : "请输入数字",
-			min     : "请输入数字"
+		'model.addOrDecrease1':{
+			required : "请选择加/减分"
 		},
-		'model.decreasePoint':{
-			required : "请输入减分分数",
-			number : "请输入数字",
-			min     : "请输入数字"
+		'model.addOrDecrease2':{
+			required : "请选择加/减分"
 		},
-		'model.specialItem':{
-			required : "请输入额外加分项名称"
-		},
-		'model.specialTransgressStatItem.id':{
-			required:"请选择违法项目"
-		},
-		'model.specialPoint':{
-			required : "请输入额外加分分数",
+		'model.addOrDecrease3':{
+			required : "请选择加/减分"
+		}
+		,'model.dutyItemPoint1':{
+			required : "请输入分值",
 			number   : "请输入数字",
-			min      : "请输入数字"
+			min      : "请输入有效数字"
+		}
+		,'model.dutyItemPoint2':{
+			required : "请输入分值",
+			number   : "请输入数字",
+			min      : "请输入有效数字"
+		},
+		'model.dutyItemPoint3':{
+			required : "请输入分值",
+			number   : "请输入数字",
+			min      : "请输入有效数字"
 		}
 	}
 });
-
+}
+$(function(){
+	vali();
+});
 function addLabelRow(arg){
-  var html = '<tr><td align="right" width="20%">评分项目：</td><td align="left" width="30%"><s:textfield name="detailItem" cssStyle="width:250px;"></s:textfield></td><td align="right" width="10%" >加/减分：</td><td align="left" width="10%"><select name="addOrDecrease"><option value="">请选择</option><option value="0">减分</option><option value="1">加分</option></select></td><td align="right" width="8%" >分值：</td><td align="left" width="8%"><s:textfield name="model.decreasePoint" cssStyle="width:60px;"></s:textfield></td><td id="labelTdRow"></td></tr>';
+  var html = '<tr><td align="right" width="20%">评分项目：</td><td align="left" width="30%"><s:textfield name="detailItem" cssStyle="width:250px;"></s:textfield></td><td align="right" width="10%" >加/减分：</td><td align="left" width="10%"><select name="addOrDecrease"><option value="">请选择</option><option value="0">减分</option><option value="1">加分</option></select></td><td align="right" width="8%" >分值：</td><td align="left" width="8%"><s:textfield name="detail.point" cssStyle="width:60px;"></s:textfield></td><td id="labelTdRow"></td></tr>';
   $('#formTable').append(html);
+  vali();
 }
 
 

@@ -198,19 +198,20 @@ $("#saveFrm").validate({
 });
 
 $(document).ready(
-   function(){
-	   if(!${model.hasSpecial}){
-		   $("#exItemsTable").children().attr("disabled","disabled");
-		   $("#exItemsTable select option").attr("disabled","disabled");
-		   $("#exItemsTable input").attr("disabled","disabled");
-		   $("#specialTransgressStatItems").attr("disabled","disabled");
-		   $("#specialTransgressStatItems option").attr("disabled","disabled");
-	   }
-   }
+		<c:if test="${!model.hasSpecial}">
+		 function(){
+				   $("#exItemsTable").children().attr("disabled","disabled");
+				   $("#exItemsTable select option").attr("disabled","disabled");
+				   $("#exItemsTable input").attr("disabled","disabled");
+				   $("#specialTransgressStatItems").attr("disabled","disabled");
+				   $("#specialTransgressStatItems option").attr("disabled","disabled");
+			   }
+        </c:if>
+  
 );
 function selectEx(arg){
 	if(arg.checked){
-		$("#exItemsTable").children().attr("disabled","").attr("");
+		$("#exItemsTable").children().attr("disabled","");
 		//$("#exItemsTable select option").attr("disabled","");
 		$("#exItemsTable input").attr("disabled","");
 		$("#specialTransgressStatItems").attr("disabled","");
