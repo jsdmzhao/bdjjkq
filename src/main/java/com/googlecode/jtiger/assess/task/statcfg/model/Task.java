@@ -62,6 +62,15 @@ public class Task extends BaseIdModel {
 	/** 关联大队任务 */
 	private Set<BattalionTask> battalionTasks = new HashSet<BattalionTask>(0);
 	private Set<TaskDutyDetail> taskDutyDetails = new HashSet<TaskDutyDetail>(0);
+	private String dutyItemName1;
+	private Boolean addOrDecrease1;
+	private Float dutyItemPoint1;
+	private String dutyItemName2;
+	private Boolean addOrDecrease2;
+	private Float dutyItemPoint2;
+	private String dutyItemName3;
+	private Boolean addOrDecrease3;
+	private Float dutyItemPoint3;
 
 	public String getName() {
 		return name;
@@ -192,6 +201,81 @@ public class Task extends BaseIdModel {
 
 	public void setTaskDutyDetails(Set<TaskDutyDetail> taskDutyDetails) {
 		this.taskDutyDetails = taskDutyDetails;
+	}
+
+	public String getDutyItemName1() {
+		return dutyItemName1;
+	}
+
+	public void setDutyItemName1(String dutyItemName1) {
+		this.dutyItemName1 = dutyItemName1;
+	}
+
+	@Column(columnDefinition = "SMALLINT default 0")
+	public Boolean getAddOrDecrease1() {
+		return addOrDecrease1;
+	}
+
+	public void setAddOrDecrease1(Boolean addOrDecrease1) {
+		this.addOrDecrease1 = addOrDecrease1;
+	}
+
+	public Float getDutyItemPoint1() {
+		return dutyItemPoint1;
+	}
+
+	public void setDutyItemPoint1(Float dutyItemPoint1) {
+		this.dutyItemPoint1 = dutyItemPoint1;
+	}
+
+	public String getDutyItemName2() {
+		return dutyItemName2;
+	}
+
+	public void setDutyItemName2(String dutyItemName2) {
+		this.dutyItemName2 = dutyItemName2;
+	}
+
+	@Column(columnDefinition = "SMALLINT default 0")
+	public Boolean getAddOrDecrease2() {
+		return addOrDecrease2;
+	}
+
+	public void setAddOrDecrease2(Boolean addOrDecrease2) {
+		this.addOrDecrease2 = addOrDecrease2;
+	}
+
+	public Float getDutyItemPoint2() {
+		return dutyItemPoint2;
+	}
+
+	public void setDutyItemPoint2(Float dutyItemPoint2) {
+		this.dutyItemPoint2 = dutyItemPoint2;
+	}
+
+	public String getDutyItemName3() {
+		return dutyItemName3;
+	}
+
+	public void setDutyItemName3(String dutyItemName3) {
+		this.dutyItemName3 = dutyItemName3;
+	}
+
+	@Column(columnDefinition = "SMALLINT default 0")
+	public Boolean getAddOrDecrease3() {
+		return addOrDecrease3;
+	}
+
+	public void setAddOrDecrease3(Boolean addOrDecrease3) {
+		this.addOrDecrease3 = addOrDecrease3;
+	}
+
+	public Float getDutyItemPoint3() {
+		return dutyItemPoint3;
+	}
+
+	public void setDutyItemPoint3(Float dutyItemPoint3) {
+		this.dutyItemPoint3 = dutyItemPoint3;
 	}
 
 }
