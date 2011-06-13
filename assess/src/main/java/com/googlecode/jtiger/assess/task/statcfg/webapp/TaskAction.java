@@ -1,7 +1,9 @@
 package com.googlecode.jtiger.assess.task.statcfg.webapp;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang.xwork.StringUtils;
 import org.hibernate.criterion.MatchMode;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 
 import com.googlecode.jtiger.assess.AssessConstants;
 import com.googlecode.jtiger.assess.task.statcfg.model.Task;
+import com.googlecode.jtiger.assess.task.statcfg.model.TaskDutyDetail;
 import com.googlecode.jtiger.assess.task.statcfg.service.TaskManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressStatItemManager;
@@ -108,8 +111,16 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 	 * @return
 	 */
 	public String saveTaskDuty() {
-		// 类型为任务常量
+		// 类型为日常勤务
 		getModel().setTaskConstOrDuty(AssessConstants.TASK_DUTY);
+		String[] names = getRequest().getParameterValues("detail.name");
+		String[] addOrDecreases = getRequest().getParameterValues(
+				"detail.addOrDecrease");
+		String[] points = getRequest().getParameterValues("detail.point");
+		Set<TaskDutyDetail> tdds = new HashSet<TaskDutyDetail>(0);
+		for (String name : names) {
+			
+		}
 		super.save();
 		return "listTaskDuty";
 	}
