@@ -10,6 +10,9 @@
 <%@include file="/common/ec.jsp" %>
 <%@include file="/common/extjs.jsp" %>
 <script type="text/javascript" src="${ctx}/scripts/jquery.form.js"></script>
+<style type='text/css' rel='stylesheet'>
+.fakelink {color: #0000cc; cursor: pointer; white-space: nowrap;}
+</style>
 <style type="text/css">
 .transgressTypeTitle{
 	text-align:left;
@@ -33,7 +36,7 @@
 </head>
 <body>
 <div class="x-panel">
-    <div class="x-panel-header">统计项信息管理</div>
+    <div class="x-panel-header">日常勤务管理</div>
     <div class="x-toolbar" style="text-align: right;">
 		<a href="index.htm">管理首页</a>
     </div>
@@ -43,62 +46,47 @@
 		<tr>
 			<td align="center">
 			<fieldset> 
-              <legend>任务常量信息</legend>
-                <table cellpadding="3" cellspacing="2" width="100%">
+              <legend>日常勤务信息</legend>
+                <table cellpadding="3" cellspacing="2" width="100%" id="formTable">
                   <tr>
-                     <td align="right" width="20%">名&nbsp;&nbsp;称：</td>
-                     <td align="left" width="30%"  ><s:textfield name="model.name" cssClass="required"></s:textfield></td>
-                     <td  width="20%" align="right">完成任务得分：</td>
-                     <td align="left" width="30%">
-                     	<s:textfield name="model.total"></s:textfield>
+                     <td align="right" width="20%">名&nbsp;&nbsp;&nbsp;&nbsp;称：</td>
+                     <td align="left" width="80%" colspan="6"  >
+                     	<s:textfield name="model.name"  cssStyle="width:597px;" cssClass="required"></s:textfield>
                      </td>
-                  </tr>
-                                 
+                     
+                  </tr>   
+                  <c:forEach items="${model.taskDutyDetails}" var="detail">
+                  	<tr>
+                  		<td align="right" width="20%">评分项目：</td>
+	                     <td align="left" width="30%"><s:textfield name="detailItem" cssStyle="width:250px;"></s:textfield></td>
+	                     <td align="right" width="10%" >加/减分：</td>	                     
+	                     <td align="left" width="10%">
+		                      <select name="addOrDecrease" >
+		                      	<option value="">请选择</option>
+		                     	<option value="0">减分</option>
+		                     	<option value="1">加分</option>
+		                     </select>
+	                     </td>
+	                     <td align="right" width="10%">分值：</td>
+	                     <td align="left" width="8%"><s:textfield name="model.decreasePoint"></s:textfield></td>
+                  	</tr>
+                  </c:forEach>                                                                           
                   <TR>
-                  	 <td align="right">违法项目：</td>
-                     <td align="left">
-                     	<s:select list="transgressStatItems" id="transgressStatItems"  headerKey ="" headerValue = "请选择" 
-                     	name="model.transgressStatItem.id" listKey="id" listValue="name" cssClass="m_t_b" 
-                     	cssStyle="width:300px;padding-left:2px;"  ></s:select>
+                  	 <td align="right" width="20%">评分项目：</td>
+                     <td align="left" width="30%"><s:textfield name="detailItem" cssStyle="width:250px;"></s:textfield></td>
+                     <td align="right" width="10%" >加/减分：</td>
+                     <td align="left" width="10%">
+	                     <select name="addOrDecrease">
+	                        <option value="">请选择</option>
+	                     	<option value="0">减分</option>
+	                     	<option value="1">加分</option>
+	                     </select>
                      </td>
-                     <td align="right">目标数量：</td>
-                     <td align="left"><s:textfield name="model.aimCount"></s:textfield></td>
-                  </TR>                                   
-                  <TR>
-                  	 <td align="right">超1例加分：</td>
-                     <td align="left"><s:textfield name="model.addPoint"></s:textfield></td>
-                     <td align="right">少1例扣分：</td>
-                     <td align="left"><s:textfield name="model.decreasePoint"></s:textfield></td>
+                     <td align="right" width="8%" >分值：</td>
+                     <td align="left" width="8%"><s:textfield name="model.decreasePoint" cssStyle="width:60px;"></s:textfield></td>
+                     <td id="labelTdRow"><u id="labelURow" class="fakelink"  onclick="addLabelRow(this)">添加新行</u></td>
                   </TR>
-                  <tr>
-                  	<td align="right">
-                  	<s:checkbox name="model.hasSpecial" value="model.hasSpecial"   onclick='selectEx(this)'></s:checkbox>
-                  	额外加分项</td>
-                  	<td align="left" ></td>
-                  	<td colspan="2"></td>
-                  </tr>
-                  <tr>
-                  	<td colspan="4">
-                  		<table width="100%" id="exItemsTable">
-                  			<tr>
-			                  	<td align="right" width="20%">名&nbsp;&nbsp;称：</td>
-			                    <td align="left" colspan="3"><s:textfield name="model.specialItem" ></s:textfield></td>                    
-		                  </tr>  
-		                  <tr>
-		                  	<td align="right">违法项目：</td>
-		                     <td align="left" width="30%">
-		                     	<s:select list="transgressStatItems" id="specialTransgressStatItems"  headerKey ="" headerValue = "请选择" 
-		                     	name="model.specialTransgressStatItem.id" listKey="id" listValue="name" cssClass="m_t_b" 
-		                     	cssStyle="width:300px;padding-left:2px;"  ></s:select>
-		                     </td>
-		                   <td align="right" width="20%">分数：</td>
-		                    <td align="left" width="30%"><s:textfield  name="model.specialPoint"></s:textfield></td>
-		                  </tr>
-                  		</table>
-                  	</td>
-                  </tr>
-                  
-                </table> 
+                 </table> 
               </fieldset>
               <table width="100%" style="margin-bottom:10px;">
 				<tr>
@@ -121,10 +109,8 @@ $("#saveFrm").validate({
 		'model.name':  {
 			required : true
 		},
-		'model.total':  {
-			required : true,
-			number   : true,
-			min      : 0
+		'detailItem':  {
+			required : true
 		},
 		'model.transgressStatItem.id':  {
 			required : true
@@ -197,70 +183,12 @@ $("#saveFrm").validate({
 	}
 });
 
-$(document).ready(
-   function(){
-	   if(!${model.hasSpecial}){
-		   $("#exItemsTable").children().attr("disabled","disabled");
-		   $("#exItemsTable select option").attr("disabled","disabled");
-		   $("#exItemsTable input").attr("disabled","disabled");
-		   $("#specialTransgressStatItems").attr("disabled","disabled");
-		   $("#specialTransgressStatItems option").attr("disabled","disabled");
-	   }
-   }
-);
-function selectEx(arg){
-	if(arg.checked){
-		$("#exItemsTable").children().attr("disabled","").attr("");
-		//$("#exItemsTable select option").attr("disabled","");
-		$("#exItemsTable input").attr("disabled","");
-		$("#specialTransgressStatItems").attr("disabled","");
-		$("#specialTransgressStatItems option").attr("disabled","");
-	}else{
-		$("#exItemsTable input").val("");
-		$("#exItemsTable").children().attr("disabled","disabled");
-		$("#exItemsTable select option").attr("disabled","disabled");
-		$("#exItemsTable input").attr("disabled","disabled");
-		$("#specialTransgressStatItems").attr("disabled","disabled");
-		$("#specialTransgressStatItems").attr("selectedIndex","0");
-		$("#specialTransgressStatItems option").attr("disabled","disabled");
-	}
+function addLabelRow(arg){
+  var html = '<tr><td align="right" width="20%">评分项目：</td><td align="left" width="30%"><s:textfield name="detailItem" cssStyle="width:250px;"></s:textfield></td><td align="right" width="10%" >加/减分：</td><td align="left" width="10%"><select name="addOrDecrease"><option value="">请选择</option><option value="0">减分</option><option value="1">加分</option></select></td><td align="right" width="8%" >分值：</td><td align="left" width="8%"><s:textfield name="model.decreasePoint" cssStyle="width:60px;"></s:textfield></td><td id="labelTdRow"></td></tr>';
+  $('#formTable').append(html);
 }
 
-/**
- * 根据选中的topType值初始化subTypes选择框
- */
-function initSubTypes(firstLevelTypeId,curVal){
-	$('secondLevelTypes').html('');
-	if(firstLevelTypeId == ''){
-		return;
-	}
-	$.ajax({
-		url:'${ctx}/assess/transgress/statcfg/statItem/getSecondLevelTypesByFirstLevel.htm',
-		data:{'firstLevelTypeId':firstLevelTypeId},
-		dataType:'json',
-		success:function(data){
-			var html = [];
-			html.push("<option value=''>请选择</option>");
-			$.each(data,function(idx,item){
-				if(!curVal){
-					html.push("<option value='" + item.id + "'>" + item.descns + "</option>");
-				}else{
-					if(curVal == item.id){
-						html.push("<option selected value='" + item.id + "'>" + item.descns + "</option>"); 
-					}
-				}
-			});
-			$('#secondLevelTypes').html(html.join(''));
-			$('#l_typeB').hide();
-		},
-		beforeSend:function(){
-			$('#l_typeB').show();
-		},
-		error:function(){
-			$('#l_typeB').hide();
-		}
-	});
-}
+
 function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
 	if(secondLevelTypeId  == '' || $('#SST'+secondLevelTypeId).length > 0){return;}
 	$.ajax({
@@ -315,15 +243,7 @@ function pause(milliSecond){
 		}
 	}
 }
-function checkAll(arg1,arg2){
-	if(arg2.checked){
-		$("#"+arg1+" :checkbox").attr("checked",true);
-	}else{
-		$("#"+arg1+" :checkbox").attr("checked",false);
-	}	
-	
-	
-}
+
 function closeTable(arg){
 	 $("#"+arg).parent().parent().remove();
 }
