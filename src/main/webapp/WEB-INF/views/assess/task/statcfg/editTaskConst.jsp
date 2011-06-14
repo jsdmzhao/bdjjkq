@@ -35,7 +35,7 @@
 <div class="x-panel">
     <div class="x-panel-header">统计项信息管理</div>
     <div class="x-toolbar" style="text-align: right;">
-		<a href="index.htm">管理首页</a>
+		<a href="taskConstIndex.htm">管理首页</a>
     </div>
 	<s:form id="saveFrm" action="saveTaskConst" method="post">
 	<s:hidden id="model.id" name="model.id"/>

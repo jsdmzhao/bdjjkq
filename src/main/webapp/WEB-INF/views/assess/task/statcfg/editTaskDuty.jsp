@@ -38,9 +38,9 @@
 <div class="x-panel">
     <div class="x-panel-header">日常勤务管理</div>
     <div class="x-toolbar" style="text-align: right;">
-		<a href="index.htm">管理首页</a>
+		<a href="taskDutyIndex.htm">管理首页</a>
     </div>
-	<s:form id="saveFrm" action="saveTaskConst" method="post">
+	<s:form id="saveFrm" action="saveTaskDuty" method="post">
 	<s:hidden id="model.id" name="model.id"/>
 	<table width="800px" align="center">
 		<tr>
@@ -59,7 +59,7 @@
                   	<tr>
                   		<td align="right" width="20%">评分项目：</td>
 	                     <td align="left" width="30%">
-	                     	<s:textfield name="detail.name" cssStyle="width:250px;"></s:textfield>
+	                     	<s:textfield  name="detail.name" cssStyle="width:250px;"></s:textfield>
 	                     	<s:hidden name="detail.id"></s:hidden>
 	                     </td>
 	                     <td align="right" width="10%" >加/减分：</td>	                     
@@ -74,59 +74,47 @@
 	                     <td align="left" width="8%"><s:textfield name="detail.point"></s:textfield></td>
                   	</tr>
                   </c:forEach>                                                                           
-                  <tr id="dutyItemName1">
+                  <tr>
                   		<td align="right" width="20%">评分项目：</td>
 	                     <td align="left" width="30%">
-	                     	<s:textfield name="model.dutyItemName1" cssStyle="width:250px;"></s:textfield>
+	                     	<s:textfield id="dutyItemName1" name="model.dutyItemName1" cssStyle="width:250px;"></s:textfield>
 	                     	<s:hidden name="detail.id"></s:hidden>
 	                     </td>
 	                     <td align="right" width="10%" >加/减分：</td>	                     
 	                     <td align="left" width="10%">
-		                      <select name="model.addOrDecrease1" >
-		                      	<option value="">请选择</option>
-		                     	<option value="0">减分</option>
-		                     	<option value="1">加分</option>
-		                     </select>
+		                     <s:select list="addOrDecreaseMap" value="model.addOrDecrease1"  headerKey="" headerValue="请选择" name="model.addOrDecrease1" ></s:select>
 	                     </td>
 	                     <td align="right" width="10%">分值：</td>
-	                     <td align="left" width="8%"><s:textfield name="model.dutyItemPoint1"></s:textfield></td>
+	                     <td align="left" width="8%"><s:textfield id="dutyItemPoint1" name="model.dutyItemPoint1"></s:textfield></td>
 	                     <td id="labelTdRow"><u id="labelURow" class="fakelink" onclick="addLabelRow(this)"></u></td>
                   	</tr>
-                 <tr id="dutyItemName2">
+                 <tr id="dutyItem2" >
                   		<td align="right" width="20%">评分项目：</td>
 	                     <td align="left" width="30%">
-	                     	<s:textfield name="model.dutyItemName2" cssStyle="width:250px;"></s:textfield>
+	                     	<s:textfield id="dutyItemName2" name="model.dutyItemName2" cssStyle="width:250px;"></s:textfield>
 	                     	<s:hidden name="detail.id"></s:hidden>
 	                     </td>
 	                     <td align="right" width="10%" >加/减分：</td>	                     
 	                     <td align="left" width="10%">
-		                      <select name="model.addOrDecrease2" >
-		                      	<option value="">请选择</option>
-		                     	<option value="0">减分</option>
-		                     	<option value="1">加分</option>
-		                     </select>
+		                     <s:select list="addOrDecreaseMap" value="model.addOrDecrease2"  headerKey="" headerValue="请选择" name="model.addOrDecrease2" ></s:select>
 	                     </td>
 	                     <td align="right" width="10%">分值：</td>
-	                     <td align="left" width="8%"><s:textfield name="model.dutyItemPoint2"></s:textfield></td>
-	                     <td id="labelTdRow"><input type="checkbox" id="checkDutyItemName2" onclick="enableIt('dutyItemName2',this)">启用 </td>
+	                     <td align="left" width="8%"><s:textfield  id="dutyItemPoint2" name="model.dutyItemPoint2"></s:textfield></td>
+	                     <td id="labelTdRow"><input type="checkbox" id="checkDutyItemName2" onclick="enableIt('dutyItem2',this)">启用 </td>
                   	</tr>
-                  	<tr id="dutyItemName3">
+                  	<tr id="dutyItem3">
                   		<td align="right" width="20%">评分项目：</td>
 	                     <td align="left" width="30%">
-	                     	<s:textfield name="model.dutyItemName3" cssStyle="width:250px;"></s:textfield>
+	                     	<s:textfield id="dutyItemName3" name="model.dutyItemName3" cssStyle="width:250px;"></s:textfield>
 	                     	<s:hidden name="detail.id"></s:hidden>
 	                     </td>
 	                     <td align="right" width="10%" >加/减分：</td>	                     
-	                     <td align="left" width="10%">
-		                      <select name="model.addOrDecrease3" >
-		                      	<option value="">请选择</option>
-		                     	<option value="0">减分</option>
-		                     	<option value="1">加分</option>
-		                     </select>
+	                     <td align="left" width="10%">		                               	             
+							<s:select list="addOrDecreaseMap" value="model.addOrDecrease3"  headerKey="" headerValue="请选择" name="model.addOrDecrease3" ></s:select>
 	                     </td>
 	                     <td align="right" width="10%">分值：</td>
-	                     <td align="left" width="8%"><s:textfield name="model.dutyItemPoint3"></s:textfield></td>
-	                     <td id="labelTdRow"><input type="checkbox" id="checkDutyItemName3" onclick="enableIt('dutyItemName3',this)">启用 </td>
+	                     <td align="left" width="8%"><s:textfield  id="dutyItemPoint3" name="model.dutyItemPoint3"></s:textfield></td>
+	                     <td id="labelTdRow"><input type="checkbox" id="checkDutyItemName3" onclick="enableIt('dutyItem3',this)">启用 </td>
                   	</tr>                                                    
                  </table> 
               </fieldset>
@@ -149,13 +137,12 @@
 $(document).ready(
 		<c:if test="${empty model.dutyItemName2}">
 		 function(){
-			 	$("#dutyItemName2").children().attr("disabled","disabled")
-				$("#dutyItemName2").children().attr("disabled","disabled");
-				$("#dutyItemName2" +" select").attr("disabled","disabled");
-				$("#dutyItemName2" +" select option").attr("disabled","disabled");
-				$("#dutyItemName2" +" input").attr("disabled","disabled");
-				$("#checkDutyItemName2").attr("disabled","");
-				
+			 	//$("#dutyItemName2").children().attr("disabled","disabled")
+				//$("#dutyItemName2").children().attr("disabled","disabled");
+				$("#dutyItem2" +" select").attr("disabled","disabled");
+				$("#dutyItem2" +" select option").attr("disabled","disabled");
+				$("#dutyItem2:" +" input not([type='checkbox'])").attr("disabled","disabled");
+				//$("#checkDutyItemName2").attr("disabled","");				
 			   }
         </c:if>
   
@@ -163,11 +150,11 @@ $(document).ready(
 $(document).ready(
 		<c:if test="${empty model.dutyItemName3}">
 		 function(){
-			 	$("#dutyItemName3").children().attr("disabled","disabled")
-				$("#dutyItemName3").children().attr("disabled","disabled");
-				$("#dutyItemName3" +" select").attr("disabled","disabled");
-				$("#dutyItemName3" +" select option").attr("disabled","disabled");
-				$("#dutyItemName3" +" input").attr("disabled","disabled");
+			 	$("#dutyItem3").children().attr("disabled","disabled")
+				$("#dutyItem3").children().attr("disabled","disabled");
+				$("#dutyItem3" +" select").attr("disabled","disabled");
+				$("#dutyItem3" +" select option").attr("disabled","disabled");
+				$("#dutyItem3" +" input").attr("disabled","disabled");
 				$("#checkDutyItemName3").attr("disabled","");
 			   }
         </c:if>
