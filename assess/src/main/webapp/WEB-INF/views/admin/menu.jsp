@@ -129,11 +129,19 @@
 			</div>
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/taskDutyIndex.htm" target="main">B组考核标准管理</a>
+					<a href="${ctx}/assess/task/statcfg/groupBIndex.htm" target="main">B组考核标准管理</a>
 			</div>
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/taskDutyIndex.htm" target="main">重奖,一票否决管理</a>
+					<a href="${ctx}/assess/task/statcfg/awardIndex.htm" target="main">重奖项目管理</a>
+			</div>
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/task/statcfg/rejectIndex.htm" target="main">一票否决项目管理</a>
+			</div>
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/task/statcfg/otherIndex.htm" target="main">其他奖项管理</a>
 			</div>
 		</div>
 	</div>
