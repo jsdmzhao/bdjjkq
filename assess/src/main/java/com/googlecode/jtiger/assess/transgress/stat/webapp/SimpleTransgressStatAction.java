@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang.xwork.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +48,8 @@ public class SimpleTransgressStatAction extends
 	/** 条件3--违法行为范围,必须选择,以免全库查询 */
 	/** 用户选择的违法行为代码 */
 	private String[] transgressActionCodes;
+	/**文本域中的违法代码*/
+	private String taCodes;
 	/** 条件4--车辆使用性质, */
 	/** 界面传递过来的车辆使用性质代码 */
 	private String[] vehicleUseCodes;
@@ -124,8 +128,11 @@ public class SimpleTransgressStatAction extends
 		// title.add("");
 		title.add("合计");
 		// 违法行为代码
+		//statCondition
+	//			.setTransgressActionCodesStr(buildTransgressActionCodesStr());
+		
 		statCondition
-				.setTransgressActionCodesStr(buildTransgressActionCodesStr());
+		.setTransgressActionCodesStr(buildTaCodesStr());
 		// 机动车使用性质
 		statCondition.setVehicleUseCodes(buildVehicleUseCodeSStr());
 		statCondition.setTimeCondition(getRequest().getParameter(
@@ -193,6 +200,37 @@ public class SimpleTransgressStatAction extends
 			}
 			buf.append("'").append(
 					transgressActionCodes[transgressActionCodes.length - 1])
+					.append("'");
+		}
+		return buf.toString();
+	}
+	/**
+	 * 根据页面中文本域输入的字符串构建适合查询的违法代码字符号
+	 * @return
+	 */
+	private String buildTaCodesStr(){
+		String regex = "[^\\d\\,\\，\\、]";
+		Pattern p =  Pattern.compile(regex);
+		Matcher m = p.matcher(taCodes);
+		if(m.find()){
+			taCodes = m.replaceAll("");
+		}
+		taCodes =  taCodes.replace('，', ',').replace('、', ',').replace(
+				" ", "").replace(",,", ",");
+		if(taCodes.startsWith(",")){
+			taCodes = taCodes.substring(1, taCodes.length());
+		}
+		if(taCodes.endsWith(",")){
+			taCodes = taCodes.substring(0, taCodes.length()-1);
+		}
+		String[] codeArr =taCodes.split(",");
+		StringBuffer buf = new StringBuffer();
+		if (codeArr != null && codeArr.length > 0) {
+			for (int i = 0; i < codeArr.length - 1; i++) {
+				buf.append("'").append(codeArr[i]).append("',");
+			}
+			buf.append("'").append(
+					codeArr[codeArr.length - 1])
 					.append("'");
 		}
 		return buf.toString();
@@ -276,5 +314,13 @@ public class SimpleTransgressStatAction extends
 
 	public void setUnionForce(String unionForce) {
 		this.unionForce = unionForce;
+	}
+
+	public String getTaCodes() {
+		return taCodes;
+	}
+
+	public void setTaCodes(String taCodes) {
+		this.taCodes = taCodes;
 	}
 }

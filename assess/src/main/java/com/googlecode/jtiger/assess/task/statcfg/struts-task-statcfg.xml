@@ -9,6 +9,8 @@
 		    <result name="{1}">/WEB-INF/views/assess/task/statcfg/{1}.jsp</result>
 		    <result name="listTaskConst" type="redirect">taskConstIndex.htm</result>
 		    <result name="listTaskDuty" type="redirect">taskDutyIndex.htm</result>
+		    <result name="listGroupB" type="redirect">groupBIndex.htm</result>
+		    <result name="listAwardReject" type="redirect">awardRejectIndex.htm</result>
 		   	    
 		</action>		
 	</package>
