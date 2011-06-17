@@ -3,6 +3,7 @@ package com.googlecode.jtiger.assess.task.statcfg.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -61,16 +62,21 @@ public class Task extends BaseIdModel {
 	private String itemtype;
 	/** 关联大队任务 */
 	private Set<BattalionTask> battalionTasks = new HashSet<BattalionTask>(0);
-	private Set<TaskDutyDetail> taskDutyDetails = new HashSet<TaskDutyDetail>(0);
+	private Set<TaskDetail> taskDutyDetails = new HashSet<TaskDetail>(0);
 	private String dutyItemName1;
-	private Boolean addOrDecrease1;
+	private String addOrDecrease1;
 	private Float dutyItemPoint1;
+	private String decreaseLeader1;
 	private String dutyItemName2;
-	private Boolean addOrDecrease2;
+	private String addOrDecrease2;
 	private Float dutyItemPoint2;
+	private String decreaseLeader2;
 	private String dutyItemName3;
-	private Boolean addOrDecrease3;
+	private String addOrDecrease3;
 	private Float dutyItemPoint3;
+	private String decreaseLeader3;
+	/** 包岗领导同扣 */
+	private String castLeader;
 
 	public String getName() {
 		return name;
@@ -176,7 +182,7 @@ public class Task extends BaseIdModel {
 		this.specialTransgressStatItem = specialTransgressStatItem;
 	}
 
-	@Column(columnDefinition = "varchar2(10)")
+	@Column(columnDefinition = "varchar2(20)")
 	public String getTaskConstOrDuty() {
 		return taskConstOrDuty;
 	}
@@ -194,12 +200,12 @@ public class Task extends BaseIdModel {
 		this.hasSpecial = hasSpecial;
 	}
 
-	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "task")
-	public Set<TaskDutyDetail> getTaskDutyDetails() {
+	@OneToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY, mappedBy = "task")
+	public Set<TaskDetail> getTaskDutyDetails() {
 		return taskDutyDetails;
 	}
 
-	public void setTaskDutyDetails(Set<TaskDutyDetail> taskDutyDetails) {
+	public void setTaskDutyDetails(Set<TaskDetail> taskDutyDetails) {
 		this.taskDutyDetails = taskDutyDetails;
 	}
 
@@ -211,12 +217,12 @@ public class Task extends BaseIdModel {
 		this.dutyItemName1 = dutyItemName1;
 	}
 
-	@Column(columnDefinition = "SMALLINT default 0")
-	public Boolean getAddOrDecrease1() {
+	@Column(columnDefinition = "char(1) default ''")
+	public String getAddOrDecrease1() {
 		return addOrDecrease1;
 	}
 
-	public void setAddOrDecrease1(Boolean addOrDecrease1) {
+	public void setAddOrDecrease1(String addOrDecrease1) {
 		this.addOrDecrease1 = addOrDecrease1;
 	}
 
@@ -236,12 +242,12 @@ public class Task extends BaseIdModel {
 		this.dutyItemName2 = dutyItemName2;
 	}
 
-	@Column(columnDefinition = "SMALLINT default 0")
-	public Boolean getAddOrDecrease2() {
+	@Column(columnDefinition = "char(1) default ''")
+	public String getAddOrDecrease2() {
 		return addOrDecrease2;
 	}
 
-	public void setAddOrDecrease2(Boolean addOrDecrease2) {
+	public void setAddOrDecrease2(String addOrDecrease2) {
 		this.addOrDecrease2 = addOrDecrease2;
 	}
 
@@ -261,12 +267,12 @@ public class Task extends BaseIdModel {
 		this.dutyItemName3 = dutyItemName3;
 	}
 
-	@Column(columnDefinition = "SMALLINT default 0")
-	public Boolean getAddOrDecrease3() {
+	@Column(columnDefinition = "char(1) default ''")
+	public String getAddOrDecrease3() {
 		return addOrDecrease3;
 	}
 
-	public void setAddOrDecrease3(Boolean addOrDecrease3) {
+	public void setAddOrDecrease3(String addOrDecrease3) {
 		this.addOrDecrease3 = addOrDecrease3;
 	}
 
@@ -276,6 +282,39 @@ public class Task extends BaseIdModel {
 
 	public void setDutyItemPoint3(Float dutyItemPoint3) {
 		this.dutyItemPoint3 = dutyItemPoint3;
+	}
+
+	@Column(columnDefinition = "char(1) default '0'")
+	public String getCastLeader() {
+		return castLeader;
+	}
+
+	public void setCastLeader(String castLeader) {
+		this.castLeader = castLeader;
+	}
+	@Column(columnDefinition = "char(1) default ''")
+	public String getDecreaseLeader1() {
+		return decreaseLeader1;
+	}
+
+	public void setDecreaseLeader1(String decreaseLeader1) {
+		this.decreaseLeader1 = decreaseLeader1;
+	}
+	@Column(columnDefinition = "char(1) default ''")
+	public String getDecreaseLeader2() {
+		return decreaseLeader2;
+	}
+
+	public void setDecreaseLeader2(String decreaseLeader2) {
+		this.decreaseLeader2 = decreaseLeader2;
+	}
+	@Column(columnDefinition = "char(1) default ''")
+	public String getDecreaseLeader3() {
+		return decreaseLeader3;
+	}
+
+	public void setDecreaseLeader3(String decreaseLeader3) {
+		this.decreaseLeader3 = decreaseLeader3;
 	}
 
 }

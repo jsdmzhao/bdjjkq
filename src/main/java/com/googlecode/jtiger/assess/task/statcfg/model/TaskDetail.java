@@ -12,11 +12,12 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "assess_task_detail")
-public class TaskDutyDetail extends BaseIdModel {
+public class TaskDetail extends BaseIdModel {
 	private Task task;
 	private String name;
-	private Boolean addOrDecrease;
+	private String addOrDecrease;
 	private Float point;
+	private String decreaseLeader;
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "stat_id")
@@ -43,12 +44,20 @@ public class TaskDutyDetail extends BaseIdModel {
 	public void setPoint(Float point) {
 		this.point = point;
 	}
-	@Column(columnDefinition = "SMALLINT default 0")
-	public Boolean getAddOrDecrease() {
+	@Column(columnDefinition = "char(1)")
+	public String getAddOrDecrease() {
 		return addOrDecrease;
 	}
 
-	public void setAddOrDecrease(Boolean addOrDecrease) {
+	public void setAddOrDecrease(String addOrDecrease) {
 		this.addOrDecrease = addOrDecrease;
+	}
+	@Column(columnDefinition = "char(1) default ''")
+	public String getDecreaseLeader() {
+		return decreaseLeader;
+	}
+
+	public void setDecreaseLeader(String decreaseLeader) {
+		this.decreaseLeader = decreaseLeader;
 	}
 }
