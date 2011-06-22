@@ -37,7 +37,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
     <div class="x-toolbar" style="height:26px;">
       <table width="99%" >
   	  <tr style="margin-top:  7px;"> 		
-  		<s:form name="queryForm" id="queryForm" namespace="/assess/transgress/statcfg/statItem" action="index" theme="simple">	    	
+  		<s:form name="queryForm" id="queryForm" namespace="/assess/task/statcfg/tasktype" action="index" theme="simple">	    	
 			<td width="10">
 				<table style="padding-top: 3px;"> 
 					<tr> 
@@ -111,7 +111,7 @@ function remove(id) {
     if(!confirm("确定要删除该任务类型吗?")){
         return;
     }
-    window.location = "${ctx}/assess/transgress/statcfg/statItem/remove.htm?model.id=" + id;
+    window.location = "${ctx}/assess/task/statcfg/tasktype/remove.htm?model.id=" + id;
 }
 </script>
 
