@@ -60,7 +60,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 			<tr>
 				<td><span class="ytb-sep"></span></td>
 				<td>
-					<a href="${ctx}/assess/task/statcfg/editTaskDuty.htm"> 添加日常勤务</a>	
+					<a href="${ctx}/assess/task/statcfg/task/editTaskDuty.htm"> 添加日常勤务</a>	
 				</td>
 			</tr>
 		</table>
@@ -133,7 +133,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	 	<ec:column width="130" property="_1" title="操作" style="text-align:center" sortable="false">
 	 	<%--
 			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> | --%>
-			 <a title="编辑" href="${ctx}/assess/task/statcfg/editTaskDuty.htm?model.id=${item.id}">编辑 </a> |
+			 <a title="编辑" href="${ctx}/assess/task/statcfg/task/editTaskDuty.htm?model.id=${item.id}">编辑 </a> |
 			 <a title="删除" href="#" onclick="remove('${item.id}')">删除</a>
 		</ec:column>	   	
 	</ec:row>
@@ -151,7 +151,7 @@ function remove(id) {
     if(!confirm("确定要删除该任务吗?")){
         return;
     }
-    window.location = "${ctx}/assess/task/statcfg/removeTaskDuty.htm?model.id=" + id;
+    window.location = "${ctx}/assess/task/statcfg/task/removeTaskDuty.htm?model.id=" + id;
 }
 </script>
 <script type="text/javascript">

@@ -40,7 +40,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
     <div class="x-toolbar" style="height:26px;">
       <table width="99%" >
   	  <tr style="margin-top:  7px;"> 		
-  		<s:form name="queryForm" id="queryForm" namespace="/assess/task/statcfg" action="groupBIndex" theme="simple">	    	
+  		<s:form name="queryForm" id="queryForm" namespace="/assess/task/statcfg/task" action="index" theme="simple">	    	
 			<td width="10">
 				<table style="padding-top: 3px;"> 
 					<tr> 
@@ -63,7 +63,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 			<tr>
 				<td><span class="ytb-sep"></span></td>
 				<td>
-					<a href="${ctx}/assess/task/statcfg/task/editGroupB.htm"> 添加B组考核标准</a>	
+					<a href="${ctx}/assess/task/statcfg/task/edit.htm"> 添加考核标准</a>	
 				</td>
 			</tr>
 		</table>
@@ -75,10 +75,10 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
    <div class="x-panel-body">
      <div style="margin-left:-3px;" align="center">
 	<ec:table items="items" var="item" retrieveRowsCallback="process" sortRowsCallback="process" 
-	action="taskGroupB.htm"
+	action="index.htm"
 	useAjax="true" doPreload="false"
 	maxRowsExported="1000" 
-	pageSizeList="20,50,100" 
+	pageSizeList="20,30,50" 
 	editable="false" 
 	sortable="false"	
 	rowsDisplayed="20"	
@@ -94,7 +94,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>	
 		<ec:column width="380" property="name" title="B组考核标准名称" tipTitle="${item.name}" ellipsis="true" sortable="false" style="text-align:center"/>
 		
-		<ec:column width="400"  property="_88" title="评分明细"  tipTitle="评分明细"   sortable="false" style="text-align:center;height:50px;">							
+		<ec:column width="400"  property="_88" title="评分明细"  tipTitle="评分明细"   sortable="false" style="text-align:center;height:${fn:length(item.taskDutyDetails)*13}px;">							
 			<div style="width: 400px;">							
 				<c:forEach items="${item.taskDutyDetails}" var="detail">	
 					<div style="float:clear;width: 400px; ">
@@ -107,7 +107,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 							</c:choose>
 						</div>
 						<div style="float: left; width: 50px;">${detail.point }</div>
-						<div style="float: left; width: 50px; ">${empty detail.decreaseLeader ? '':'包岗领导同扣'}</div>
+						<div style="float: left; width: 50px; ">${detail.decreaseLeader eq '0'?'':'包岗领导同扣'}</div>
 					</div>
 					<div class="spacer"></div>
 				</c:forEach>						
@@ -192,7 +192,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	 	<ec:column width="130" property="_1" title="操作" style="text-align:center" sortable="false">
 	 	<%--
 			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> | --%>
-			 <a title="编辑" href="${ctx}/assess/task/statcfg/task/editGroupB.htm?model.id=${item.id}">编辑 </a> |
+			 <a title="编辑" href="${ctx}/assess/task/statcfg/task/edit.htm?model.id=${item.id}">编辑 </a> |
 			 <a title="删除" href="#" onclick="remove('${item.id}')">删除</a>
 		</ec:column>	   	
 	</ec:row>
@@ -210,7 +210,7 @@ function remove(id) {
     if(!confirm("确定要删除该任务吗?")){
         return;
     }
-    window.location = "${ctx}/assess/task/statcfg/task/removeGroupB.htm?model.id=" + id;
+    window.location = "${ctx}/assess/task/statcfg/task/remove.htm?model.id=" + id;
 }
 </script>
 <script type="text/javascript">

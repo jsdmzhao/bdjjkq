@@ -38,9 +38,9 @@
 <div class="x-panel">
     <div class="x-panel-header">B组考核标准管理</div>
     <div class="x-toolbar" style="text-align: right;">
-		<a href="groupBIndex.htm">管理首页</a>
+		<a href="taskDutyIndex.htm">管理首页</a>
     </div>
-	<s:form id="saveFrm" action="saveGroupB" method="post">
+	<s:form id="saveFrm" action="save" method="post">
 	<s:hidden id="model.id" name="model.id"/>
 	<table width="800px" align="center">
 		<tr>
@@ -54,13 +54,36 @@
                      	<s:textfield name="model.name"  cssStyle="width:597px;" cssClass="required"></s:textfield>
                      </td>
                      
-                  </tr>   
+                  </tr> 
+                  <tr>
+                  	<td align="right" width="20%">类&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+                  	 <td align="left" width="80%" colspan="7"  >
+                  	 <%--
+                     	<s:select list="taskTypes" id="taskType" headerKey="" headerValue="请选择" 
+                     	name="taskTypes" listKey="id" listValue="name" cssClass="m_t_b" 
+                     	cssStyle="width:200px;padding-left:2px;"  ></s:select> --%>
+                     <select name="model.taskType.id">
+                     	<option value="">请选择</option>
+                     	<c:forEach items="${taskTypes}" var="tt">
+                     		<option value="${tt.id }" ${tt.id eq model.taskType.id ? 'selected="selected"' : '' }>${tt.name }</option>
+                     		
+                     	</c:forEach>
+                     </select>
+                     </td>
+                  </tr>
+                  <tr>
+                  	 <td align="right" width="20%">评分细则：</td>
+                  	 <td colspan="6"></td>
+                     <td align="left"  >
+                     	<u id="labelURow" class="fakelink" onclick="addLabelRow(this)">添加</u>
+                     </td>
+                  </tr>  
                   <c:forEach items="${model.taskDutyDetails}" var="detail" varStatus="status">
                   	<tr>
-                  		<td align="right" width="20%">评分项目：</td>
+                  		<td align="right" width="25%">评分项目：</td>
 	                     <td align="left" width="20%">
 	                     <%-- <s:textfield  name="detail.name${status.index}" cssClass="detailNameClass" cssStyle="width:250px;"></s:textfield>--%>	                     	
-	                     	<input type="text" name="detailNames${status.index}" value="${detail.name }" class="detailNameClass" style="width: 260px;"></input>	                     	
+	                     	<input type="text" name="detailNames${status.index}" value="${detail.name }" class="detailNameClass" style="width: 230px;"></input>	                     	
 	                     	<input type="hidden" name="detailIds" value="${detail.id }"></input>
 	                     </td>
 	                     <td align="right" width="10%" >加/减分：</td>	                     
@@ -73,11 +96,14 @@
 							</select>
 	                     </td>
 	                     <td align="right" width="10%">分值：</td>
-	                     <td align="left" width="8%"><input type="text" name="detailPoints${status.index}" value="${detail.point }" class="detailPointClass"></input></td>
-	                     <td align="left" width="18%"><input type="checkbox" name="decreaseLeader${status.index }" value="${detail.id }" ${detaildecreaseLeader eq '1'? 'checked="checked"':'' }/>包岗领导同扣</td>
+	                     <td align="left" width="8%"><input type="text" name="detailPoints${status.index}" value="${detail.point }" class="detailPointClass" style="width: 60px;"></input></td>
+	                     <td align="left" width="18%">
+	                     	<input type="hidden" name="decreaseLeaders" value="${detail.decreaseLeader }" id="decreaseLeaders${detail.id }"/>
+	                     	<input type="checkbox" name="decreaseLeader${status.index }" value="1" ${detail.decreaseLeader eq '1'? 'checked="checked"':'' } onclick="checkLeader('${detail.id }',this)"/>包岗领导同扣
+	                     </td>
 	                     <td id="labelTdRow">
 	                     	<c:choose>
-	                     		<c:when test="${status.index eq 0}"><u id="labelURow" class="fakelink" onclick="addLabelRow(this)">添加</u></c:when>
+	                     		<c:when test="${status.index eq 0}"><u id="labelURow" class="fakelink" onclick="removeLabelRow(this)">删除</u></c:when>
 	                     		<c:otherwise><u id="labelURow" class="fakelink" onclick="removeLabelRow(this)">删除</u></c:otherwise>
 	                     	</c:choose>
 	                     	
@@ -89,11 +115,11 @@
                   <%--如果没有明细项,则列出一行,当"种子" --%>
                   <c:if test="${empty model.taskDutyDetails}">
 	                 <tr>
-	                  		<td align="right" width="20%">评分项目：</td>
+	                  		<td align="right" width="25%">评分项目：</td>
 		                     <td align="left" width="20%">
 		                     	<%--
-		                     	<s:textfield id="dutyItemName1" name="detail.name"  cssClass="detailNameClass" cssStyle="width:250px;"></s:textfield> --%>
-		                     	<input type="text" name="detailNames" class="detailNameClass" style="width: 260px;"></input>
+		                     	<s:textfield id="dutyItemName1" name="detail.name"  cssClass="detailNameClass" cssStyle="width:230px;"></s:textfield> --%>
+		                     	<input type="text" name="detailNames" class="detailNameClass" style="width: 230px;"></input>
 		                     	<s:hidden name="detail.id"></s:hidden>
 		                     </td>
 		                     <td align="right" width="10%" >加/减分：</td>	                     
@@ -111,8 +137,11 @@
 		                     <s:textfield id="detail.point" cssClass="detailPointClass" name="detail.point"></s:textfield> --%>
 		                     <input type="text" name="detailPoints" class="detailPointClass" style="width:60px;"></input>
 		                     </td>
-		                     <td align="left" width="18%"><input type="checkbox" name="decreaseLeader" value="1" />包岗领导同扣</td>
-		                     <td id="labelTdRow"><u id="labelURow" class="fakelink" onclick="addLabelRow(this)">添加</u></td>
+		                     <td align="left" width="18%">
+		                     	<input type="hidden" name="decreaseLeaders" value="0" id="decreaseLeaders"/>
+		                     	<input type="checkbox" name="decreaseLeader" value="1" onclick="checkLeader('',this)" />包岗领导同扣
+		                     </td>
+		                     <td id="labelTdRow"><u id="labelURow" class="fakelink" onclick="removeLabelRow(this)">删除</u></td>
 	                  	</tr>
                   </c:if>                                                                         
                                                      
@@ -182,6 +211,9 @@ $("#saveFrm").validate({
 		'model.name':  {
 			required : true
 		},
+		'model.taskType.id':{
+			required : true
+		},
 		'detailNames':  {
 			required : true
 		},
@@ -230,6 +262,9 @@ $("#saveFrm").validate({
 	messages: {
 		'model.name': {
 			required: "请输入名称"			
+		},
+		'model.taskType.id':{
+			required: "请选择类型"	
 		},
 		'detail.name':  {
 			required : "请输入名称"
@@ -296,10 +331,21 @@ function addLabelRow(arg){
 		return;
 	}
 	
-  var html = '<tr><td align="right" width="20%">评分项目：</td><td align="left" width="20%"><input type="text" name="detailNames'+currentId+'" class="detailNameClass" style="width:260px;"></input></td><td align="right" width="10%" >加/减分：</td><td align="left" width="10%"><select name="detailAddOrDecreases'+currentId+'" class="detailAddOrDecreaseClass"><option value="">请选择</option><option value="0">减分</option><option value="1">加分</option></select></td><td align="right" width="8%" >分值：</td><td align="left" width="8%"><input type="text" class="detailPointClass" name="detailPoints'+currentId+'" style="width:60px;"></input></td><td align="left" width="18%"><input type="checkbox" name="decreaseLeader" value="'+currentId+'" />包岗领导同扣</td><td id="labelTdRow"><u id="labelURow" class="fakelink" onclick="removeLabelRow(this)">删除</u></td></tr>';
+  var html = '<tr><td align="right" width="25%">评分项目：</td><td align="left" width="20%"><input type="text" name="detailNames'+currentId+'" class="detailNameClass" style="width:230px;"></input></td><td align="right" width="10%" >加/减分：</td><td align="left" width="10%"><select name="detailAddOrDecreases'+currentId+'" class="detailAddOrDecreaseClass"><option value="">请选择</option><option value="0">减分</option><option value="1">加分</option></select></td><td align="right" width="8%" >分值：</td><td align="left" width="8%"><input type="text" class="detailPointClass" style="width: 60px;" name="detailPoints'+currentId+'" style="width:60px;"></input></td><td align="left" width="18%"><input type="hidden" name="decreaseLeaders" id="decreaseLeaders'+currentId+'" value="0"/><input type="checkbox" name="decreaseLeader" onclick="checkLeader('+currentId+',this)" value="1" />包岗领导同扣</td><td id="labelTdRow"><u id="labelURow" class="fakelink" onclick="removeLabelRow(this)">删除</u></td></tr>';
   $('#formTable').append(html);
   currentId--;
   vali();
+}
+function checkLeader(arg1,arg2){
+	if(arg2.checked){
+		
+		
+		//$('#decreaseLeaders'+arg1).value="1";
+		document.getElementById('decreaseLeaders'+arg1).value = "1";
+		
+	}else{	
+		document.getElementById('decreaseLeaders'+arg1).value = "0";
+	}
 }
 function saveIt(){
 	/*$('.detailNameClass').attr("name","detail.name");
@@ -309,6 +355,9 @@ function saveIt(){
 	$('#saveFrm').submit();
 }
 function removeLabelRow(arg){
+	if($('.detailNameClass').size() <=1 ){
+		return;
+	}
 	 $(arg).parent().parent().remove();
 	  vali();
 }
