@@ -192,6 +192,7 @@ public class SimpleTransgressStatAction extends
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private String buildTransgressActionCodesStr() {
 		StringBuffer buf = new StringBuffer();
 		if (transgressActionCodes != null && transgressActionCodes.length > 0) {
