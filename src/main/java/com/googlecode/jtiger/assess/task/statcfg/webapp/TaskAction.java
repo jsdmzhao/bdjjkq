@@ -15,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import com.googlecode.jtiger.assess.AssessConstants;
 import com.googlecode.jtiger.assess.task.statcfg.model.Task;
 import com.googlecode.jtiger.assess.task.statcfg.model.TaskDetail;
+import com.googlecode.jtiger.assess.task.statcfg.model.TaskType;
 import com.googlecode.jtiger.assess.task.statcfg.service.TaskDetailManager;
 import com.googlecode.jtiger.assess.task.statcfg.service.TaskManager;
+import com.googlecode.jtiger.assess.task.statcfg.service.TaskTypeManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressStatItemManager;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
@@ -31,10 +33,105 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 	private List<TransgressStatItem> transgressStatItems;
 	@Autowired
 	private TaskDetailManager taskDetailManager;
+	@Autowired
+	private TaskTypeManager taskTypeManager;
 	private String[] detailIds;
 	private String[] detailNames;
 	private String[] detailAddOrDecreases;
 	private String[] detailPoints;
+	private String[] decreaseLeaders;
+
+	/**
+	 * 
+	 */
+	public String index() {
+		StringBuffer buf = new StringBuffer("from Task t where 1=1 ");
+		List<Object> args = new ArrayList<Object>();
+		if (StringUtils.isNotBlank(getModel().getName())) {
+			buf.append("and t.name like ? ");
+			args.add(MatchMode.ANYWHERE.toMatchString(getModel().getName()));
+		}
+		if (getModel().getTaskType() != null
+				&& getModel().getTaskType().getId() != null) {
+			buf.append("and t.taskType.id = ?");
+			args.add(getModel().getTaskType().getId());
+		}
+
+		page = getManager().pageQuery(pageOfBlock(), buf.toString(),
+				args.toArray());
+		restorePageData(page);
+
+		return INDEX;
+	}
+
+	public String save() {
+		// 先给已有的赋值(客户端传递过来多少个detialId,就有多少个已有的detial)
+		if (detailIds != null && detailIds.length > 0) {
+			for (int i = 0; i < detailIds.length; i++) {
+				String id = detailIds[i];
+				TaskDetail td = taskDetailManager.get(id);
+				td.setName(detailNames[i]);
+				td.setAddOrDecrease(detailAddOrDecreases[i]);
+				td.setPoint(Float.valueOf(detailPoints[i]));
+				td.setDecreaseLeader(decreaseLeaders[i]);
+				taskDetailManager.save(td);
+				getModel().getTaskDutyDetails().add(td);
+
+			}
+		}
+		// logger.info("======>" + getModel().getTaskDutyDetails().size() + "");
+		// 干掉被删除的
+
+		List<String> ids = new ArrayList<String>();
+		for (TaskDetail td : getModel().getTaskDutyDetails()) {
+			ids.add(td.getId());
+		}
+		for (String id : ids) {
+			if (ArrayUtils.indexOf(detailIds, id) == -1) {
+				TaskDetail td = taskDetailManager.get(id);
+				getModel().getTaskDutyDetails().remove(td);
+
+				taskDetailManager.remove(td);
+			}
+
+		}
+		// 取得id数组的最大下标,作为新添加项起始索引
+		int startIndex = 0;
+		if (detailIds != null && detailIds.length > 0) {
+			startIndex = detailIds.length;
+		}
+		// 类型为B组考核标准
+		getModel().setTaskConstOrDuty(AssessConstants.TASK_GROUP_B);
+		super.save();
+		// 剩余的是新添加的
+		for (int i = startIndex; i < detailNames.length; i++) {
+			TaskDetail td = new TaskDetail();
+			td.setName(detailNames[i]);
+			td.setAddOrDecrease(detailAddOrDecreases[i]);
+			td.setPoint(Float.valueOf(detailPoints[i]));
+			td.setDecreaseLeader(decreaseLeaders[i]);
+			getModel().getTaskDutyDetails().add(td);
+			td.setTask(getModel());
+			taskDetailManager.save(td);
+
+		}
+
+		return SUCCESS;
+	}
+	/**
+	 * 编辑Task
+	 */
+	public String edit() {
+		//向界面专递TaskType集合,以供选择
+		List<TaskType> taskTypes = getTaskTypes();
+		getRequest().setAttribute("taskTypes", taskTypes);
+		
+		return INPUT;
+	}
+
+	private List<TaskType> getTaskTypes() {
+		return taskTypeManager.get();
+	}
 
 	/**
 	 * 任务常量index方法
@@ -61,34 +158,11 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 	 * 
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+
 	public String groupBIndex() {
 
 		commonIndex(AssessConstants.TASK_GROUP_B);
-		List<Task> tasks = page.getData();
-		for (Task t : tasks) {
-			int i = 0;
-			for (TaskDetail td : t.getTaskDutyDetails()) {
-				if (i == 0) {
-					t.setDutyItemName1(td.getName());
-					t.setAddOrDecrease1(td.getAddOrDecrease());
-					t.setDutyItemPoint1(td.getPoint());
-					t.setDecreaseLeader1(td.getDecreaseLeader());
-				} else if (i == 1) {
-					t.setDutyItemName2(td.getName());
-					t.setAddOrDecrease2(td.getAddOrDecrease());
-					t.setDutyItemPoint2(td.getPoint());
-					t.setDecreaseLeader2(td.getDecreaseLeader());
-				} else {
-					t.setDutyItemName3(td.getName());
-					t.setAddOrDecrease3(td.getAddOrDecrease());
-					t.setDutyItemPoint3(td.getPoint());
-					t.setDecreaseLeader3(td.getDecreaseLeader());
-				}
-				i++;
-			}
 
-		}
 		return "groupBIndex";
 	}
 
@@ -111,6 +185,7 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 		commonIndex(AssessConstants.TASK_REJECT);
 		return "awardRejectIndex";
 	}
+
 	/**
 	 * 其他奖项index方法
 	 * 
@@ -120,6 +195,7 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 		commonIndex(AssessConstants.TASK_OTHER);
 		return "awardRejectIndex";
 	}
+
 	/**
 	 * 公用的index方法
 	 * 
@@ -217,9 +293,9 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 	 * @return
 	 */
 	public String saveGroupB() {
-		Set<TaskDetail> oldDetails = getModel().getTaskDutyDetails();
+
 		getModel().getTaskDutyDetails().clear();
-		//logger.info("======>" + getModel().getTaskDutyDetails().size() + "");
+		// logger.info("======>" + getModel().getTaskDutyDetails().size() + "");
 		// 先给已有的赋值
 		if (detailIds != null && detailIds.length > 0) {
 			for (int i = 0; i < detailIds.length; i++) {
@@ -233,8 +309,9 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 
 			}
 		}
-		//logger.info("======>" + getModel().getTaskDutyDetails().size() + "");
+		// logger.info("======>" + getModel().getTaskDutyDetails().size() + "");
 		// 干掉被删除的
+		Set<TaskDetail> oldDetails = getModel().getTaskDutyDetails();
 		for (TaskDetail td : oldDetails) {
 			if (ArrayUtils.indexOf(detailIds, td.getId()) == -1) {
 				getModel().getTaskDutyDetails().remove(td);
@@ -242,6 +319,7 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 			}
 
 		}
+		// 取得id数组的最大下标,作为新添加项起始索引
 		int startIndex = 0;
 		if (detailIds != null && detailIds.length > 0) {
 			startIndex = detailIds.length;
@@ -355,6 +433,14 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 
 	public void setDetailIds(String[] detailIds) {
 		this.detailIds = detailIds;
+	}
+
+	public String[] getDecreaseLeaders() {
+		return decreaseLeaders;
+	}
+
+	public void setDecreaseLeaders(String[] decreaseLeaders) {
+		this.decreaseLeaders = decreaseLeaders;
 	}
 
 }
