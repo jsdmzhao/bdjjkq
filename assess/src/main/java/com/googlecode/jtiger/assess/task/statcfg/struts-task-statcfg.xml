@@ -3,15 +3,25 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="admin.assess.task.statcfg" extends="default"
-	         namespace="/assess/task/statcfg">
+	<package name="admin.assess.task.statcfg.task" extends="default"
+	         namespace="/assess/task/statcfg/task">
 		<action name="*" class="taskAction" method="{1}">
-		    <result name="{1}">/WEB-INF/views/assess/task/statcfg/{1}.jsp</result>
+		    <result name="{1}">/WEB-INF/views/assess/task/statcfg/task/{1}.jsp</result>
+		    <result name="success" type="redirect">index.htm</result>
+		    <result name="input">/WEB-INF/views/assess/task/statcfg/task/edit.jsp</result>
 		    <result name="listTaskConst" type="redirect">taskConstIndex.htm</result>
 		    <result name="listTaskDuty" type="redirect">taskDutyIndex.htm</result>
 		    <result name="listGroupB" type="redirect">groupBIndex.htm</result>
 		    <result name="listAwardReject" type="redirect">awardRejectIndex.htm</result>
 		   	    
+		</action>	
+	</package>
+	<package name="admin.assess.task.statcfg.tasktype" extends="default"
+	         namespace="/assess/task/statcfg/tasktype">
+		<action name="*" class="taskTypeAction" method="{1}">
+		    <result name="{1}">/WEB-INF/views/assess/task/statcfg/tasktype/{1}.jsp</result>
+		    <result name="input">/WEB-INF/views/assess/task/statcfg/tasktype/edit.jsp</result>		
+		    <result name="success" type="redirect">index.htm</result>    		  		   	    
 		</action>		
 	</package>
 	

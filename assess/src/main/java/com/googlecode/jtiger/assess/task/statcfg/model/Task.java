@@ -60,21 +60,27 @@ public class Task extends BaseIdModel {
 	private String taskConstOrDuty;
 	/** 常规项/重奖项/一票否决项/其他奖项 */
 	private String itemtype;
+	private TaskType taskType;
+
 	/** 关联大队任务 */
 	private Set<BattalionTask> battalionTasks = new HashSet<BattalionTask>(0);
 	private Set<TaskDetail> taskDutyDetails = new HashSet<TaskDetail>(0);
+
 	private String dutyItemName1;
 	private String addOrDecrease1;
 	private Float dutyItemPoint1;
 	private String decreaseLeader1;
+
 	private String dutyItemName2;
 	private String addOrDecrease2;
 	private Float dutyItemPoint2;
 	private String decreaseLeader2;
+
 	private String dutyItemName3;
 	private String addOrDecrease3;
 	private Float dutyItemPoint3;
 	private String decreaseLeader3;
+
 	/** 包岗领导同扣 */
 	private String castLeader;
 
@@ -292,6 +298,7 @@ public class Task extends BaseIdModel {
 	public void setCastLeader(String castLeader) {
 		this.castLeader = castLeader;
 	}
+
 	@Column(columnDefinition = "char(1) default ''")
 	public String getDecreaseLeader1() {
 		return decreaseLeader1;
@@ -300,6 +307,7 @@ public class Task extends BaseIdModel {
 	public void setDecreaseLeader1(String decreaseLeader1) {
 		this.decreaseLeader1 = decreaseLeader1;
 	}
+
 	@Column(columnDefinition = "char(1) default ''")
 	public String getDecreaseLeader2() {
 		return decreaseLeader2;
@@ -308,6 +316,7 @@ public class Task extends BaseIdModel {
 	public void setDecreaseLeader2(String decreaseLeader2) {
 		this.decreaseLeader2 = decreaseLeader2;
 	}
+
 	@Column(columnDefinition = "char(1) default ''")
 	public String getDecreaseLeader3() {
 		return decreaseLeader3;
@@ -315,6 +324,16 @@ public class Task extends BaseIdModel {
 
 	public void setDecreaseLeader3(String decreaseLeader3) {
 		this.decreaseLeader3 = decreaseLeader3;
+	}
+
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "task_type_id")
+	public TaskType getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(TaskType taskType) {
+		this.taskType = taskType;
 	}
 
 }
