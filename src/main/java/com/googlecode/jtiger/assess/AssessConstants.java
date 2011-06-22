@@ -39,5 +39,14 @@ public final class AssessConstants {
 		ADD_OR_DECREASE_MAP.put("0", "减分");
 		ADD_OR_DECREASE_MAP.put("1", "加分");
 	}
-
+	/** 包岗领导同扣 */
+	public static final String CAST_LEADER_Y = "1";
+	/** 包岗领导不同扣 */
+	public static final String CAST_LEADER_N = "0";
+	public static final Map<String, String> CAST_LEADER_MAP = Collections
+			.synchronizedMap(new LinkedHashMap<String, String>());
+	static{
+		CAST_LEADER_MAP.put("0", "包岗领导不同扣");
+		CAST_LEADER_MAP.put("1", "包岗领导同扣");
+	}
 }
