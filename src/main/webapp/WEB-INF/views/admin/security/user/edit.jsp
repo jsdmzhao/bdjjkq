@@ -93,14 +93,14 @@
 		</tr>
 		<tr>
 			<td class="simple" align="right" width="100">性&nbsp;别：</td>
-			<td class="simple">&nbsp;<s:radio list="sexMap" cssClass="required"
+			<td class="simple">&nbsp;<s:radio list="sexMap" 
 				name="model.sex" cssStyle="border:0px;" /> <font color="red">*</font></td>
 			<td colspan="2"></td>
 		</tr>
 		<tr>
 			<td class="simple" align="right">学&nbsp;历：</td>
 			<td class="simple">&nbsp;<s:select list="degreeMap"
-				cssClass="required" name="model.degree" headerKey=""
+				 name="model.degree" headerKey=""
 				headerValue="--请选择--" cssStyle="width:156px;" /> <font color="red">*</font></td>
 			<td colspan="2"></td>
 		</tr>
@@ -113,13 +113,13 @@
 		<tr>
 			<td class="simple" align="right">联系电话：</td>
 			<td class="simple">&nbsp;<s:textfield name="model.mobile"
-				cssClass="required" theme="simple" size="25" /> <font color="red">*</font></td>
+				 theme="simple" size="25" /> <font color="red">*</font></td>
 			<td colspan="2">请输入区号和真实的电话，以便我们与您联系。</td>
 		</tr>
 		<tr>
 			<td class="simple" align="right">电子信箱：</td>
 			<td class="simple">&nbsp;<s:textfield name="model.email" id="email"
-				theme="simple" size="25" cssClass="regEmail required"/> <font color="red">*</font></td>
+				theme="simple" size="25" /> <font color="red">*</font></td>
 			<td algin="left" colspan="2" id="usemail">
 				请输入您常用的电子邮箱
 				<c:if test="${model.loginId == 'admin'}">
@@ -130,20 +130,20 @@
 		<tr>
 			<td class="simple" align="right">工作单位：</td>
 			<td class="simple">&nbsp;<s:textfield name="model.unit"
-				cssClass="required" theme="simple" size="25" /> <font color="red">*</font></td>
+				 theme="simple" size="25" /> <font color="red">*</font></td>
 			<td colspan="2"></td>
 		</tr>
 		
 		<tr>
 			<td class="simple" align="right">通信地址：</td>
 			<td class="simple">&nbsp;<s:textfield name="model.address"
-				cssClass="required" theme="simple" size="25" /> <font color="red">*</font></td>
+				 theme="simple" size="25" /> <font color="red">*</font></td>
 			<td colspan="2"></td>
 		</tr>
 		<tr>
 			<td class="simple" align="right" width="100">邮&nbsp;编：</td>
 			<td class="simple">&nbsp;<s:textfield name="model.zip"
-				cssClass="required" theme="simple" size="25" /> <font color="red">*</font></td>
+				 theme="simple" size="25" /> <font color="red">*</font></td>
 			<td colspan="2"></td>
 		</tr>
 	</table>

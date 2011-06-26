@@ -74,14 +74,14 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 
    <div class="x-panel-body">
      <div style="margin-left:-3px;" align="center">
-	<ec:table items="items" var="item" retrieveRowsCallback="process" sortRowsCallback="process" 
+	<ec:table items="items" var="item" retrieveRowsCallback="limit" sortRowsCallback="limit" 
 	action="index.htm"
 	useAjax="true" doPreload="false"
 	maxRowsExported="1000" 
-	pageSizeList="20,30,50" 
+	pageSizeList="10,30,50" 
 	editable="false" 
 	sortable="false"	
-	rowsDisplayed="20"	
+	rowsDisplayed="10"	
 	generateScript="true"	
 	resizeColWidth="true"	
 	classic="false"	
@@ -89,11 +89,12 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	height="500px"	
 	minHeight="300" 
 	showHeader="true"	
+	xlsFileName="task.xls" 	
 	toolbarContent="navigation|pagejump|pagesize|export|refresh|extend|status">    
 	<ec:row>
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>	
-		<ec:column width="380" property="name" title="B组考核标准名称" tipTitle="${item.name}" ellipsis="true" sortable="false" style="text-align:center"/>
-		
+		<ec:column width="380" property="name" title="考核标准名称" tipTitle="${item.name}" ellipsis="true" sortable="false" style="text-align:center"/>
+		<ec:column width="80" property="taskType.name" title="所属类别" tipTitle="${item.taskType.name}" ellipsis="true" sortable="false" style="text-align:center"/>
 		<ec:column width="400"  property="_88" title="评分明细"  tipTitle="评分明细"   sortable="false" style="text-align:center;height:${fn:length(item.taskDutyDetails)*13}px;">							
 			<div style="width: 400px;">							
 				<c:forEach items="${item.taskDutyDetails}" var="detail">	

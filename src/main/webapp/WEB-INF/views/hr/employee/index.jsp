@@ -32,7 +32,7 @@
   <div class="x-panel-body">
     <div style="margin-left:-3px;" align="center">
       <ec:table items="items" var="item" retrieveRowsCallback="process"
-	    action="index.do"
+	    action="index.htm"
 	    useAjax="false" doPreload="false"
 	    xlsFileName="员工列表.xls" 
 	    maxRowsExported="10000000"
@@ -61,7 +61,7 @@
 			<ec:column width="70" property="mobil" title="手机" sortable="false"/>
 			<ec:column width="100" property="user.email" title="电子邮箱" sortable="false"/>
 			<ec:column width="40" property="_0" title="编辑" style="text-align:center" sortable="false"  viewsAllowed="html">
-		  	  <a href="edit.do?model.id=${item.id}"><img src="${ctx}/images/icons/modify.gif" border="0"/></a>		  
+		  	  <a href="edit.htm?model.id=${item.id}"><img src="${ctx}/images/icons/modify.gif" border="0"/></a>		  
 			</ec:column>
 			<ec:column width="40" property="_0" title="角色" style="text-align:center" sortable="false">
 			  <a href="#" onclick="javascript:assignRoles('${item.user.id}')">

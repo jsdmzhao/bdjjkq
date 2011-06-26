@@ -3,6 +3,7 @@
 <%request.setAttribute("ctx", request.getContextPath()); %>
 <%@ taglib prefix="jtiger" uri="http://code.google.com/p/jtiger"%>
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div id="menu" style="display:none">
     <!-- 
 	<div id="catalog">
@@ -30,19 +31,19 @@
 	 -->	
 	
 	<div id="hr">
-		<div style="padding-left:5px;">          
+		<div style="padding-left:5px;"><!--          
 			<div style="padding-top:2px">
 				<img src="${ctx}/images/arrow_3.png" class="icon">
-				<a href="${ctx}/hr/company/index.htm" target="main">企业/公司/机关信息</a>
+				<a href="${ctx}/hr/company/index.htm" target="main">支队信息</a>
 			</div>
-			<div style="padding-top:2px">
+			--><div style="padding-top:2px">
 				<img src="${ctx}/images/arrow_3.png" class="icon">
 				<a href="${ctx}/hr/dept/index.htm" target="main">部门管理</a>
 			</div>
 			
 			<div style="padding-top:2px">
 				<img src="${ctx}/images/arrow_3.png" class="icon">
-				<a href="${ctx}/hr/employee/layout.htm" target="main">职员管理</a>
+				<a href="${ctx}/hr/employee/layout.htm" target="main">警员管理</a>
 			</div>
 			
 			
@@ -85,6 +86,7 @@
 		</div>	
 		
     </div>-->
+    <sec:authorize ifAllGranted="ROLE_KHB">
     <div id="menu_constStat">
 		<div style="padding-left:5px;">  
 			 <div style="padding-top:2px">
@@ -99,6 +101,7 @@
 			
 		</div>
 	</div>
+	</sec:authorize>
 	 <div id="menu_constStat_cfg">
 		<div style="padding-left:5px;">
 		  <div style="padding-top:2px">
@@ -118,32 +121,50 @@
 	</div>
 	 <div id="menu_task_cfg">
 		<div style="padding-left:5px;">
-		  <div style="padding-top:2px">
+		 	<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/taskConstIndex.htm" target="main">任务常量管理</a>
+					<a href="${ctx}/assess/task/statcfg/tasktype/index.htm" target="main">考核标准类别管理</a>
 			</div>
-	
-			 <div style="padding-top:2px">
+		  
+			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/taskDutyIndex.htm" target="main">日常勤务管理</a>
+					<a href="${ctx}/assess/task/statcfg/task/index.htm" target="main">考核标准管理</a>
 			</div>
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/groupBIndex.htm" target="main">B组考核标准管理</a>
-			</div>
-			<div style="padding-top:2px">
-					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/awardIndex.htm" target="main">重奖项目管理</a>
-			</div>
-			<div style="padding-top:2px">
-					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/rejectIndex.htm" target="main">一票否决项目管理</a>
-			</div>
-			<div style="padding-top:2px">
-					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/task/statcfg/otherIndex.htm" target="main">其他奖项管理</a>
+					<a href="${ctx}/assess/task/statcfg/task/taskConstIndex.htm" target="main">任务常量管理</a>
 			</div>
 		</div>
 	</div>
+	<sec:authorize ifAllGranted="ROLE_ADMIN">
+		<div id="menu_sys">
+			<div style="padding-left:5px;">   
+		    <%--       
+			--%>			
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/icons/user.gif" class="icon">
+				<a href="${ctx}/security/user/index.htm" target="main">超级用户</a>
+			</div>
+			
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/role.gif" class="icon">
+					<a href="${ctx}/security/role/index.htm" target="main">角色管理</a>
+			</div>
+			
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/security/resource/index.htm" target="main">资源管理</a>
+			</div>
+			
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/arrow_3.png" class="icon">
+				<a href="${ctx}/admin/cron/list.htm" target="main">定时任务设置</a>
+			</div>	
+
+		
+			
+		</div>
+	</div>
+	</sec:authorize>
 </div>
 	
