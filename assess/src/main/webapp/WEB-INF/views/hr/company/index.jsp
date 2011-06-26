@@ -21,7 +21,7 @@ fieldset {
 </head>
 <body>
 <div class="x-panel">
-<div class="x-panel-header">公司管理</div>
+<div class="x-panel-header">支队信息管理</div>
 
 <div class="x-panel-body">
 <div><%@ include file="/common/messages.jsp"%>
@@ -32,10 +32,10 @@ fieldset {
 			validate="true" theme="simple">
 			<s:hidden id="model.id" name="model.id" />
 			<s:hidden id="model.deptSort" name="model.deptSort" />
-			<fieldset style="margin: 10px;"><legend>公司信息</legend>
+			<fieldset style="margin: 10px;"><legend>支队信息</legend>
 			<table width="400">
 				<tr>
-					<td style="text-align:right;">公司名称：</td>
+					<td style="text-align:right;">名称：</td>
 					<td style="text-align:left;"><s:textfield id="model.name" name="model.name" /> <font
 						color="red">*</font></td>
 				</tr>

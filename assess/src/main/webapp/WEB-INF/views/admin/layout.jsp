@@ -46,13 +46,14 @@
                         iconCls:'hr'
                     },
                     
-                    
+                    <sec:authorize ifAllGranted="ROLE_KHB">
                     {                    
                         title:'常量考核查询统计',
                         html:document.getElementById('menu_constStat').innerHTML,
                         border:false,
                         iconCls:'permit'
                     },
+                    </sec:authorize>
                     {                    
                         title:'常量考核统计设置',
                         html:document.getElementById('menu_constStat_cfg').innerHTML,
@@ -62,6 +63,12 @@
                     {                    
                         title:'考核任务设置',
                         html:document.getElementById('menu_task_cfg').innerHTML,
+                        border:false,
+                        iconCls:'permit'
+                    },
+                    {                    
+                        title:'系统配置',
+                        html:document.getElementById('menu_sys').innerHTML,
                         border:false,
                         iconCls:'permit'
                     }

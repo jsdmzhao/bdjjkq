@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/common/taglibs.jsp" %>
-
 <html>
 <head>
+<%@include file="/common/meta.jsp" %>
 <%@include file="/common/ec.jsp" %>
 <%@include file="/common/extjs.jsp" %>
-<%@include file="/common/meta.jsp" %>
+
 
 <title></title>
 </head>
 <body>
+
 
 <s:form action="user/remove" theme="simple" id="removeForm"></s:form>
 <s:form action="user/unsealUser" theme="simple" id="unsealForm"></s:form>
@@ -47,24 +48,26 @@
     </div>   
     <div class="x-panel-body">
     <div style="margin-left:-3px;" align="center">
-	<ec:table items="items" var="item" retrieveRowsCallback="limit" sortRowsCallback="limit" 
+	<ec:table items="items" var="item" retrieveRowsCallback="process"
 	action="index.htm"
-	useAjax="true" doPreload="false"
+	useAjax="false" doPreload="false"
 	maxRowsExported="1000" 
-	pageSizeList="30,50,100,500,1000" 
+	pageSizeList="20,30,50,100,500" 
 	editable="false" 
 	sortable="true"	
-	rowsDisplayed="30"	
+	rowsDisplayed="20"	
 	generateScript="true"	
 	resizeColWidth="true"	
 	classic="false"	
 	width="100%" 	
-	height="277px"	
-	minHeight="200"
+	height="500px"	
+	minHeight="300"
+	showHeader="true"	
 	xlsFileName="user.xls" 		
 	toolbarContent="navigation|pagejump|pagesize|export|refresh|extend|status"   
 	>
 	<ec:row>
+		<ec:column width="30" property="_t" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>	
 	    <ec:column width="50" property="_s" title="选择" sortable="false" style="text-align:center">
 	       <s:if test="#attr.item.isSys == 1">
 	       <input type="checkbox" class="checkbox" disabled="disabled"/>
@@ -75,7 +78,13 @@
 	       
 	    </ec:column>
 		<ec:column width="80" property="loginId" title="登录名" />
-		<ec:column width="200" property="email" title="电子信箱" />
+		<!--<ec:column width="200" property="email" title="电子信箱" />
+		-->
+		<ec:column width="80" property="_aa" title="所属部门" >
+			<c:forEach items="${item.employees}" var="emp">
+				${emp.dept.name }
+			</c:forEach>
+		</ec:column>
 		<ec:column width="60" property="status" title="状态" style="text-align:center">
 		  <s:if test="#attr.item.status == 0">
 		  	<font color="red">禁用</font>

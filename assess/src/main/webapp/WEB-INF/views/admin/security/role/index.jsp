@@ -86,7 +86,7 @@
 		   </s:else>
 		</ec:column>
 		<ec:column width="40" property="_0" title="权限" style="text-align:center" sortable="false">
-		 <a href="#" onclick="javascript:assignPermissions(${item.id})">
+		 <a href="#" onclick="javascript:assignPermissions('${item.id}')">
 		       <img src="${ctx}/images/icons/authority.gif" border="0" title="分配权限"/>
 		   </a>
 		</ec:column>		

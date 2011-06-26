@@ -71,8 +71,8 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 
    <div class="x-panel-body">
      <div style="margin-left:-3px;" align="center">
-	<ec:table items="items" var="item" retrieveRowsCallback="process" sortRowsCallback="process" 
-	action="stat.htm"
+	<ec:table items="items" var="item" retrieveRowsCallback="limit" sortRowsCallback="limit" 
+	action="index.htm"
 	useAjax="true" doPreload="false"
 	maxRowsExported="1000" 
 	pageSizeList="20,50,100" 
