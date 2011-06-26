@@ -115,8 +115,9 @@ public class ResourceAction extends DefaultCrudAction<Resource, ResourceManager>
    */
   @SuppressWarnings("unchecked")
   private List<Role> getRoles() {
-    return getManager().getDao().query("from Role r where r.name=? or r.name like ? order by r.name", 
-        UserConstants.ROLE_ADMIN, MatchMode.START.toMatchString("ROLE_VIP_"));
+    //return getManager().getDao().query("from Role r where r.name=? or r.name like ? order by r.name", 
+    //    UserConstants.ROLE_ADMIN, MatchMode.START.toMatchString("ROLE_VIP_"));
+	  return getManager().getDao().query("from Role r order by r.name");
   }
   
   /**
