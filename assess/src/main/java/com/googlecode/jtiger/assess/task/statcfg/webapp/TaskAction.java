@@ -53,10 +53,10 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 		}
 		if (getModel().getTaskType() != null
 				&& getModel().getTaskType().getId() != null) {
-			buf.append("and t.taskType.id = ?");
+			buf.append("and t.taskType.id = ? ");
 			args.add(getModel().getTaskType().getId());
 		}
-
+		buf.append("order by t.taskType.id");
 		page = getManager().pageQuery(pageOfBlock(), buf.toString(),
 				args.toArray());
 		restorePageData(page);
@@ -100,8 +100,11 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 		if (detailIds != null && detailIds.length > 0) {
 			startIndex = detailIds.length;
 		}
-		// 类型为B组考核标准
-		getModel().setTaskConstOrDuty(AssessConstants.TASK_GROUP_B);
+
+		// getModel().setTaskConstOrDuty(AssessConstants.TASK_GROUP_B);
+		//getModel().setTaskType(
+		//		taskTypeManager.get(getModel().getTaskType().getId()));
+
 		super.save();
 		// 剩余的是新添加的
 		for (int i = startIndex; i < detailNames.length; i++) {
@@ -118,14 +121,15 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 
 		return SUCCESS;
 	}
+
 	/**
 	 * 编辑Task
 	 */
 	public String edit() {
-		//向界面专递TaskType集合,以供选择
+		// 向界面专递TaskType集合,以供选择
 		List<TaskType> taskTypes = getTaskTypes();
 		getRequest().setAttribute("taskTypes", taskTypes);
-		
+
 		return INPUT;
 	}
 
