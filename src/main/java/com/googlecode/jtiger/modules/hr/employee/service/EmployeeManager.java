@@ -46,9 +46,12 @@ public class EmployeeManager extends BaseGenericsManager<Employee> {
     Assert.notNull(employee.getUser());
     Set<Employee> employees = new HashSet<Employee>();
     employees.add(employee);
-    employee.getUser().setEmployees(employees);
+    employee.getUser().setEmployees(employees);//--修改 by Lonelythinker
+    //employee.getUser().setEmployee(employee);
+    
     logger.debug("保存员工信息 {}", employee.getName());
     userManager.save(employee.getUser());
+    //getDao().save(employee);
   }
   
   /**
