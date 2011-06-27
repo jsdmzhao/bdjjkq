@@ -48,7 +48,10 @@ public class ExtJsCrudAction<T extends BaseModel, M extends BaseGenericsManager<
       String start = getRequest().getParameter(EXT_PARAM_START);
       if(StringUtils.isNumeric(start)) {
         pageNo = (Integer.valueOf(start) / getPageSize()) + 1;
+      } else {
+    	pageNo = super.getPageNo();
       }
+      
     } else {
       pageNo = super.getPageNo();
     }
@@ -66,6 +69,8 @@ public class ExtJsCrudAction<T extends BaseModel, M extends BaseGenericsManager<
       String limit = getRequest().getParameter(EXT_PARAM_LIMIT);
       if(StringUtils.isNumeric(limit)) {
         pageSize = Integer.valueOf(limit);
+      } else {
+    	pageSize = super.getPageSize();
       }
     } else {
       pageSize = super.getPageSize();
