@@ -48,11 +48,11 @@
     </div>   
     <div class="x-panel-body">
     <div style="margin-left:-3px;" align="center">
-	<ec:table items="items" var="item" retrieveRowsCallback="process"
+	<ec:table items="items" var="item" retrieveRowsCallback="limit" sortRowsCallback="limit" 
 	action="index.htm"
 	useAjax="false" doPreload="false"
 	maxRowsExported="1000" 
-	pageSizeList="20,30,50,100,500" 
+	pageSizeList="20,30,50,100,500,1000" 
 	editable="false" 
 	sortable="true"	
 	rowsDisplayed="20"	
