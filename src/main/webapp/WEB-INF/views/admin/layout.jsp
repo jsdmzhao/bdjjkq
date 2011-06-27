@@ -46,7 +46,7 @@
                         iconCls:'hr'
                     },
                     
-                    <sec:authorize ifAllGranted="ROLE_KHB">
+                    <sec:authorize ifAnyGranted ="ROLE_KHB,ROLE_ADMIN">
                     {                    
                         title:'常量考核查询统计',
                         html:document.getElementById('menu_constStat').innerHTML,

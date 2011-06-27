@@ -86,7 +86,8 @@
 		</div>	
 		
     </div>-->
-    <sec:authorize ifAllGranted="ROLE_KHB">
+
+    <sec:authorize ifAnyGranted ="ROLE_KHB,ROLE_ADMIN">
     <div id="menu_constStat">
 		<div style="padding-left:5px;">  
 			 <div style="padding-top:2px">
@@ -156,14 +157,14 @@
 					<a href="${ctx}/security/resource/index.htm" target="main">资源管理</a>
 			</div>
 			
-			<div style="padding-top:2px">
+			<!--<div style="padding-top:2px">
 				<img src="${ctx}/images/arrow_3.png" class="icon">
 				<a href="${ctx}/admin/cron/list.htm" target="main">定时任务设置</a>
 			</div>	
 
 		
 			
-		</div>
+		--></div>
 	</div>
 	</sec:authorize>
 </div>
