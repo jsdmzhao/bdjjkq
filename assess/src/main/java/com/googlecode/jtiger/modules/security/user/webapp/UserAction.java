@@ -370,9 +370,4 @@ public class UserAction extends ExtJsCrudAction<User, UserManager> {
 		this.user = user;
 	}
 
-	@Override
-	protected int getPageSize() {
-		return 30;
-	}
-
 }
