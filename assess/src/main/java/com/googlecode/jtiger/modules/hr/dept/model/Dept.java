@@ -111,6 +111,10 @@ public class Dept extends BaseModel implements Serializable {
 	 * 账号
 	 */
 	private String bankAccount;
+	/**
+	 * 排序依据
+	 */
+	private Integer orderNo;
 
 	/**
 	 * 部门记录
@@ -354,5 +358,14 @@ public class Dept extends BaseModel implements Serializable {
 
 	public void setDeptType(String deptType) {
 		this.deptType = deptType;
+	}
+
+	@Column(name = "order_no")
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
 	}
 }

@@ -5,14 +5,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -156,6 +154,11 @@ public class Employee extends BaseIdModel implements Serializable {
 	 * 对应的Dept
 	 */
 	private Dept dept;
+
+	/**
+	 * 排序依据
+	 */
+	private Integer orderNo;
 
 	/**
 	 * 对应的部门下的主管
@@ -460,5 +463,14 @@ public class Employee extends BaseIdModel implements Serializable {
 
 	public void setPoliceNo(String policeNo) {
 		this.policeNo = policeNo;
+	}
+
+	@Column(name = "order_no")
+	public Integer getOrderNo() {
+		return orderNo;
+	}
+
+	public void setOrderNo(Integer orderNo) {
+		this.orderNo = orderNo;
 	}
 }
