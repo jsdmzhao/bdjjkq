@@ -10,10 +10,28 @@
 <title></title>
 <%@include file="/common/validator.jsp" %>
 <%@include file="/common/ec.jsp" %>
-<%--@include file="/common/extjs.jsp" --%>
+<%@include file="/common/extjs.jsp" %>
 <%@include file="/common/meta.jsp" %>
 <script type="text/javascript" src="${ctx}/scripts/jquery.form.js"></script>
-<style type="text/css">
+
+<script type="text/javascript" src="${ctx}/scripts/jqueryui/jquery.ui.js"></script><!--
+<script type="text/javascript" src="${ctx}/scripts/jqueryui/jquery.ui.dialog.js"></script>
+		<script src="${ctx}/scripts/ui/jquery-1.5.1.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.bgiframe-2.1.2.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.ui.core.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.ui.widget.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.ui.mouse.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.ui.button.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.ui.draggable.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.ui.position.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.ui.resizable.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.ui.dialog.js"></script>
+	<script src="${ctx}/scripts/ui/jquery.effects.core.js"></script>
+	<link rel="stylesheet" href="${ctx}/scripts/ui/demos.css">
+	<link rel="stylesheet" href="${ctx}/scripts/ui/jquery.ui.all.css">
+		--><style type="text/css">
+
+
 .transgressTypeTitle{
 	text-align:left;
 	font-size:18px;
@@ -85,6 +103,7 @@
 					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
 					width="34" height="22" border="0" align="absmiddle"></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="button" value="保存统计条件" id="btnSaveStatCondtion" onclick="javascript:showSaveStatConditionWindow()" class="button" >
 					</td> 
                   </tr>
                   <tr>
@@ -128,7 +147,7 @@
                      </td>
                       <td rowspan="2"  width="15%" align="right">车&nbsp;&nbsp;&nbsp;辆&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>使用性质：</td>
                      <td rowspan="2" width="55%">
-                     	<table  width="100%" style="margin-left: -9px;">
+                     	<table  width="100%" style="margin-left: px;">
                      		<c:forEach items="${allVehicleUseCodes}" var="vuc" varStatus="status">              
                      				<c:if test="${status.index%5== 0}">
                      					<tr>
@@ -170,18 +189,29 @@
                   			
                   		</table>
                   	</td>
-                  </tr>               
-                </table> 
+                  </tr><!--  
+                  <tr>
+						<td align="right">统计条件名称：</td>
+						<td><input type="text" name=""></input></td>
+						<td align="right">描述：</td>
+						<td>
+							<textarea rows="3" cols="30" name="descn"></textarea>
+						</td>						
+					</tr>    
+					<tr>
+					<td colspan="4" align="center"><input type="button" value="保存统计条件" id="btnSaveStatCondtion" class="button" ></input></td>
+					</tr>         
+                --></table> 
               </fieldset>
               <table width="100%" style="margin-bottom:10px;">
 				<tr>
 					<td style="text-align:center;">						
-						<input type="button" value="统计" class="button" onclick="statIt()"></input>										
+						<input type="button" value="统计" class="button" onclick="statIt()"></input>																
                     </td>
               	</tr>
               </table>
 			</td>
-		</tr>
+		</tr>		
 	</table>
 	</s:form>
 </div>
@@ -239,7 +269,7 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
 			var html = [];
 			html.push("<tr><td><table class='sstTable' id='SST"+secondLevelTypeId+"' width='100%'><tr><td class='transgressTypeTitle'>"+secondLevelTypeDescn+"&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox'  onclick='checkAll("+tableId+",this)'>全选<input type='hidden' disabled='disabled' name='secondLevelTypeIds' value='"+secondLevelTypeId+"'/><img  class='clossBtn' src='${ctx}/images/icons/delete.gif' onclick='closeTable("+tableId+")'>关闭</td></tr>");
 			$.each(data,function(idx,item){
-				html.push("<tr><td align='left'><input type='checkbox' onclick='checkMe(this)' name='transgressActionCodes' value='"+item.code+"'/>"+item.code+":"+item.descns + "</td></tr>");
+				html.push("<tr><td align='left'><input class='ttaCode' type='checkbox' onclick='checkMe(this)' name='transgressActionCodes' value='"+item.code+"'/>"+item.code+":"+item.descns + "</td></tr>");
 			});
 			html.push("</table></td></tr>");
 			
@@ -331,16 +361,27 @@ function statIt(){
 }
 function checkAll(arg1,arg2){
 	if(arg2.checked){
-		$("#"+arg1+" :checkbox").attr("checked",true);
+		$("#"+arg1+" :checkbox.ttaCode").attr("checked",true);
 	}else{
-		$("#"+arg1+" :checkbox").attr("checked",false);
+		$("#"+arg1+" :checkbox.ttaCode").attr("checked",false);
 	}	
-	
+	$("#"+arg1+" :checkbox.ttaCode").each(function() {		
+		checkMe(this);     
+     });      
 	
 }
 function closeTable(arg){
+	$("#"+arg+" :checkbox.ttaCode").attr("checked",false);
+	$("#"+arg+" :checkbox.ttaCode").each(function() {		
+		checkMe(this);     
+     });
 	 $("#"+arg).parent().parent().remove();
+	 
 }
+function saveStatCondition(){
+	alert('a');
+}
+
 </script>
 				<iframe width=188 height=166 
 				name="gToday:datetime:${ctx}/js/calendar/agenda.js:gfPop:${ctx}/js/calendar/plugins_time.js" 
@@ -348,5 +389,9 @@ function closeTable(arg){
 				src="${ctx}/js/calendar/ipopeng.html" scrolling="no" frameborder="0" 
 				style="visibility:visible; z-index:999; position:absolute; top:-500px; left:-500px;">
 			</iframe>
+			
+			
+
+<jsp:include page="saveStatCondition.jsp"></jsp:include>			
 </body>
 </html>
