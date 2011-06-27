@@ -36,18 +36,19 @@
 	    useAjax="false" doPreload="false"
 	    xlsFileName="员工列表.xls" 
 	    maxRowsExported="10000000"
-	    pageSizeList="30,50,100,500,1000" 
+	    pageSizeList="20,30,50,100,500,1000" 
 		editable="false" 
 		sortable="true"	
-		rowsDisplayed="30"	
+		rowsDisplayed="20"	
 		generateScript="true"	
 		resizeColWidth="true"	
 		classic="false"	
 		width="100%" 	
-		height="360px"	
-		minHeight="360" 
+		height="460px"	
+		minHeight="460" 
 		>
 		  <ec:row>
+		  	<ec:column width="30" property="_t" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>
 		    <ec:column width="50" property="_s" title="选择" style="text-align:center" viewsAllowed="html" sortable="false">
 	       		<input type="checkbox" name="selectedItems" id="selectedItems" value="${item.id}" class="checkbox"/>
 	    	</ec:column>
@@ -55,7 +56,7 @@
 			<ec:column width="60" property="name" title="姓名" />
 			<!-- 都是同一部门不用显示 -->
 			<s:if test="deptId == null">
-			<ec:column width="70" property="dept.name" title="所属部门" sortable="false"/>
+			<ec:column width="100" property="dept.name" title="所属部门" sortable="false"/>
 			</s:if>
 			<ec:column width="70" property="place" title="职位" sortable="true"/>
 			<ec:column width="70" property="mobil" title="手机" sortable="false"/>
