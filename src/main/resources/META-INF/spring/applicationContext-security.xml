@@ -13,7 +13,7 @@
 	<beans:bean id="authenticationSeccessHandler"
 		class="com.googlecode.jtiger.modules.security.ext.AuthenticationSuccessHandlerEx">
 		<beans:property name="alwaysUseDefaultTargetUrl" value="false"></beans:property>
-		<beans:property name="defaultTargetUrl" value="/personalcenter/index.htm"></beans:property>
+		<beans:property name="defaultTargetUrl" value="/admin/index.htm"></beans:property>
 	</beans:bean>
 	<!-- 处理用户注销 -->
 	<beans:bean id="logoutSuccessHandlerEx" class="com.googlecode.jtiger.modules.security.ext.LogoutSuccessHandlerEx">
