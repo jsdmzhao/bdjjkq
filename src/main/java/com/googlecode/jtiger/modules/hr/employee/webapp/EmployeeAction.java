@@ -212,6 +212,7 @@ public class EmployeeAction extends ExtJsCrudAction<Employee, EmployeeManager> {
       sbf.append(" and e.name like '%").append(getModel().getName()).append(
           "%'");
     }
+    sbf.append(" order by e.dept.orderNo,e.orderNo");
 
     items = getManager().query(sbf.toString(), new Object[] {});
     return INDEX;
