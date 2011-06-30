@@ -21,7 +21,9 @@ import org.springframework.stereotype.Controller;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
 import com.googlecode.jtiger.assess.transgress.stat.model.TransgressStat;
 import com.googlecode.jtiger.assess.transgress.stat.service.TransgressStatManager;
+import com.googlecode.jtiger.assess.transgress.statcfg.StatCfgConstants;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressCustomStatCondition;
+import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressType;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.VehicleUseCode;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressCustomStatConditionManager;
@@ -48,7 +50,7 @@ public class SimpleTransgressStatAction extends
 	/** 条件3--违法行为范围,必须选择,以免全库查询 */
 	/** 用户选择的违法行为代码 */
 	private String[] transgressActionCodes;
-	/**文本域中的违法代码*/
+	/** 文本域中的违法代码 */
 	private String taCodes;
 	/** 条件4--车辆使用性质, */
 	/** 界面传递过来的车辆使用性质代码 */
@@ -83,7 +85,7 @@ public class SimpleTransgressStatAction extends
 		List<VehicleUseCode> allVehicleUseCodes = vehicleUseCodeManager
 				.getAllVehicleUseCodes();
 		getRequest().setAttribute("allVehicleUseCodes", allVehicleUseCodes);
-
+		getRequest().setAttribute("simpleTsItems", getSimpleTsItems());
 		return INDEX;
 	}
 
@@ -128,11 +130,10 @@ public class SimpleTransgressStatAction extends
 		// title.add("");
 		title.add("合计");
 		// 违法行为代码
-		//statCondition
-	//			.setTransgressActionCodesStr(buildTransgressActionCodesStr());
-		
-		statCondition
-		.setTransgressActionCodesStr(buildTaCodesStr());
+		// statCondition
+		// .setTransgressActionCodesStr(buildTransgressActionCodesStr());
+
+		statCondition.setTransgressActionCodesStr(buildTaCodesStr());
 		// 机动车使用性质
 		statCondition.setVehicleUseCodes(buildVehicleUseCodeSStr());
 		statCondition.setTimeCondition(getRequest().getParameter(
@@ -205,34 +206,34 @@ public class SimpleTransgressStatAction extends
 		}
 		return buf.toString();
 	}
+
 	/**
 	 * 根据页面中文本域输入的字符串构建适合查询的违法代码字符号
+	 * 
 	 * @return
 	 */
-	private String buildTaCodesStr(){
+	private String buildTaCodesStr() {
 		String regex = "[^\\d\\,\\，\\、]";
-		Pattern p =  Pattern.compile(regex);
+		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(taCodes);
-		if(m.find()){
+		if (m.find()) {
 			taCodes = m.replaceAll("");
 		}
-		taCodes =  taCodes.replace('，', ',').replace('、', ',').replace(
-				" ", "").replace(",,", ",");
-		if(taCodes.startsWith(",")){
+		taCodes = taCodes.replace('，', ',').replace('、', ',').replace(" ", "")
+				.replace(",,", ",");
+		if (taCodes.startsWith(",")) {
 			taCodes = taCodes.substring(1, taCodes.length());
 		}
-		if(taCodes.endsWith(",")){
-			taCodes = taCodes.substring(0, taCodes.length()-1);
+		if (taCodes.endsWith(",")) {
+			taCodes = taCodes.substring(0, taCodes.length() - 1);
 		}
-		String[] codeArr =taCodes.split(",");
+		String[] codeArr = taCodes.split(",");
 		StringBuffer buf = new StringBuffer();
 		if (codeArr != null && codeArr.length > 0) {
 			for (int i = 0; i < codeArr.length - 1; i++) {
 				buf.append("'").append(codeArr[i]).append("',");
 			}
-			buf.append("'").append(
-					codeArr[codeArr.length - 1])
-					.append("'");
+			buf.append("'").append(codeArr[codeArr.length - 1]).append("'");
 		}
 		return buf.toString();
 	}
@@ -259,6 +260,13 @@ public class SimpleTransgressStatAction extends
 		}
 
 		return map;
+	}
+
+	@SuppressWarnings("unchecked")
+	private List<TransgressStatItem> getSimpleTsItems() {
+		String hql = "from TransgressStatItem tsi where tsi.type = ?";
+		return getManager().getDao().query(hql,
+				StatCfgConstants.STAT_ITEM_TYPE_SIMPLE);
 	}
 
 	public Date getBeginTime() {
