@@ -30,6 +30,7 @@ import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressCustomS
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressTypeManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.VehicleUseCodeManager;
 import com.googlecode.jtiger.assess.transgress.statproperties.service.TransgressStatPropertiesManager;
+import com.googlecode.jtiger.assess.util.CodesStringUtil;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
@@ -99,7 +100,7 @@ public class SimpleTransgressStatAction extends
 		} else {
 			statCondition.setEachDayStat(false);
 		}
-		// 得到定制的统计条件
+		// 得到定制的统计条件(起至时分秒)
 		TransgressCustomStatCondition customCondition = conditionManager.get()
 				.get(0);
 		// 如果是每日定制统计
@@ -122,7 +123,7 @@ public class SimpleTransgressStatAction extends
 			statCondition.setBeginHourMinute(sf.format(beginTime));
 			statCondition.setEndHourMinute(sf.format(endTime));
 		}
-		if (StringUtils.isNotBlank(unionForce)) {
+		if ("true".equals(unionForce)) {
 			statCondition.setUnionForce(true);
 		} else {
 			statCondition.setUnionForce(false);
@@ -133,7 +134,7 @@ public class SimpleTransgressStatAction extends
 		// statCondition
 		// .setTransgressActionCodesStr(buildTransgressActionCodesStr());
 
-		statCondition.setTransgressActionCodesStr(buildTaCodesStr());
+		statCondition.setTransgressActionCodesStr(CodesStringUtil.buildTaCodesStr(taCodes));
 		// 机动车使用性质
 		statCondition.setVehicleUseCodes(buildVehicleUseCodeSStr());
 		statCondition.setTimeCondition(getRequest().getParameter(
@@ -213,6 +214,9 @@ public class SimpleTransgressStatAction extends
 	 * @return
 	 */
 	private String buildTaCodesStr() {
+		if(StringUtils.isBlank(taCodes)){
+			return "";
+		}
 		String regex = "[^\\d\\,\\，\\、]";
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(taCodes);

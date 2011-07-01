@@ -33,9 +33,11 @@ public class StatDao extends BaseJdbcDao {
 	//private static final String SQL_STAT1 = "SELECT SUM (ROWS_COUNT) AS TOTAL_COUNT FROM( SELECT COUNT(*) ROWS_COUNT FROM "
 	//		+ AssessConstants.VIO_VIOLATION + "  VV WHERE VV.WFXW IN (";
 	private static final String SQL_STAT1 = "SELECT ROWS_COUNT1 TOTAL_COUNT FROM( SELECT COUNT(*) ROWS_COUNT1 FROM "
-				+ AssessConstants.VIO_VIOLATION + "  VV WHERE VV.WFXW IN (";
+				+ AssessConstants.VIO_VIOLATION + "  VV WHERE 1=1 ";
+	private static final String SQL_STAT101 = "AND VV.WFXW IN (";
 	private static final String SQL_STAT11 = "SELECT (ROWS_COUNT1+ROWS_COUNT2) TOTAL_COUNT FROM( SELECT COUNT(*) ROWS_COUNT1 FROM "
-		+ AssessConstants.VIO_VIOLATION + "  VV WHERE VV.WFXW IN (";
+		+ AssessConstants.VIO_VIOLATION + "  VV  WHERE 1=1 ";
+	//private static final String SQL_STAT102 ="AND VV.WFXW IN (";
 	private static final String SQL_STAT2 = ") ";
 	private static final String SQL_STAT_BEGIN_TIME1 = "and VV.WFSJ >= to_date('";
 	private static final String SQL_STAT_BEGIN_TIME11 = "and VV.CLSJ >= to_date('";
@@ -70,13 +72,15 @@ public class StatDao extends BaseJdbcDao {
 				: condition.getTransgressActionCodesStr();
 		StringBuffer buf = null;
 		if(!condition.getUnionForce()){
-			 buf = new StringBuffer(SQL_STAT1);
+			buf = new StringBuffer(SQL_STAT1);
 		}else{
 			buf = new StringBuffer(SQL_STAT11);
 		}
 		
 		// 设定违法行为字符串
-		buf.append(actionCodesStr).append(SQL_STAT2);
+		if(StringUtils.isNotBlank(actionCodesStr)){
+			buf.append(SQL_STAT101) .append(actionCodesStr).append(SQL_STAT2);
+		}
 		// 定制每日查询
 		if (condition.isEachDayStat()) {
 			if ("CLSJ".equals(condition.getTimeCondition())) {

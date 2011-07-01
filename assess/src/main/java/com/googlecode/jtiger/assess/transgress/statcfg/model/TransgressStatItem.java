@@ -39,6 +39,10 @@ public class TransgressStatItem extends BaseIdModel {
 	private String findOrDealWith = "FXSJ";
 	/** 统计项关联的部门 */
 	private Dept dept;
+	/** 自定义统计条件描述 */
+	private String descn;
+	/** 统计条件类别(任务常量/自定义统计条件) */
+	private String type;
 
 	public String getName() {
 		return name;
@@ -108,6 +112,24 @@ public class TransgressStatItem extends BaseIdModel {
 
 	public void setDept(Dept dept) {
 		this.dept = dept;
+	}
+
+	@Column(name = "item_descn", columnDefinition = "varchar2(2000)")
+	public String getDescn() {
+		return descn;
+	}
+
+	public void setDescn(String descn) {
+		this.descn = descn;
+	}
+
+	@Column(name = "item_type", columnDefinition = "varchar2(1)")
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }
