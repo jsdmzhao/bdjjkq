@@ -103,7 +103,7 @@
 					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
 					width="34" height="22" border="0" align="absmiddle"></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<input type="button" value="保存统计条件" id="btnSaveStatCondtion" onclick="javascript:showSaveStatConditionWindow()" class="button" >
+					
 					</td> 
                   </tr>
                   <tr>
@@ -117,8 +117,19 @@
                      		</c:forEach>
                      	</select>
 					 </td>
-                    
+                    <td align="right" width="15%">已保存的统计条件：</td>
+                     <td align="left" width="15%"  >                     	
+                     	<select name="selectStatItem" id="selectStatItem" style="width:200px;padding-left:2px;">
+                     		<option value="">请选择</option>
+                     		<c:forEach items="${simpleTsItems}" var="sti">
+                     			<option value=${sti.id }>${sti.name }</option>
+                     		</c:forEach>
+                     	</select>
+                     	<input type="button" value="保存" id="btnSaveStatCondtion" onclick="javascript:showSaveStatConditionWindow()" class="button" >
+                     	<input type="button" value="删除" id="btnRemoveStatCondtion" disabled="disabled" onclick="onRemoveStatCondition()" class="button" >
+					 </td>
                   </tr>
+       
                   <tr>
                   	<td align="right" width="15%">违法代码：</td>
                   	<td colspan="2" align="left">
@@ -174,13 +185,13 @@
                   
                    <TR>
                   	 <td align="right">时间依据：</td>
-                  	 <td><input type="radio" name="timeCondition" value="FXSJ" checked="checked">发现时间</input>						
-					<input type="radio" name="timeCondition" value="CLSJ">处理时间</input></td>
+                  	 <td><input type="radio" name="timeCondition" id="FXSJ" value="FXSJ" checked="checked">发现时间</input>						
+						 <input type="radio" name="timeCondition" id="CLSJ" value="CLSJ">处理时间</input></td>
                      <td align="right">
                      	是否关联&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>违法强制表：</td>
                      	<td align="left">
-						<input type="radio" name="unionForce"  value="true">关联</input>
-						<input type="radio" name="unionForce" value="" checked="checked">不关联</input>
+						<input type="radio" name="unionForce" id="unionForceTrue" value="true">关联</input>
+						<input type="radio" name="unionForce" id="unionForceFalse" value="false" checked="checked">不关联</input>
                      </td>
                   </TR>  
                   <tr>
@@ -206,7 +217,8 @@
               <table width="100%" style="margin-bottom:10px;">
 				<tr>
 					<td style="text-align:center;">						
-						<input type="button" value="统计" class="button" onclick="statIt()"></input>																
+						<input type="button" value="统计" class="button" onclick="statIt()"></input>			
+						<input type="reset"  id="btnReset" value="重置" class="button" ></input>													
                     </td>
               	</tr>
               </table>
@@ -294,18 +306,21 @@ $(function(){
 	$('#textAreaCodes').hide();
 });
 function statItOld(){
-	var checkArr ;
-	checkArr = document.getElementsByName("transgressActionCodes");
+	//var checkArr ;
+	//checkArr = document.getElementsByName("transgressActionCodes");
+	var tmp = $('[name="vehicleUseCodes"]').val();
+	alert(tmp);
+	return;
 	if(checkArr.length==0){
 		alert("请选择违法行为!");
 		return;
 	}
-	for(var i =0;i<checkArr.length;i++){
+	/*for(var i =0;i<checkArr.length;i++){
 		if(checkArr[i].checked){
 			document.getElementById("statForm").submit();
 			return;
 		}
-	}
+	}*/
 	alert("请选择违法行为!");
 	return;
 }
@@ -351,10 +366,16 @@ $('#taCodes').bind("blur", function() {
 	document.getElementById('taCodes').value = document.getElementById('taCodes').value.replace(/[^\d\,\，\、]/,'');
 });
 function statIt(){
+	/*var tmp='';
+	$("[name='vehicleUseCodes'][checked]").each(function(){  
+		 tmp+=$(this).val();  
+ 	});   
+	alert(tmp);
+	return;*/
 	//alert(/[\d\,\，]/.test($('#taCodes').val()));
 	if( /[^\d\,\，\、]/.test($('#taCodes').val()) ||$.trim($('#taCodes').val().replace(/[^\d\,\，\、]/,'')) == ''){
-		alert("请点选或者输入违法代码!");
-		return;	
+		//alert("请点选或者输入违法代码!");
+		//return;	
 	}
 	//alert($.trim($('#taCodes').val()));
 	$("#statForm").submit();
