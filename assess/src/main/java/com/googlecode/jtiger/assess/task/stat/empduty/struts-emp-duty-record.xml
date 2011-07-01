@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="admin.assess.task.empduty" extends="default"
+	         namespace="/assess/task/emoduty">
+		<action name="*" class="employeeDutyRecordManager" method="{1}">
+		    <result name="{1}">/WEB-INF/views/assess/task/statcfg/task/{1}.jsp</result>
+		    <result name="success" type="redirect">index.htm</result>
+		    <result name="input">/WEB-INF/views/assess/task/statcfg/task/edit.jsp</result>
+		    <result name="listTaskConst" type="redirect">taskConstIndex.htm</result>
+		    <result name="listTaskDuty" type="redirect">taskDutyIndex.htm</result>
+		    <result name="listGroupB" type="redirect">groupBIndex.htm</result>
+		    <result name="listAwardReject" type="redirect">awardRejectIndex.htm</result>
+		   	    
+		</action>	
+	</package>
+	
+	
+</struts>
+
