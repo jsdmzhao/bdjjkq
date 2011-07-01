@@ -17,6 +17,7 @@ import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressAction;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressType;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressStatItemManager;
+import com.googlecode.jtiger.assess.util.CodesStringUtil;
 import com.googlecode.jtiger.core.util.ReflectUtil;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 
@@ -186,25 +187,23 @@ public class TransgressStatItemAction extends
 		getModel().setVehicleUseCodes(bufVehicleUseCodes.toString());
 		getModel().setTransgressActionCodes(bufActionCode.toString());
 		getModel().setSecondLevelTypeIds(bufTypeId.toString());
-		//是否连接force表
+		// 是否连接force表
 		if (StringUtils.isNotBlank(unionForce)) {
 			getModel().setUnionForce(true);
 		} else {
 			getModel().setUnionForce(false);
 		}
-		//发现时间/处理时间
-		getModel().setFindOrDealWith(getRequest().getParameter("timeCondition"));
-		
+		// 发现时间/处理时间
+		getModel()
+				.setFindOrDealWith(getRequest().getParameter("timeCondition"));
+		// 类型为定制统计
+		getModel().setType(StatCfgConstants.STAT_ITEM_TYPE_COMMON);
 		super.save();
-		/*try {
-			super.save();
-			render("success", "text/plain");
-		} catch (Exception e) {
-			e.printStackTrace();
-			render(e.getMessage(), "text/plain");
-		}
-		return null;
-		*/
+		/*
+		 * try { super.save(); render("success", "text/plain"); } catch
+		 * (Exception e) { e.printStackTrace(); render(e.getMessage(),
+		 * "text/plain"); } return null;
+		 */
 
 		return SUCCESS;
 	}
@@ -271,6 +270,143 @@ public class TransgressStatItemAction extends
 		}
 
 		return null;
+	}
+	/**
+	 * 重新初始化选择框-----------------------------未完成啊。。。。
+	 * @return
+	 */
+	public String reInitStatItemSelectAjax(){
+		String hql = "from TransgressStatItem tsi where tsi.type = ?";
+		List<TransgressStatItem> list = getManager().query(hql, StatCfgConstants.STAT_ITEM_TYPE_COMMON);
+		return null;
+		
+	}
+	/**
+	 * 检测是否已经存在统计条件名称Ajax请求
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public String checkName() {
+		String statConditionName = getRequest().getParameter(
+				"statConditionName");
+		String hql = "from TransgressStatItem ts where ts.name = ?";
+		List list = getManager().query(hql, statConditionName);
+		if (CollectionUtils.isEmpty(list)) {
+			render("false", "text/plain");
+		} else {
+			render("true", "text/plain");
+		}
+		return null;
+	}
+
+	/**
+	 * 保存同及条件Ajax请求
+	 * 
+	 * @return
+	 */
+	public String saveStatCondition() {
+		String statConditionName = getRequest().getParameter(
+				"statConditionName");
+		String statConditionDescn = getRequest().getParameter(
+				"statConditionDescn");
+		String taCodes = getRequest().getParameter("taCodes");
+		String secondLevelTypes = getRequest().getParameter("secondLevelTypes");
+		String vehicleUseCodes = getRequest().getParameter("vehicleUseCodes");
+		String unionForce = getRequest().getParameter("unionForce");
+		String statConditionId = getRequest().getParameter("statConditionId");
+		TransgressStatItem tsi = null;
+		//如果id不为空，则为修改，否则，添加新
+		if(StringUtils.isNotBlank(statConditionId)){
+			tsi = getManager().get(statConditionId);
+		}else{
+			tsi = new TransgressStatItem();
+		}		
+
+		tsi.setName(statConditionName);
+		tsi.setDescn(statConditionDescn);
+		tsi.setTransgressActionCodes(buildQueryInStr(CodesStringUtil.buildTaCodesStr(taCodes)));
+		tsi.setSecondLevelTypeIds(secondLevelTypes);
+		tsi.setVehicleUseCodes(buildQueryInStr(vehicleUseCodes));
+		tsi.setType(StatCfgConstants.STAT_ITEM_TYPE_SIMPLE);
+		
+		if ("true".equals(unionForce)) {
+			tsi.setUnionForce(true);
+		} else {
+			tsi.setUnionForce(false);
+		}
+		tsi.setFindOrDealWith(getRequest().getParameter("timeCondition"));
+
+		getManager().save(tsi);
+		render("success", "text/plain");
+
+		return null;
+	}
+
+	/**
+	 * 根据用户选择的已保存的统计条件id，得到条件实体，向客户端传递json串
+	 * 
+	 * @return
+	 */
+	public String selectStatItemStatAjax() {
+		String id = getRequest().getParameter("id");
+		TransgressStatItem tsi = getManager().get(id);
+		if (tsi != null) {
+			String json = toJson(tsi);
+			logger.debug(json);
+			renderJson(json);
+		}
+		return null;
+	}
+	/**
+	 * ajax方式删除自定义统计条件
+	 * @return
+	 */
+	public String removeStatItemStatAjax(){
+		String id = getRequest().getParameter("id");
+		getManager().remove(getManager().get(id));
+		render("success", "text/plain");
+		
+		return null;
+	}
+
+
+	private String getSecondLevelTypeIdsFromCodes(String codes) {
+		if (StringUtils.isBlank(codes)) {
+			return null;
+		}
+		StringBuffer buf = new StringBuffer();
+		String[] codeArr = codes.split(",");
+		for (String code : codeArr) {
+			TransgressType tt = getManager().getTransgressTypeByCode(code);
+			buf.append(tt.getId()).append(",");
+		}
+		if (buf.length() > 0) {
+			buf.deleteCharAt(buf.length() - 1);
+		}
+
+		return buf.toString();
+	}
+
+	/**
+	 * 根据xx,xx字符串，构建'xx','xx'字符串
+	 * 
+	 * @param originalStr
+	 * @return
+	 */
+	private String buildQueryInStr(String originalStr) {
+		if (StringUtils.isBlank(originalStr)) {
+			return null;
+		}
+		String[] arr = originalStr.split(",");
+		StringBuffer buf = new StringBuffer();
+		for (String str : arr) {
+			buf.append("'").append(str).append("'").append(",");
+		}
+		if (buf.length() > 0) {
+			buf.deleteCharAt(buf.length() - 1);
+		}
+		return buf.toString();
 	}
 
 	public String[] getTransgressActions() {

@@ -3,6 +3,7 @@ package com.googlecode.jtiger.assess.transgress.statcfg.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.googlecode.jtiger.assess.transgress.statcfg.StatCfgConstants;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressAction;
@@ -88,5 +89,22 @@ public class TransgressStatItemManager extends
 		String hql = "from VehicleUseCode vuc order by vuc.id";
 
 		return getDao().query(hql);
+	}
+
+	/**
+	 * 根据违法类别代码，得到违法类别实体
+	 * 
+	 * @param code
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public TransgressType getTransgressTypeByCode(String code) {
+		String hql = "from TransgressType tt where tt.code = ?";
+		List<TransgressType> list = getDao().query(hql, code);
+		if (!CollectionUtils.isEmpty(list)) {
+			return list.get(0);
+		} else {
+			return null;
+		}
 	}
 }
