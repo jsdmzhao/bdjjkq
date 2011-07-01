@@ -480,8 +480,9 @@ public class UserManager extends BaseGenericsManager<User> implements UserDetail
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, DataAccessException {
-    User user = (User) userCache.getUserFromCache(username); //从缓存中获得用户
-    User cloneUser = new User();
+    //User user = (User) userCache.getUserFromCache(username); //从缓存中获得用户
+    //User cloneUser = new User();
+	  User user = null;
     //如果缓存中没有，或者用户未被授权，则重新加载
     if (user == null || CollectionUtils.isEmpty(user.getAuthorities())) { 
       user = findObject("from User u where u.loginId=? and u.status=?",
@@ -497,15 +498,16 @@ public class UserManager extends BaseGenericsManager<User> implements UserDetail
       }
       user.setAuthorities(auths);
       //ReflectUtil.copyProperties(cloneUser, user, new String[]{"id", "loginId", "password", "status"});
-      cloneUser.setId(user.getId());
+/*      cloneUser.setId(user.getId());
       cloneUser.setPassword(user.getPassword());
       cloneUser.setStatus(user.getStatus());
       cloneUser.setLoginId(user.getLoginId());
-      cloneUser.setAuthorities(auths);
+      cloneUser.setAuthorities(auths);*/
+      
     }
     //同步缓存
-    userCache.putUserInCache(cloneUser);
-    return cloneUser;
+    //userCache.putUserInCache(cloneUser);
+    return user;
   }
   
   /**
