@@ -13,7 +13,7 @@
 <LINK href="${ctx}/styles/layout.css" type='text/css' rel='stylesheet'>
 </head>
 <body>
-<script type="text/javascript">
+<script type="text/javascript"><!--
     Ext.onReady(function(){
 
        Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
@@ -44,16 +44,14 @@
                         html:document.getElementById('hr').innerHTML,
                         border:false,
                         iconCls:'hr'
-                    },
-                    
-                    <sec:authorize ifAnyGranted ="ROLE_KHB,ROLE_ADMIN">
+                    },                                       
                     {                    
                         title:'常量考核查询统计',
                         html:document.getElementById('menu_constStat').innerHTML,
                         border:false,
                         iconCls:'permit'
                     },
-                    </sec:authorize>
+                
                     {                    
                         title:'常量考核统计设置',
                         html:document.getElementById('menu_constStat_cfg').innerHTML,
@@ -63,6 +61,12 @@
                     {                    
                         title:'考核任务设置',
                         html:document.getElementById('menu_task_cfg').innerHTML,
+                        border:false,
+                        iconCls:'permit'
+                    },
+                    {                    
+                        title:'考核系统录入',
+                        html:document.getElementById('assess_input').innerHTML,
                         border:false,
                         iconCls:'permit'
                     },
