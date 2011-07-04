@@ -4,16 +4,11 @@
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 	<package name="admin.assess.task.empduty" extends="default"
-	         namespace="/assess/task/emoduty">
-		<action name="*" class="employeeDutyRecordManager" method="{1}">
-		    <result name="{1}">/WEB-INF/views/assess/task/statcfg/task/{1}.jsp</result>
+	         namespace="/assess/task/empduty">
+		<action name="*" class="employeeDutyRecordAction" method="{1}">
+		    <result name="{1}">/WEB-INF/views/assess/task/empduty/{1}.jsp</result>
 		    <result name="success" type="redirect">index.htm</result>
-		    <result name="input">/WEB-INF/views/assess/task/statcfg/task/edit.jsp</result>
-		    <result name="listTaskConst" type="redirect">taskConstIndex.htm</result>
-		    <result name="listTaskDuty" type="redirect">taskDutyIndex.htm</result>
-		    <result name="listGroupB" type="redirect">groupBIndex.htm</result>
-		    <result name="listAwardReject" type="redirect">awardRejectIndex.htm</result>
-		   	    
+		    <result name="input">/WEB-INF/views/assess/task/empduty/edit.jsp</result>		   		   	    
 		</action>	
 	</package>
 	

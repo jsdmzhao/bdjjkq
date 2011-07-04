@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.googlecode.jtiger.assess.task.statcfg.model.Task;
+import com.googlecode.jtiger.assess.task.statcfg.model.TaskDetail;
 import com.googlecode.jtiger.core.model.BaseIdModel;
 import com.googlecode.jtiger.modules.hr.employee.model.Employee;
 
@@ -32,6 +33,8 @@ public class EmployeeDutyRecord extends BaseIdModel {
 	private Date recordTime;
 	/** 考核年月 */
 	private String yearAndMonth;
+	
+	private TaskDetail taskDetail;
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "employee_id")
@@ -67,5 +70,14 @@ public class EmployeeDutyRecord extends BaseIdModel {
 
 	public void setYearAndMonth(String yearAndMonth) {
 		this.yearAndMonth = yearAndMonth;
+	}
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "task_detail_id")
+	public TaskDetail getTaskDetail() {
+		return taskDetail;
+	}
+
+	public void setTaskDetail(TaskDetail taskDetail) {
+		this.taskDetail = taskDetail;
 	}
 }
