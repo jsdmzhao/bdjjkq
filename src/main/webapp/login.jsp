@@ -78,13 +78,13 @@ body {
 	                <tr>
 	                  <td width="60" class="font_tt">用户名：</td>
 	                  <td width="190"><span class="font_tt">
-	                    <input name="j_username" id="j_username" type="text" class="inputbb required" size="24" style="margin:2px;"/>
+	                    <input name="j_username" id="j_username" type="text" value="admin" class="inputbb required" size="24" style="margin:2px;"/>
 	                  </span></td>
 	                </tr>
 	                <tr>
 	                  <td class="font_tt">密&nbsp;&nbsp; 码：</td>
 	                  <td><span class="font_tt">
-	                    <input name="j_password" type="password" class="inputbb required" size="24"  style="margin:2px;"/>
+	                    <input name="j_password" type="password" value="manager" class="inputbb required" size="24"  style="margin:2px;"/>
 	                  </span></td>
 	                </tr>
 	                <tr>
@@ -106,7 +106,7 @@ body {
                 <div id="divReg" style="display:none;">
 	                <table width="280" border="0" align="center" cellpadding="0" cellspacing="0" class="bottom_border">
 	                <tr>
-	                  <td height="48"><div align="center"><span class="login_tt">免费注册 </span></div></td>
+	                  <td height="48"><div align="center"><span class="login_tt">注册 </span></div></td>
 	                </tr>
 	              </table>
 	                <br />
@@ -203,7 +203,7 @@ body {
                     <a href="javascript:;"  onclick="findPwd()">
                                                     忘记密码？</a>
                     &nbsp; 
-                    <a href="javascript:;" onclick="regX()">免费注册 </a></div></td>
+                    <a href="javascript:;" onclick="regX()">注册 </a></div></td>
                   </tr>
                 </table>
                
