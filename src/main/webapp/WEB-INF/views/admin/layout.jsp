@@ -65,8 +65,14 @@
                         iconCls:'permit'
                     },
                     {                    
-                        title:'考核系统录入',
+                        title:'日常勤务考核',
                         html:document.getElementById('assess_input').innerHTML,
+                        border:false,
+                        iconCls:'permit'
+                    },
+                    {                    
+                        title:'考核查询',
+                        html:document.getElementById('assess_query').innerHTML,
                         border:false,
                         iconCls:'permit'
                     },

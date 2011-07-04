@@ -128,13 +128,11 @@
                      	<input type="button" value="保存" id="btnSaveStatCondtion" onclick="javascript:showSaveStatConditionWindow()" class="button" >
                      	<input type="button" value="删除" id="btnRemoveStatCondtion" disabled="disabled" onclick="onRemoveStatCondition()" class="button" >
 					 </td>
-                  </tr>
-       
+                  </tr>       
                   <tr>
                   	<td align="right" width="15%">违法代码：</td>
                   	<td colspan="2" align="left">
-                  		<textarea rows="6" cols="50"  id="taCodes" name="taCodes"  ></textarea>
-                  		
+                  		<textarea rows="6" cols="50"  id="taCodes" name="taCodes"  ></textarea>                  		
                   	</td>
                   	<td align="left">
                   		<span style="color: #070100;">
@@ -229,8 +227,6 @@
 </div>
 
 <script type="text/javascript">
-
-
 /**
  * 根据选中的topType值初始化subTypes选择框
  */
