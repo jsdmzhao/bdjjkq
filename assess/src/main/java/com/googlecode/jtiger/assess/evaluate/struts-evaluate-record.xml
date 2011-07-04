@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="admin.assess.evaluate" extends="default"
+	         namespace="/assess/evaluate">
+		<action name="*" class="evaluateRecordAction" method="{1}">
+		    <result name="{1}">/WEB-INF/views/assess/evaluate/{1}.jsp</result>
+		    <result name="index">/WEB-INF/views/assess/evaluate/index.jsp</result>
+		    <result name="success" type="redirect">index.htm</result>
+		    <result name="input">/WEB-INF/views/assess/evaluate/edit.jsp</result>
+			<result name="front">/WEB-INF/views/assess/evaluate/front.jsp</result>		    		   		   	    
+		</action>	
+	</package>
+	
+	
+</struts>
+
