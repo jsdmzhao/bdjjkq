@@ -82,18 +82,24 @@
 	<div id="assess_input">
 		<div style="padding-left:5px;">   		
 			<div style="padding-top:2px">
-				<img src="${ctx}/images/icons/user.gif" class="icon">
-				<a href="${ctx}/security/user/index.htm" target="main">1</a>
-			</div>			
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
+				<a href="${ctx}/assess/task/empduty/index.htm" target="main">考核记录管理</a>
+			</div>						
+		</div>
+		
+	</div>
+	<div id="assess_query">	
+		<div style="padding-left:5px;">   		
 			<div style="padding-top:2px">
-					<img src="${ctx}/images/icons/role.gif" class="icon">
-					<a href="${ctx}/security/role/index.htm" target="main">2</a>
-			</div>			
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
+				<a href="${ctx}/assess/evaluate/index.htm" target="main">考核查询</a>
+			</div>						
+		</div>
+		<div style="padding-left:5px;">   		
 			<div style="padding-top:2px">
-					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/security/resource/index.htm" target="main">3</a>
-			</div>			
-			
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
+				<a href="${ctx}/assess/evaluate/front.htm" target="_blank">前台首页</a>
+			</div>						
 		</div>
 	</div>
 </div>
