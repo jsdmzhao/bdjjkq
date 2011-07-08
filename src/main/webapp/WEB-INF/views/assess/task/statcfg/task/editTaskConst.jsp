@@ -47,10 +47,10 @@
                 <table cellpadding="3" cellspacing="2" width="100%">
                   <tr>
                      <td align="right" width="20%">名&nbsp;&nbsp;称：</td>
-                     <td align="left" width="30%"  ><s:textfield name="model.name" cssClass="required"></s:textfield></td>
+                     <td align="left" width="30%"  ><s:textfield name="model.name" cssClass="required"></s:textfield><span style="color: #ff0000;">*</span></td>
                      <td  width="20%" align="right">完成任务得分：</td>
                      <td align="left" width="30%">
-                     	<s:textfield name="model.total"></s:textfield>
+                     	<s:textfield name="model.total"></s:textfield><span style="color: #ff0000;">*</span>
                      </td>
                   </tr>
                                  
@@ -59,16 +59,16 @@
                      <td align="left">
                      	<s:select list="transgressStatItems" id="transgressStatItems"  headerKey ="" headerValue = "请选择" 
                      	name="model.transgressStatItem.id" listKey="id" listValue="name" cssClass="m_t_b" 
-                     	cssStyle="width:300px;padding-left:2px;"  ></s:select>
+                     	cssStyle="width:300px;padding-left:2px;"  ></s:select><span style="color: #ff0000;">*</span>
                      </td>
                      <td align="right">目标数量：</td>
-                     <td align="left"><s:textfield name="model.aimCount"></s:textfield></td>
+                     <td align="left"><s:textfield name="model.aimCount"></s:textfield><span style="color: #ff0000;">*</span></td>
                   </TR>                                   
                   <TR>
                   	 <td align="right">超1例加分：</td>
-                     <td align="left"><s:textfield name="model.addPoint"></s:textfield></td>
+                     <td align="left"><s:textfield name="model.addPoint"></s:textfield><span style="color: #ff0000;">*</span></td>
                      <td align="right">少1例扣分：</td>
-                     <td align="left"><s:textfield name="model.decreasePoint"></s:textfield></td>
+                     <td align="left"><s:textfield name="model.decreasePoint"></s:textfield><span style="color: #ff0000;">*</span></td>
                   </TR>
                   <tr>
                   	<td align="right">

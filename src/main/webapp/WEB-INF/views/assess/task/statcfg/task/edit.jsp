@@ -51,7 +51,7 @@
                   <tr>
                      <td align="right" width="20%">名&nbsp;&nbsp;&nbsp;&nbsp;称：</td>
                      <td align="left" width="80%" colspan="7"  >
-                     	<s:textfield name="model.name"  cssStyle="width:597px;" cssClass="required"></s:textfield>
+                     	<s:textfield name="model.name"  cssStyle="width:597px;" cssClass="required"></s:textfield><span style="color: #ff0000;">*</span>
                      </td>
                      
                   </tr> 
@@ -68,7 +68,7 @@
                      		<option value="${tt.id }" ${tt.id eq model.taskType.id ? 'selected="selected"' : '' }>${tt.name }</option>
                      		
                      	</c:forEach>
-                     </select>
+                     </select><span style="color: #ff0000;">*</span>
                      </td>
                   </tr>
                   <tr>

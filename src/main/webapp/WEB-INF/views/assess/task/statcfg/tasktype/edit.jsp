@@ -47,7 +47,7 @@
                 <table cellpadding="3" cellspacing="2" width="100%">
                   <tr>
                      <td align="right" width="15%">名称：</td>
-                     <td align="left" width="80%"  ><s:textfield name="model.name"></s:textfield></td>
+                     <td align="left" width="80%"  ><s:textfield name="model.name"></s:textfield><span style="color: #ff0000;">*</span></td>
                   </tr>
                   <tr>
                   	<td align="right" width="15%">备注：</td>
