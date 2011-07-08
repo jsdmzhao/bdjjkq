@@ -172,23 +172,31 @@ $(function(){
 <script type="text/javascript">
 $("#saveFrm").validate({
 	rules: {
-		'model.name':  {
+		'model.task.taskType.id':  {
 			required : true
 		},
-		'model.state':  {
+		'model.task.id':  {
 			required : true
 		},
 		'model.integral':  {
 			required : true,
 			number : true
+		},'model.taskDetail.id':{
+			required : true
+		},'empIds':{
+			required : true
 		}
 	},
 	messages: {
-		'model.name': {
-			required: "请输入类别名称"
+		'model.task.taskType.id': {
+			required: "请选择考核标准类型"
 		},
-		'model.state':  {
-			required: "选择审核结果"
+		'model.task.id':  {
+			required: "选择考核标准"
+		},'model.taskDetail.id':{
+			required : "选择评分标准"
+		},'empIds':{
+			required : "选择警员"
 		}
 	}
 });

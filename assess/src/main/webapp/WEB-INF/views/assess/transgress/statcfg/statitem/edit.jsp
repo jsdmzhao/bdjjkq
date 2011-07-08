@@ -47,7 +47,7 @@
                 <table cellpadding="3" cellspacing="2" width="100%">
                   <tr>
                      <td align="right" width="15%">名称：</td>
-                     <td align="left" width="20%"  ><s:textfield name="model.name"></s:textfield></td>
+                     <td align="left" width="20%"  ><s:textfield name="model.name"></s:textfield><span style="color: #ff0000;">*</span></td>
                      <td rowspan="3"  width="15%" align="right">车辆使用性质：</td>
                      <td rowspan="3" width="55%">
                      	<table  width="100%">
@@ -143,8 +143,8 @@
               <table width="100%" style="margin-bottom:10px;">
 				<tr>
 					<td style="text-align:center;">
-					<%-- <s:submit value="保存" cssClass="button"/> --%>						
-						<input type="button" value="保存" class="button" onclick="saveIt()"></input>		
+					 <s:submit value="保存" cssClass="button"/> 				
+						<%--<input type="button" value="保存" class="button" onclick="saveIt()"></input>		--%>		
 						<s:reset value="重置" cssClass="button"/>
                     </td>
               	</tr>
@@ -156,12 +156,12 @@
 </div>
 
 <script type="text/javascript">
-$("#save").validate({
+$("#saveFrm").validate({
 	rules: {
 		'model.type.id':  {
 			required : true
 		},
-		'model.state':  {
+		'model.name':  {
 			required : true
 		},
 		'model.integral':  {
@@ -173,8 +173,8 @@ $("#save").validate({
 		'model.type.id': {
 			required: "请选择类型"
 		},
-		'model.state':  {
-			required: "选择审核结果"
+		'model.name':  {
+			required: "请输入统计条件名称"
 		}
 	}
 });

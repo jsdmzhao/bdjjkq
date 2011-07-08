@@ -8,32 +8,11 @@
 <title>统计条件配置</title>
 <%@include file="/common/validator.jsp" %>
 <%@include file="/common/ec.jsp" %>
-<%@include file="/common/extjs.jsp"%>
 <%@include file="/common/meta.jsp"%>
-
+<script type="text/javascript" src="${ctx}/scripts/jquery.form.js"></script>
 
 <script type="text/javascript">
-$(function(){
-	$("#statCfgForm").validate();
-});
-$("#statCfgForm").validate({
-	rules: {
-		'beginHourMinute':  {
-			required : true
-		},
-		'endHourMinute':  {
-			required : true
-		}
-	},
-	messages: {
-		'beginHourMinute': {
-			required: "请输入起始时间"
-		},
-		'endHourMinute':  {
-			required: "请输入截至时间"
-		}
-	}
-});
+
 </script>
 </head>
 
@@ -74,7 +53,7 @@ $("#statCfgForm").validate({
 								class="Wdate" style="width: 128px; height: 16px"
 								readonly="readonly" class="required"/><font color='red'>*</font>
 								
-							--><input type="text" size="16" class="required" name="endHourMinute" id="endHourMinute" value='${model.endHourMinute}' />
+							--><input type="text" size="16" class="required"  name="endHourMinute" id="endHourMinute" value='${model.endHourMinute}' />
 						<a href="javascript:void(0)" class="required" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('endHourMinute'));return false;" HIDEFOCUS>
 					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
 					width="34" height="22" border="0" align="absmiddle"></a>
@@ -83,8 +62,10 @@ $("#statCfgForm").validate({
 	</table>
 	<table width="100%" style="margin-bottom: 10px;">
 		<tr>
-			<td style="text-align: center;"><s:submit value="保存"
-				cssClass="button"></s:submit> <s:reset value="重置" cssClass="button"></s:reset></td>
+			<td style="text-align: center;">
+			<%--<s:submit value="保存" cssClass="button"></s:submit> --%>
+			<input type="button" value="保存" class="button" onclick="saveIt()"></input> 
+			<s:reset value="重置" cssClass="button"></s:reset></td>
 		</tr>
 	</table>
 	</fieldset>
@@ -99,5 +80,18 @@ $("#statCfgForm").validate({
 	src="${ctx}/js/calendar/ipopeng.html" scrolling="no" frameborder="0" 
 	style="visibility:visible; z-index:999; position:absolute; top:-500px; left:-500px;">
 </iframe>	
+<script type="text/javascript">
+function saveIt(){
+	if($('#beginHourMinute').val() == ''){
+		alert('请选择起始时间');
+		return;
+	}
+	if($('#endHourMinute').val() == ''){
+		alert('请选择截至时间');
+		return;
+	}
+	$('#statCfgForm').submit();
+}
+</script>
 </body>
 </html>

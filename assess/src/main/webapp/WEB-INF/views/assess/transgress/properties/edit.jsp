@@ -61,7 +61,7 @@ legend {
 	</tr>
 </table>
 <div class="x-panel-body" style="text-align:center;padding:10px;">
-   <s:form action="save.htm" method="post" id="frm" enctype="multipart/form-data">
+   <s:form action="saveForm" method="post" id="frm" enctype="multipart/form-data">
    <s:hidden name="model.id"/>
    
    <table width="830" align="center">
@@ -104,6 +104,28 @@ legend {
 </div>
 </div>
 <script type="text/javascript">
+$("#saveForm").validate({
+	rules: {
+		'model.title':  {
+			required : true
+		},
+		'model.state':  {
+			required : true
+		},
+		'model.integral':  {
+			required : true,
+			number : true
+		}
+	},
+	messages: {
+		'model.title': {
+			required: "请输报表表头"
+		},
+		'model.state':  {
+			required: "选择审核结果"
+		}
+	}
+});
 
 $(function(){
     $('#frm').ajaxForm({
