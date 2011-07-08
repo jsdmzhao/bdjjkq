@@ -45,7 +45,9 @@ public class EvaluateRecordAction extends
 
 		Map<String, String> map = getDeptCodeList();
 		getRequest().setAttribute("depts", map);
-
+		page = getManager().pageQuery(pageOfBlock(), "from EvaluateRecord er");
+		restorePageData(page);
+		
 		return INDEX;
 	}
 	/**
