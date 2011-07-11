@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import com.googlecode.jtiger.assess.transgress.statcfg.StatCfgConstants;
+import com.googlecode.jtiger.assess.transgress.statcfg.model.FlapperType;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressAction;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressType;
@@ -90,6 +91,8 @@ public class TransgressStatItemManager extends
 
 		return getDao().query(hql);
 	}
+
+	
 
 	/**
 	 * 根据违法类别代码，得到违法类别实体

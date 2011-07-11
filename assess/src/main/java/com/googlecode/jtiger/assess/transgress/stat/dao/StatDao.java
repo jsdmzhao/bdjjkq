@@ -30,14 +30,15 @@ public class StatDao extends BaseJdbcDao {
 	// "SELECT COUNT(*) ROWS_COUNT FROM VIO_VIOLATION VV WHERE VV.WFXW IN (";
 	// private static final String SQL_STAT1 =
 	// "SELECT COUNT(*) ROWS_COUNT FROM vio_admin.vio_violation  VV WHERE VV.WFXW IN (";
-	//private static final String SQL_STAT1 = "SELECT SUM (ROWS_COUNT) AS TOTAL_COUNT FROM( SELECT COUNT(*) ROWS_COUNT FROM "
-	//		+ AssessConstants.VIO_VIOLATION + "  VV WHERE VV.WFXW IN (";
+	// private static final String SQL_STAT1 =
+	// "SELECT SUM (ROWS_COUNT) AS TOTAL_COUNT FROM( SELECT COUNT(*) ROWS_COUNT FROM "
+	// + AssessConstants.VIO_VIOLATION + "  VV WHERE VV.WFXW IN (";
 	private static final String SQL_STAT1 = "SELECT ROWS_COUNT1 TOTAL_COUNT FROM( SELECT COUNT(*) ROWS_COUNT1 FROM "
-				+ AssessConstants.VIO_VIOLATION + "  VV WHERE 1=1 ";
+			+ AssessConstants.VIO_VIOLATION + "  VV WHERE 1=1 ";
 	private static final String SQL_STAT101 = "AND VV.WFXW IN (";
 	private static final String SQL_STAT11 = "SELECT (ROWS_COUNT1+ROWS_COUNT2) TOTAL_COUNT FROM( SELECT COUNT(*) ROWS_COUNT1 FROM "
-		+ AssessConstants.VIO_VIOLATION + "  VV  WHERE 1=1 ";
-	//private static final String SQL_STAT102 ="AND VV.WFXW IN (";
+			+ AssessConstants.VIO_VIOLATION + "  VV  WHERE 1=1 ";
+	// private static final String SQL_STAT102 ="AND VV.WFXW IN (";
 	private static final String SQL_STAT2 = ") ";
 	private static final String SQL_STAT_BEGIN_TIME1 = "and VV.WFSJ >= to_date('";
 	private static final String SQL_STAT_BEGIN_TIME11 = "and VV.CLSJ >= to_date('";
@@ -47,20 +48,26 @@ public class StatDao extends BaseJdbcDao {
 	private static final String SQL_STAT_END_TIME2 = "','yyyy-mm-dd hh24:mi:ss') and trim(VV.FXJG) like ";
 	private static final String SQL_STAT_VEHICLE1 = " and vv.SYXZ IN(";
 	private static final String SQL_STAT_VEHICLE2 = ")";
+	private static final String SQL_STAT_FLAPPER1 = " and vv.HPZL IN(";
+	private static final String SQL_STAT_FLAPPER2 = ")";
 
 	private static final String SQL_UNION_STAT1 = " ),( SELECT COUNT(*) ROWS_COUNT2 FROM "
-			+ AssessConstants.VIO_FORCE + "  VF WHERE VF.WFXW1 IN (";
-	private static final String SQL_UNION_STAT2 = ") ";
+			+ AssessConstants.VIO_FORCE + "  VF WHERE 1 = 1 ";
+	private static final String SQL_UNION_STAT11 = "AND VF.WFXW1 IN (";
+	private static final String SQL_UNION_STAT12 = ") ";
 	private static final String SQL_UNION_STAT_BEGIN_TIME1 = "and VF.WFSJ >= to_date('";
 	private static final String SQL_UNION_STAT_BEGIN_TIME11 = "and VF.JSCJSJ >= to_date('";
 	private static final String SQL_UNION_STAT_BEGIN_TIME2 = "','yyyy-mm-dd hh24:mi:ss') ";
 	private static final String SQL_UNION_STAT_END_TIME1 = "and VF.WFSJ <= to_date('";
 	private static final String SQL_UNION_STAT_END_TIME11 = "and VF.JSCJSJ <= to_date('";
-	private static final String SQL_UNION_STAT_END_TIME2 = "','yyyy-mm-dd hh24:mi:ss')  and VF.cjbj = '0' and trim(VF.FXJG) like ";	
+	private static final String SQL_UNION_STAT_END_TIME2 = "','yyyy-mm-dd hh24:mi:ss')  and VF.cjbj = '0' and trim(VF.FXJG) like ";
 	private static final String SQL_UNION_STAT_VEHICLE1 = " and VF.SYXZ IN(";
 	private static final String SQL_UNION_STAT_VEHICLE2 = ")";
-	
+	private static final String SQL_UNION_STAT_FLAPPER1 = " and VF.HPZL IN(";
+	private static final String SQL_UNION_STAT_FLAPPER2 = ")";
+
 	private static final String SQL_END = ")";
+
 	@Override
 	protected String getDataSourceName() {
 		return AssessConstants.ASSESS_DS;
@@ -71,15 +78,15 @@ public class StatDao extends BaseJdbcDao {
 		String actionCodesStr = condition.getTransgressActionCodesStr() == null ? "''"
 				: condition.getTransgressActionCodesStr();
 		StringBuffer buf = null;
-		if(!condition.getUnionForce()){
+		if (!condition.getUnionForce()) {
 			buf = new StringBuffer(SQL_STAT1);
-		}else{
+		} else {
 			buf = new StringBuffer(SQL_STAT11);
 		}
-		
+
 		// 设定违法行为字符串
-		if(StringUtils.isNotBlank(actionCodesStr)){
-			buf.append(SQL_STAT101) .append(actionCodesStr).append(SQL_STAT2);
+		if (StringUtils.isNotBlank(actionCodesStr)) {
+			buf.append(SQL_STAT101).append(actionCodesStr).append(SQL_STAT2);
 		}
 		// 定制每日查询
 		if (condition.isEachDayStat()) {
@@ -134,11 +141,21 @@ public class StatDao extends BaseJdbcDao {
 					.append(condition.getVehicleUseCodes()).append(
 							SQL_STAT_VEHICLE2);
 		}
+		// 如果号牌种类不为空，则加上号牌种类条件
+		if (StringUtils.isNotBlank(condition.getFlapperTyps())) {
+			buf.append(SQL_STAT_FLAPPER1).append(condition.getFlapperTyps())
+					.append(SQL_STAT_FLAPPER2);
+		}
 		// 如果需要union VIO_FORCE表,则需要另拼接sql
 		if (condition.getUnionForce()) {
 			StringBuffer bufUnion = new StringBuffer(SQL_UNION_STAT1);
 			// 设定违法行为字符串
-			bufUnion.append(actionCodesStr).append(SQL_UNION_STAT2);
+			if (StringUtils.isNotBlank(condition.getTransgressActionCodesStr())) {
+				bufUnion.append(actionCodesStr).append(SQL_UNION_STAT11)
+						.append(condition.getTransgressActionCodesStr())
+						.append(SQL_UNION_STAT12);
+			}
+
 			// 定制每日查询
 			if (condition.isEachDayStat()) {
 				if ("CLSJ".equals(condition.getTimeCondition())) {
@@ -193,6 +210,12 @@ public class StatDao extends BaseJdbcDao {
 				bufUnion.append(SQL_UNION_STAT_VEHICLE1).append(
 						condition.getVehicleUseCodes()).append(
 						SQL_UNION_STAT_VEHICLE2);
+			}
+			// 如果号牌种类不为空，则加上号牌种类条件
+			if (StringUtils.isNotBlank(condition.getFlapperTyps())) {
+				bufUnion.append(SQL_UNION_STAT_FLAPPER1).append(
+						condition.getFlapperTyps()).append(
+						SQL_UNION_STAT_FLAPPER2);
 			}
 			buf.append(bufUnion.toString());
 		}

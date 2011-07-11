@@ -25,6 +25,8 @@ public final class StatCondition {
 
 	/** 是否关联到vio_force表 ,默认false */
 	private Boolean unionForce = false;
+	/** 号牌种类 */
+	private String flapperTyps;
 
 	public String getTransgressActionCodesStr() {
 		return transgressActionCodesStr;
@@ -104,6 +106,14 @@ public final class StatCondition {
 
 	public void setUnionForce(Boolean unionForce) {
 		this.unionForce = unionForce;
+	}
+
+	public String getFlapperTyps() {
+		return flapperTyps;
+	}
+
+	public void setFlapperTyps(String flapperTyps) {
+		this.flapperTyps = flapperTyps;
 	}
 
 }

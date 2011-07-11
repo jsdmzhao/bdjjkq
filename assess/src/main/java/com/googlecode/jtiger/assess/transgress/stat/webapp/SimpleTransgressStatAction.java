@@ -26,6 +26,7 @@ import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressCustomSta
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressType;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.VehicleUseCode;
+import com.googlecode.jtiger.assess.transgress.statcfg.service.FlapperTypeManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressCustomStatConditionManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressTypeManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.VehicleUseCodeManager;
@@ -74,6 +75,10 @@ public class SimpleTransgressStatAction extends
 	private TransgressTypeManager ttManager;
 	@Autowired
 	private VehicleUseCodeManager vehicleUseCodeManager;
+	@Autowired
+	private FlapperTypeManager flapperTypeManager;
+	/** 号牌种类 */
+	private String[] flapperTypes;
 
 	public String index() {
 		List<Dept> depts = deptManager
@@ -85,8 +90,12 @@ public class SimpleTransgressStatAction extends
 		// 列出所有机动车使用性质实体
 		List<VehicleUseCode> allVehicleUseCodes = vehicleUseCodeManager
 				.getAllVehicleUseCodes();
+		// 使用性质
 		getRequest().setAttribute("allVehicleUseCodes", allVehicleUseCodes);
 		getRequest().setAttribute("simpleTsItems", getSimpleTsItems());
+		// 号牌种类
+		getRequest().setAttribute("flapperTypes",
+				flapperTypeManager.getAllFlapperTypes());
 		return INDEX;
 	}
 
@@ -134,9 +143,13 @@ public class SimpleTransgressStatAction extends
 		// statCondition
 		// .setTransgressActionCodesStr(buildTransgressActionCodesStr());
 
-		statCondition.setTransgressActionCodesStr(CodesStringUtil.buildTaCodesStr(taCodes));
+		statCondition.setTransgressActionCodesStr(CodesStringUtil
+				.buildTaCodesStr(taCodes));
 		// 机动车使用性质
 		statCondition.setVehicleUseCodes(buildVehicleUseCodeSStr());
+		//号牌种类
+		statCondition.setFlapperTyps(buildStrByStrArry(flapperTypes));
+		
 		statCondition.setTimeCondition(getRequest().getParameter(
 				"timeCondition"));
 		// 得到当前登录用户所在部门的子部门代码编号,名称集合
@@ -189,6 +202,18 @@ public class SimpleTransgressStatAction extends
 		return buf.toString();
 	}
 
+	private String buildStrByStrArry(String[] arr) {
+		StringBuffer buf = new StringBuffer();
+		if (arr != null && arr.length > 0) {
+			for (int i = 0; i < arr.length - 1; i++) {
+				buf.append("'").append(arr[i]).append("',");
+			}
+			buf.append("'").append(arr[arr.length-1]).append("'");
+		}
+		
+		return buf.toString();
+	}
+
 	/**
 	 * 构建违法行为代码字符串
 	 * 
@@ -214,7 +239,7 @@ public class SimpleTransgressStatAction extends
 	 * @return
 	 */
 	private String buildTaCodesStr() {
-		if(StringUtils.isBlank(taCodes)){
+		if (StringUtils.isBlank(taCodes)) {
 			return "";
 		}
 		String regex = "[^\\d\\,\\，\\、]";
@@ -335,5 +360,13 @@ public class SimpleTransgressStatAction extends
 
 	public void setTaCodes(String taCodes) {
 		this.taCodes = taCodes;
+	}
+
+	public String[] getFlapperTypes() {
+		return flapperTypes;
+	}
+
+	public void setFlapperTypes(String[] flapperTypes) {
+		this.flapperTypes = flapperTypes;
 	}
 }
