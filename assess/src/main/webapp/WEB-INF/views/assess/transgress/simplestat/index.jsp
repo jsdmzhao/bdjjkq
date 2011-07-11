@@ -78,7 +78,7 @@
     </div>
 	<s:form id="statForm" namespace="/assess/transgress/simpleStat" action="simpleStat" method="post">
 	<s:hidden id="model.id" name="model.id"/>
-	<table width="900px" align="center">
+	<table width="1000px" align="center">
 		<tr>
 			<td align="center">
 			<fieldset> 
@@ -186,12 +186,36 @@
                   	 <td><input type="radio" name="timeCondition" id="FXSJ" value="FXSJ" checked="checked">发现时间</input>						
 						 <input type="radio" name="timeCondition" id="CLSJ" value="CLSJ">处理时间</input></td>
                      <td align="right">
+                     	</td>
+                     	<td align="left">
+						
+                     </td>
+                  </TR>  
+                  <tr>
+                   <td align="right">
                      	是否关联&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>违法强制表：</td>
                      	<td align="left">
 						<input type="radio" name="unionForce" id="unionForceTrue" value="true">关联</input>
 						<input type="radio" name="unionForce" id="unionForceFalse" value="false" checked="checked">不关联</input>
                      </td>
-                  </TR>  
+                  	<td align="right">号牌种类：</td>
+                  	<td>
+                  		<table  width="100%" style="margin-left: px;">
+                     		<c:forEach items="${flapperTypes}" var="ft" varStatus="status">              
+                     				<c:if test="${status.index%5== 0}">
+                     					<tr>
+                     				</c:if>
+                     				<td align="left">                     				
+	                  						<input type="checkbox"  name="flapperTypes" value="${ft.code}"/>${ft.name}                  				
+                     				</td>
+                     				<c:if test="${status.index%5== 4}">
+                     					</tr>
+                     				</c:if>               
+                     		</c:forEach>
+                     	</table>
+                  	</td>
+                  </tr>
+                  
                   <tr>
                   	<td colspan="4">
                   		<table  border="1"  id="transgressActions" width="100%">                  			
