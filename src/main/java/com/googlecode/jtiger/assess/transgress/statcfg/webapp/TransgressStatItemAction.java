@@ -8,6 +8,7 @@ import java.util.Set;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.xwork.StringUtils;
 import org.hibernate.criterion.MatchMode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import com.googlecode.jtiger.assess.transgress.statcfg.StatCfgConstants;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressAction;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressType;
+import com.googlecode.jtiger.assess.transgress.statcfg.service.FlapperTypeManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressStatItemManager;
 import com.googlecode.jtiger.assess.util.CodesStringUtil;
 import com.googlecode.jtiger.core.util.ReflectUtil;
@@ -26,6 +28,8 @@ import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class TransgressStatItemAction extends
 		DefaultCrudAction<TransgressStatItem, TransgressStatItemManager> {
+	@Autowired
+	private FlapperTypeManager flapperTypeManager;
 	/** 用户选择的违法行为代码 */
 	private String[] transgressActionCodes;
 	/** 保存二级类别的id,为的是在修改统计项时,能够显示用户已经关联到的违法行为,并且以这些违法行为以二级类别"分组" */
@@ -67,6 +71,9 @@ public class TransgressStatItemAction extends
 		// 列出所有机动车使用性质实体
 		getRequest().setAttribute("allVehicleUseCodes",
 				getManager().getAllVehicleUseCodes());
+		// 列出所有号牌种类
+		getRequest().setAttribute("flapperTypes",
+				flapperTypeManager.getAllFlapperTypes());
 		// 列出所有一级违法类别
 		getRequest().setAttribute("firstLevelTypes", getFirstLevelTypes());
 		// getRequest().setAttribute("secondLevelTypes",
@@ -271,16 +278,20 @@ public class TransgressStatItemAction extends
 
 		return null;
 	}
+
 	/**
 	 * 重新初始化选择框-----------------------------未完成啊。。。。
+	 * 
 	 * @return
 	 */
-	public String reInitStatItemSelectAjax(){
+	public String reInitStatItemSelectAjax() {
 		String hql = "from TransgressStatItem tsi where tsi.type = ?";
-		List<TransgressStatItem> list = getManager().query(hql, StatCfgConstants.STAT_ITEM_TYPE_COMMON);
+		List<TransgressStatItem> list = getManager().query(hql,
+				StatCfgConstants.STAT_ITEM_TYPE_COMMON);
 		return null;
-		
+
 	}
+
 	/**
 	 * 检测是否已经存在统计条件名称Ajax请求
 	 * 
@@ -316,20 +327,21 @@ public class TransgressStatItemAction extends
 		String unionForce = getRequest().getParameter("unionForce");
 		String statConditionId = getRequest().getParameter("statConditionId");
 		TransgressStatItem tsi = null;
-		//如果id不为空，则为修改，否则，添加新
-		if(StringUtils.isNotBlank(statConditionId)){
+		// 如果id不为空，则为修改，否则，添加新
+		if (StringUtils.isNotBlank(statConditionId)) {
 			tsi = getManager().get(statConditionId);
-		}else{
+		} else {
 			tsi = new TransgressStatItem();
-		}		
+		}
 
 		tsi.setName(statConditionName);
 		tsi.setDescn(statConditionDescn);
-		tsi.setTransgressActionCodes(buildQueryInStr(CodesStringUtil.buildTaCodesStr(taCodes)));
+		tsi.setTransgressActionCodes(buildQueryInStr(CodesStringUtil
+				.buildTaCodesStr(taCodes)));
 		tsi.setSecondLevelTypeIds(secondLevelTypes);
 		tsi.setVehicleUseCodes(buildQueryInStr(vehicleUseCodes));
 		tsi.setType(StatCfgConstants.STAT_ITEM_TYPE_SIMPLE);
-		
+
 		if ("true".equals(unionForce)) {
 			tsi.setUnionForce(true);
 		} else {
@@ -358,18 +370,19 @@ public class TransgressStatItemAction extends
 		}
 		return null;
 	}
+
 	/**
 	 * ajax方式删除自定义统计条件
+	 * 
 	 * @return
 	 */
-	public String removeStatItemStatAjax(){
+	public String removeStatItemStatAjax() {
 		String id = getRequest().getParameter("id");
 		getManager().remove(getManager().get(id));
 		render("success", "text/plain");
-		
+
 		return null;
 	}
-
 
 	private String getSecondLevelTypeIdsFromCodes(String codes) {
 		if (StringUtils.isBlank(codes)) {
