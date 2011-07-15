@@ -24,6 +24,13 @@
 		    <result name="success" type="redirect">index.htm</result>    		  		   	    
 		</action>		
 	</package>
+	<package name="admin.assess.task.statcfg.assessCron" extends="default"
+	         namespace="/assess/task/statcfg/assessCron">
+		<action name="*" class="assessCronAction" method="{1}">
+		    <result name="index">/WEB-INF/views/assess/task/statcfg/assessCron/index.jsp</result>
+		    <result name="input">/WEB-INF/views/assess/task/statcfg/assessCron/index.jsp</result>		  		  		   	    
+		</action>		
+	</package>
 	
 </struts>
 
