@@ -60,6 +60,10 @@
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
 					<a href="${ctx}/assess/task/statcfg/task/taskConstIndex.htm" target="main">任务常量管理</a>
 			</div>
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/arrow_3.png" class="icon">
+				<a href="${ctx}/assess/task/statcfg/assessCron/index.htm" target="main">考核时间设置</a>
+			</div>	
 		</div>
 	</div>
 	<div id="menu_sys">
