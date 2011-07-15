@@ -45,8 +45,12 @@ public final class AssessConstants {
 	public static final String CAST_LEADER_N = "0";
 	public static final Map<String, String> CAST_LEADER_MAP = Collections
 			.synchronizedMap(new LinkedHashMap<String, String>());
-	static{
+	static {
 		CAST_LEADER_MAP.put("0", "包岗领导不同扣");
 		CAST_LEADER_MAP.put("1", "包岗领导同扣");
 	}
+	/** 用于定时考核的cron */
+	public static final String CRON_ASSESS = "aeeseeQuartz";
+	/** 默认cron表达式 */
+	public static final String CRON_ASSESS_DEFAULT = "0 0 0 1 * ?";
 }
