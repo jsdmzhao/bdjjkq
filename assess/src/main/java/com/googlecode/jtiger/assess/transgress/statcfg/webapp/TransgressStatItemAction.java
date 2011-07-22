@@ -196,9 +196,8 @@ public class TransgressStatItemAction extends
 		getModel().setSecondLevelTypeIds(bufTypeId.toString());
 		// 是否连接force表
 		if (StringUtils.isNotBlank(unionForce)) {
-			getModel().setUnionForce(true);
-		} else {
-			getModel().setUnionForce(false);
+			getModel().setUnionForce(unionForce);
+		
 		}
 		// 发现时间/处理时间
 		getModel()
@@ -342,10 +341,9 @@ public class TransgressStatItemAction extends
 		tsi.setVehicleUseCodes(buildQueryInStr(vehicleUseCodes));
 		tsi.setType(StatCfgConstants.STAT_ITEM_TYPE_SIMPLE);
 
-		if ("true".equals(unionForce)) {
-			tsi.setUnionForce(true);
-		} else {
-			tsi.setUnionForce(false);
+		if (StringUtils.isNotBlank(unionForce)) {
+			getModel().setUnionForce(unionForce);
+		
 		}
 		tsi.setFindOrDealWith(getRequest().getParameter("timeCondition"));
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
 import com.googlecode.jtiger.assess.transgress.stat.dao.StatDao;
+import com.googlecode.jtiger.assess.transgress.stat.dao.TransgressSatDao;
 import com.googlecode.jtiger.assess.transgress.stat.model.TransgressStat;
 import com.googlecode.jtiger.assess.transgress.stat.model.TransgressStatDetail;
 import com.googlecode.jtiger.core.service.BaseGenericsManager;
@@ -17,7 +18,8 @@ import com.googlecode.jtiger.core.service.BaseGenericsManager;
 public class TransgressStatManager extends BaseGenericsManager<TransgressStat> {
 	@Autowired
 	private StatDao statDao;
-
+	@Autowired
+	private TransgressSatDao transgressStatDao;
 	@SuppressWarnings("unchecked")
 	public void stat() {
 		List<Map<String, Object>> list = statDao.stat1();
@@ -36,6 +38,6 @@ public class TransgressStatManager extends BaseGenericsManager<TransgressStat> {
 
 	public List<Map<String, Object>> stat(StatCondition condition) {
 
-		return statDao.stat(condition);
+		return transgressStatDao.stat(condition);
 	}
 }
