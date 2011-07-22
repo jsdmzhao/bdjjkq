@@ -132,11 +132,12 @@ public class SimpleTransgressStatAction extends
 			statCondition.setBeginHourMinute(sf.format(beginTime));
 			statCondition.setEndHourMinute(sf.format(endTime));
 		}
-		if ("true".equals(unionForce)) {
+		/*if ("true".equals(unionForce)) {
 			statCondition.setUnionForce(true);
 		} else {
 			statCondition.setUnionForce(false);
-		}
+		}*/
+		statCondition.setUnionForce(unionForce);
 		// title.add("");
 		title.add("合计");
 		// 违法行为代码

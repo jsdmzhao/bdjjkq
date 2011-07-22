@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.ColumnMapRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.googlecode.jtiger.assess.AssessConstants;
+import com.googlecode.jtiger.assess.transgress.TransgressConstants;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
 import com.googlecode.jtiger.core.dao.jdbc.BaseJdbcDao;
 
@@ -72,16 +73,24 @@ public class StatDao extends BaseJdbcDao {
 	protected String getDataSourceName() {
 		return AssessConstants.ASSESS_DS;
 	}
+	
 
 	public List<Map<String, Object>> stat(StatCondition condition) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		String actionCodesStr = condition.getTransgressActionCodesStr() == null ? "''"
 				: condition.getTransgressActionCodesStr();
 		StringBuffer buf = null;
-		if (!condition.getUnionForce()) {
+		// 不关联
+		if (TransgressConstants.UNION_FORCE_FALSE.equals(condition
+				.getUnionForce())) {
 			buf = new StringBuffer(SQL_STAT1);
-		} else {
+			// 关联
+		} else if (TransgressConstants.UNION_FORCE_TRUE.equals(condition
+				.getUnionForce())) {
 			buf = new StringBuffer(SQL_STAT11);
+			// 仅统计强制表
+		} else {
+
 		}
 
 		// 设定违法行为字符串
@@ -147,7 +156,8 @@ public class StatDao extends BaseJdbcDao {
 					.append(SQL_STAT_FLAPPER2);
 		}
 		// 如果需要union VIO_FORCE表,则需要另拼接sql
-		if (condition.getUnionForce()) {
+		if (TransgressConstants.UNION_FORCE_TRUE.equals(condition
+				.getUnionForce())) {
 			StringBuffer bufUnion = new StringBuffer(SQL_UNION_STAT1);
 			// 设定违法行为字符串
 			if (StringUtils.isNotBlank(condition.getTransgressActionCodesStr())) {

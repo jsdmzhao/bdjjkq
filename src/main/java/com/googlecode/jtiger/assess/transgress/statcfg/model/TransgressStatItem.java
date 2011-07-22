@@ -32,8 +32,8 @@ public class TransgressStatItem extends BaseIdModel {
 	private String vehicleUseCodes;
 	/** 保存二级类别的id,为的是在修改统计项时,能够显示用户已经关联到的违法行为,并且以这些违法行为以二级类别"分组" */
 	private String secondLevelTypeIds;
-	/** 是否关联到vio_force表 */
-	private Boolean unionForce = false;
+	/** 是否关联到vio_force表,还是单独查询vio_force表 */
+	private String unionForce = "false";
 
 	/** 发现时间/处理时间 */
 	private String findOrDealWith = "FXSJ";
@@ -86,12 +86,12 @@ public class TransgressStatItem extends BaseIdModel {
 		this.vehicleUseCodes = vehicleUseCodes;
 	}
 
-	@Column(columnDefinition = "SMALLINT default 0")
-	public Boolean getUnionForce() {
+	@Column(columnDefinition = "varchar2(6) default 'false'")
+	public String getUnionForce() {
 		return unionForce;
 	}
 
-	public void setUnionForce(Boolean unionForce) {
+	public void setUnionForce(String unionForce) {
 		this.unionForce = unionForce;
 	}
 
