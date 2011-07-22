@@ -197,9 +197,10 @@
                      	<td align="left">
 						<input type="radio" name="unionForce" id="unionForceTrue" value="true">关联</input>
 						<input type="radio" name="unionForce" id="unionForceFalse" value="false" checked="checked">不关联</input>
+						<input type="radio" name="unionForce" id="unionForceFalse" value="only" checked="checked">仅统计强制表</input>
                      </td>
-                  	<td align="right">号牌种类：</td>
-                  	<td>
+                  	<td align="right" rowspan="2">号牌种类：</td>
+                  	<td rowspan="2">
                   		<table  width="100%" style="margin-left: px;">
                      		<c:forEach items="${flapperTypes}" var="ft" varStatus="status">              
                      				<c:if test="${status.index%5== 0}">
@@ -215,7 +216,15 @@
                      	</table>
                   	</td>
                   </tr>
-                  
+                  <tr>
+                  	 <td align="right">
+                     	是否关联&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>非现场文本记录表：</td>
+                     	<td align="left">
+						<input type="radio" name="unionForce" id="unionForceTrue" value="true">关联</input>
+						<input type="radio" name="unionForce" id="unionForceFalse" value="false" checked="checked">不关联</input>
+						<input type="radio" name="unionForce" id="unionForceFalse" value="only" checked="checked">仅统计非现场文本记录表</input>
+                     </td>
+                  </tr>
                   <tr>
                   	<td colspan="4">
                   		<table  border="1"  id="transgressActions" width="100%">                  			
