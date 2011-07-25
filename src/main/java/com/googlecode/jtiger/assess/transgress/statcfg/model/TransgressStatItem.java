@@ -30,10 +30,14 @@ public class TransgressStatItem extends BaseIdModel {
 	private String transgressActionCodes;
 	/** 关联车辆使用性质代码字符串 */
 	private String vehicleUseCodes;
+	/**号牌种类字符串*/
+	private String flapperTypes;
 	/** 保存二级类别的id,为的是在修改统计项时,能够显示用户已经关联到的违法行为,并且以这些违法行为以二级类别"分组" */
 	private String secondLevelTypeIds;
 	/** 是否关联到vio_force表,还是单独查询vio_force表 */
 	private String unionForce = "false";
+	/** 是否关联到vioSurveil表,还是单独查询vioSurveil表 */
+	private String vioSurveil = "false";
 
 	/** 发现时间/处理时间 */
 	private String findOrDealWith = "FXSJ";
@@ -130,6 +134,22 @@ public class TransgressStatItem extends BaseIdModel {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	@Column(columnDefinition = "varchar2(6) default 'false'")
+	public String getVioSurveil() {
+		return vioSurveil;
+	}
+
+	public void setVioSurveil(String vioSurveil) {
+		this.vioSurveil = vioSurveil;
+	}
+	@Column(name = "flapper_types", columnDefinition = "varchar2(1000)")
+	public String getFlapperTypes() {
+		return flapperTypes;
+	}
+
+	public void setFlapperTypes(String flapperTypes) {
+		this.flapperTypes = flapperTypes;
 	}
 
 }

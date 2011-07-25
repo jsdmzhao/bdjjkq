@@ -41,8 +41,12 @@ public class TransgressStatItemAction extends
 	private String[] transgressActionIds;
 	/** 界面传递过来的车辆使用性质代码 */
 	private String[] vehicleUseCodes;
+	/** 界面传递过来的号牌种类 */
+	private String[] flapperTypes;
 	/** 是否union VIO_FORCE表 */
 	private String unionForce;
+	/** 是否关联到vioSurveil表,还是单独查询vioSurveil表 */
+	private String vioSurveil;
 
 	@Override
 	public String edit() {
@@ -154,6 +158,7 @@ public class TransgressStatItemAction extends
 		StringBuffer bufTypeId = new StringBuffer();
 		StringBuffer bufActionCode = new StringBuffer();
 		StringBuffer bufVehicleUseCodes = new StringBuffer();
+		StringBuffer bufFlapperTypes = new StringBuffer();
 		// 考虑到需要通过违法行为关联到违法类别从而能再次在界面中显示出"类别下"的违法行为,传递的不是违法行为code而是id
 		if (transgressActionIds != null) {
 			List<String> typeList = new ArrayList<String>();
@@ -182,6 +187,7 @@ public class TransgressStatItemAction extends
 			}
 
 		}
+		// 拼接车辆使用性质字符串
 		if (vehicleUseCodes != null) {
 			for (int i = 0; i < vehicleUseCodes.length - 1; i++) {
 				bufVehicleUseCodes.append("'").append(vehicleUseCodes[i])
@@ -190,14 +196,29 @@ public class TransgressStatItemAction extends
 			bufVehicleUseCodes.append("'").append(
 					vehicleUseCodes[vehicleUseCodes.length - 1]).append("'");
 		}
+		// 拼接号牌种类字符串
+		if (flapperTypes != null) {
+			for (int i = 0; i < flapperTypes.length - 1; i++) {
+				bufFlapperTypes.append("'").append(flapperTypes[i]).append("'")
+						.append(",");
+
+			}
+			bufFlapperTypes.append("'").append(
+					flapperTypes[flapperTypes.length - 1]).append("'");
+		}
 
 		getModel().setVehicleUseCodes(bufVehicleUseCodes.toString());
 		getModel().setTransgressActionCodes(bufActionCode.toString());
+		getModel().setFlapperTypes(bufFlapperTypes.toString());
 		getModel().setSecondLevelTypeIds(bufTypeId.toString());
 		// 是否连接force表
 		if (StringUtils.isNotBlank(unionForce)) {
 			getModel().setUnionForce(unionForce);
-		
+
+		}
+		//是否关联vioSurveil表 
+		if(StringUtils.isNotBlank(vioSurveil)){
+			getModel().setVioSurveil(vioSurveil);
 		}
 		// 发现时间/处理时间
 		getModel()
@@ -343,7 +364,7 @@ public class TransgressStatItemAction extends
 
 		if (StringUtils.isNotBlank(unionForce)) {
 			getModel().setUnionForce(unionForce);
-		
+
 		}
 		tsi.setFindOrDealWith(getRequest().getParameter("timeCondition"));
 
@@ -466,6 +487,22 @@ public class TransgressStatItemAction extends
 
 	public void setUnionForce(String unionForce) {
 		this.unionForce = unionForce;
+	}
+
+	public String[] getFlapperTypes() {
+		return flapperTypes;
+	}
+
+	public void setFlapperTypes(String[] flapperTypes) {
+		this.flapperTypes = flapperTypes;
+	}
+
+	public String getVioSurveil() {
+		return vioSurveil;
+	}
+
+	public void setVioSurveil(String vioSurveil) {
+		this.vioSurveil = vioSurveil;
 	}
 
 }

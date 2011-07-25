@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.googlecode.jtiger.assess.core.webapp.AssessBaseAction;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
 import com.googlecode.jtiger.assess.transgress.stat.model.TransgressStat;
 import com.googlecode.jtiger.assess.transgress.stat.service.TransgressStatManager;
@@ -32,7 +32,6 @@ import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressTypeMan
 import com.googlecode.jtiger.assess.transgress.statcfg.service.VehicleUseCodeManager;
 import com.googlecode.jtiger.assess.transgress.statproperties.service.TransgressStatPropertiesManager;
 import com.googlecode.jtiger.assess.util.CodesStringUtil;
-import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
 
@@ -40,7 +39,7 @@ import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class SimpleTransgressStatAction extends
-		DefaultCrudAction<TransgressStat, TransgressStatManager> {
+		AssessBaseAction<TransgressStat, TransgressStatManager> {
 	/** 条件1--部门,指定了则查指定部门,未指定,查询全部部门 */
 	/** 指定部门 */
 	private String deptId;
@@ -62,8 +61,10 @@ public class SimpleTransgressStatAction extends
 	/** 查询结果表头 */
 	@SuppressWarnings("unchecked")
 	private List title = new ArrayList();
-	/** 是否union VIO_FORCE表 */
+	/** 是否关联到vio_force表 ,默认false */
 	private String unionForce;
+	/** 是否统计VIO_SURVEIL表 */
+	private String vioSurveil;
 	@Autowired
 	private DeptManager deptManager;
 	/** 统计条件manger */
@@ -132,11 +133,10 @@ public class SimpleTransgressStatAction extends
 			statCondition.setBeginHourMinute(sf.format(beginTime));
 			statCondition.setEndHourMinute(sf.format(endTime));
 		}
-		/*if ("true".equals(unionForce)) {
-			statCondition.setUnionForce(true);
-		} else {
-			statCondition.setUnionForce(false);
-		}*/
+		/*
+		 * if ("true".equals(unionForce)) { statCondition.setUnionForce(true); }
+		 * else { statCondition.setUnionForce(false); }
+		 */
 		statCondition.setUnionForce(unionForce);
 		// title.add("");
 		title.add("合计");
@@ -148,9 +148,9 @@ public class SimpleTransgressStatAction extends
 				.buildTaCodesStr(taCodes));
 		// 机动车使用性质
 		statCondition.setVehicleUseCodes(buildVehicleUseCodeSStr());
-		//号牌种类
+		// 号牌种类
 		statCondition.setFlapperTyps(buildStrByStrArry(flapperTypes));
-		
+
 		statCondition.setTimeCondition(getRequest().getParameter(
 				"timeCondition"));
 		// 得到当前登录用户所在部门的子部门代码编号,名称集合
@@ -209,9 +209,9 @@ public class SimpleTransgressStatAction extends
 			for (int i = 0; i < arr.length - 1; i++) {
 				buf.append("'").append(arr[i]).append("',");
 			}
-			buf.append("'").append(arr[arr.length-1]).append("'");
+			buf.append("'").append(arr[arr.length - 1]).append("'");
 		}
-		
+
 		return buf.toString();
 	}
 
@@ -266,30 +266,6 @@ public class SimpleTransgressStatAction extends
 			buf.append("'").append(codeArr[codeArr.length - 1]).append("'");
 		}
 		return buf.toString();
-	}
-
-	/**
-	 * 得到当前登录用户所在部门的子部门编号集合 支队,得到其下所有大队, 大队,得到其下所有中队
-	 * 
-	 * @FixMe由于部门没有完善,此方法仅仅适于支队----------待完善 
-	 *                                       130604,130603,130602,130641,130642,130643
-	 * @return
-	 */
-	private Map<String, String> getDeptCodeList() {
-		Map<String, String> map = new HashMap<String, String>(0);
-		if (StringUtils.isNotBlank(deptId)) {
-			Dept dept = deptManager.get(Integer.valueOf(deptId));
-			map.put(dept.getDeptCode(), dept.getName());
-		} else {
-			map.put("130604", "一大队");
-			map.put("130603", "二大队");
-			map.put("130602", "三大队");
-			map.put("130641", "四大队");
-			map.put("130642", "五大队");
-			map.put("130643", "六大队");
-		}
-
-		return map;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -369,5 +345,13 @@ public class SimpleTransgressStatAction extends
 
 	public void setFlapperTypes(String[] flapperTypes) {
 		this.flapperTypes = flapperTypes;
+	}
+
+	public String getVioSurveil() {
+		return vioSurveil;
+	}
+
+	public void setVioSurveil(String vioSurveil) {
+		this.vioSurveil = vioSurveil;
 	}
 }
