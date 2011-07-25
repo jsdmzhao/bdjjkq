@@ -4,8 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.xwork.StringUtils;
@@ -14,18 +16,20 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.googlecode.jtiger.assess.core.webapp.AssessBaseAction;
 import com.googlecode.jtiger.assess.evaluate.model.EvaluateRecord;
 import com.googlecode.jtiger.assess.evaluate.service.EvaluateRecordManager;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
+import com.googlecode.jtiger.modules.hr.employee.model.Employee;
 import com.ibm.icu.util.Calendar;
 
 @SuppressWarnings("serial")
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class EvaluateRecordAction extends
-		DefaultCrudAction<EvaluateRecord, EvaluateRecordManager> {
+		AssessBaseAction<EvaluateRecord, EvaluateRecordManager> {
 	/** 考核日期 */
 	private Date evalDate;
 	/***/
@@ -47,24 +51,27 @@ public class EvaluateRecordAction extends
 		getRequest().setAttribute("depts", map);
 		page = getManager().pageQuery(pageOfBlock(), "from EvaluateRecord er");
 		restorePageData(page);
-		
+
 		return INDEX;
 	}
+
 	/**
 	 * 前台展示页面
+	 * 
 	 * @return
 	 */
-	public String front(){
+	public String front() {
 		Calendar c = Calendar.getInstance();
 		int month = c.get(Calendar.MONTH);
 		int year = c.get(Calendar.YEAR);
-		
+
 		String hql = "from EvaluateRecord er where er.year = ? and er.month = ? order by er.total desc";
-		List<EvaluateRecord> list = getManager().query(hql, new Object[]{year,month});
+		List<EvaluateRecord> list = getManager().query(hql,
+				new Object[] { year, month });
 		getRequest().setAttribute("year", year);
 		getRequest().setAttribute("month", month);
-		getRequest().setAttribute("list",list);
-		
+		getRequest().setAttribute("list", list);
+
 		return "front";
 	}
 
@@ -128,7 +135,7 @@ public class EvaluateRecordAction extends
 
 		Date endDate = c.getTime();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		
+
 		logger.debug(sf.format(beginDate));
 		logger.debug(sf.format(endDate));
 
@@ -139,19 +146,6 @@ public class EvaluateRecordAction extends
 
 	public String evalAll() {
 		return INDEX;
-	}
-
-	private Map<String, String> getDeptCodeList() {
-		Map<String, String> map = new HashMap<String, String>(0);
-
-		map.put("130604", "一大队");
-		map.put("130603", "二大队");
-		map.put("130602", "三大队");
-		map.put("130641", "四大队");
-		map.put("130642", "五大队");
-		map.put("130643", "六大队");
-
-		return map;
 	}
 
 	public Date getEvalDate() {

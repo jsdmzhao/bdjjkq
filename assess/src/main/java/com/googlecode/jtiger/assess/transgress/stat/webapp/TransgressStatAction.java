@@ -16,6 +16,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.googlecode.jtiger.assess.core.webapp.AssessBaseAction;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
 import com.googlecode.jtiger.assess.transgress.stat.model.TransgressStat;
 import com.googlecode.jtiger.assess.transgress.stat.service.TransgressStatManager;
@@ -30,7 +31,7 @@ import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class TransgressStatAction extends
-		DefaultCrudAction<TransgressStat, TransgressStatManager> {
+		AssessBaseAction<TransgressStat, TransgressStatManager> {
 
 	/** 统计项mangaer */
 	@Autowired
@@ -109,12 +110,15 @@ public class TransgressStatAction extends
 
 		title.add("");// 第一行第一列
 		title.add("合计");
-		title.add("一大队");
+		for(String str : getDeptCodeList().values()){
+			title.add(str);
+		}
+/*		title.add("一大队");
 		title.add("二大队");
 		title.add("三大队");
 		title.add("四大队");
 		title.add("五大队");
-		title.add("六大队");
+		title.add("六大队");*/
 
 		// result.add(title);
 
@@ -136,14 +140,14 @@ public class TransgressStatAction extends
 				 * statCondition.setTransgressActionCodesStr(actionCodeStr
 				 * .substring(0, actionCodeStr.length() - 1));
 				 */
-				//违法行为代码
+				// 违法行为代码
 				statCondition.setTransgressActionCodesStr(itm
 						.getTransgressActionCodes());
-				//机动车使用性质
+				// 机动车使用性质
 				statCondition.setVehicleUseCodes(itm.getVehicleUseCodes());
-				//是否关联Force表
+				// 是否关联Force表
 				statCondition.setUnionForce(itm.getUnionForce());
-				//发现时间/处理时间
+				// 发现时间/处理时间
 				statCondition.setTimeCondition(itm.getFindOrDealWith());
 
 				// 得到当前登录用户所在部门的子部门代码编号,名称集合
@@ -179,8 +183,6 @@ public class TransgressStatAction extends
 		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
 		return INDEX;
 	}
-	
-	
 
 	/**
 	 * 构建统计条件
@@ -198,24 +200,6 @@ public class TransgressStatAction extends
 			Date beginTime, Date endTime) {
 
 		return null;
-	}
-
-	/**
-	 * 得到当前登录用户所在部门的子部门编号集合 支队,得到其下所有大队 大队,得到其下所有中队
-	 * 
-	 * @FixMe由于部门没有完善,此方法仅仅适于支队----------待完善 
-	 *                                       130604,130603,130602,130641,130642,130643
-	 * @return
-	 */
-	private Map<String, String> getDeptCodeList() {
-		Map<String, String> map = new HashMap<String, String>(0);
-		map.put("130604", "一大队");
-		map.put("130603", "二大队");
-		map.put("130602", "三大队");
-		map.put("130641", "四大队");
-		map.put("130642", "五大队");
-		map.put("130643", "六大队");
-		return map;
 	}
 
 	public String reportExcel() {
