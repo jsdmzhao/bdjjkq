@@ -80,7 +80,7 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 	@Transactional
 	public void evelTaskConst(Dept dept, Date beginDate, Date endDate,
 			EvaluateRecord evaluateRecord) {
-		Float total = 0f;
+		//Float total = 0f;
 		// 查出任务常量项
 		String hql = "from Task t where t.taskConstOrDuty = ?";
 		List<Task> tasks = taskManager.query(hql, AssessConstants.TASK_CONST);

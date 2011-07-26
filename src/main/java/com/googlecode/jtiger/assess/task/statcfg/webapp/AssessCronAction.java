@@ -47,11 +47,12 @@ public class AssessCronAction extends CronAction {
 
 	public String save() {
 		// SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		assessCron = cronManager.get(assessCron.getId());
 		Calendar c = Calendar.getInstance();
 		c.setTime(cronDate);
 		String ss = String.valueOf(c.get(Calendar.SECOND));
 		String mm = String.valueOf(c.get(Calendar.MINUTE));
-		String hh = String.valueOf(c.get(Calendar.HOUR));
+		String hh = String.valueOf(c.get(Calendar.HOUR_OF_DAY) - 1);
 		String dd = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
 
 		StringBuffer buf = new StringBuffer();
@@ -62,9 +63,16 @@ public class AssessCronAction extends CronAction {
 		assessCron.setCron(buf.toString());
 		assessCron.setMarker(AssessConstants.CRON_ASSESS);
 		assessCron.setName(AssessConstants.CRON_ASSESS);
-		super.save();
 
-		return SUCCESS;
+		try {
+			cronManager.save(assessCron);
+			render("success", "text/plain");
+		} catch (Exception e) {
+			e.printStackTrace();
+			render(e.getMessage(), "text/plain");
+		}
+
+		return null;
 	}
 
 	public Cron getAssessCron() {

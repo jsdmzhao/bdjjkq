@@ -56,4 +56,15 @@ public final class AssessConstants {
 	public static final String CRON_ASSESS = "aeeseeQuartz";
 	/** 默认cron表达式 */
 	public static final String CRON_ASSESS_DEFAULT = "0 0 0 1 * ?";
+	/** 考核涉及的大队的编号,如果是"all"则涉及全部大队,现阶段默认为市区6个大队 */
+	public static final String ASSESS_DEPT_CODES = ResBundleUtil.getString(
+			Constants.RESOURCE_BUNDLE, "assess_depts",
+			"130604,130603,130602,130641,130642,130643");
+	/** 部门类别-支队 */
+	public static final String DEPT_TYPE_0 = "0";
+	/** 部门类别-外勤(大队) */
+	public static final String DEPT_TYPE_1 = "1";
+	/** 部门类别-行政 */
+	public static final String DEPT_TYPE_2 = "2";
+
 }
