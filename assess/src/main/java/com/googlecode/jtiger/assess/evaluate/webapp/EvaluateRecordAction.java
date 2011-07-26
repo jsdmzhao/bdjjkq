@@ -3,11 +3,8 @@ package com.googlecode.jtiger.assess.evaluate.webapp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.xwork.StringUtils;
@@ -19,10 +16,8 @@ import org.springframework.stereotype.Controller;
 import com.googlecode.jtiger.assess.core.webapp.AssessBaseAction;
 import com.googlecode.jtiger.assess.evaluate.model.EvaluateRecord;
 import com.googlecode.jtiger.assess.evaluate.service.EvaluateRecordManager;
-import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
-import com.googlecode.jtiger.modules.hr.employee.model.Employee;
 import com.ibm.icu.util.Calendar;
 
 @SuppressWarnings("serial")

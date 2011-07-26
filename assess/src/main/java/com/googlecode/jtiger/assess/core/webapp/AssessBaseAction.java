@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.googlecode.jtiger.assess.AssessConstants;
 import com.googlecode.jtiger.core.model.BaseIdModel;
 import com.googlecode.jtiger.core.service.BaseGenericsManager;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
@@ -32,8 +33,23 @@ public abstract class AssessBaseAction<T extends BaseIdModel, M extends BaseGene
 	@SuppressWarnings("unchecked")
 	protected Map<String, String> getDeptCodeList() {
 		Map<String, String> map = new HashMap<String, String>(0);
-		String hql = "from Dept d where d.parentDept.id = ? and d.deptType = '1' order by d.orderNo";
-		List list = getManager().query(hql, getUserDept().getId());
+		StringBuffer buf = new StringBuffer(
+				"from Dept d where d.parentDept.id = ? and d.deptType = ? ");
+		// 涉及部分部门
+		if (!"all".equalsIgnoreCase(AssessConstants.ASSESS_DEPT_CODES)) {
+			String[] codes = AssessConstants.ASSESS_DEPT_CODES.split(",");
+			buf.append("and (");
+			for (int i = 0; i < codes.length - 1; i++) {
+				buf.append("d.deptCode = '").append(codes[i]).append("' or ");
+			}
+			buf.append("d.deptCode = '").append(codes[codes.length - 1])
+					.append("')");
+
+		}
+		buf.append("order by d.orderNo");
+		logger.debug(buf.toString());
+		List list = getManager().query(buf.toString(), getUserDept().getId(),
+				AssessConstants.DEPT_TYPE_1);
 
 		for (Object o : list) {
 			Dept d = (Dept) o;
@@ -42,5 +58,4 @@ public abstract class AssessBaseAction<T extends BaseIdModel, M extends BaseGene
 
 		return map;
 	}
-
 }
