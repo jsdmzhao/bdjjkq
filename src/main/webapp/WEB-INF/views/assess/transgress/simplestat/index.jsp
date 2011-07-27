@@ -14,22 +14,8 @@
 <%@include file="/common/meta.jsp" %>
 <script type="text/javascript" src="${ctx}/scripts/jquery.form.js"></script>
 
-<script type="text/javascript" src="${ctx}/scripts/jqueryui/jquery.ui.js"></script><!--
-<script type="text/javascript" src="${ctx}/scripts/jqueryui/jquery.ui.dialog.js"></script>
-		<script src="${ctx}/scripts/ui/jquery-1.5.1.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.bgiframe-2.1.2.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.ui.core.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.ui.widget.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.ui.mouse.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.ui.button.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.ui.draggable.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.ui.position.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.ui.resizable.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.ui.dialog.js"></script>
-	<script src="${ctx}/scripts/ui/jquery.effects.core.js"></script>
-	<link rel="stylesheet" href="${ctx}/scripts/ui/demos.css">
-	<link rel="stylesheet" href="${ctx}/scripts/ui/jquery.ui.all.css">
-		--><style type="text/css">
+<script type="text/javascript" src="${ctx}/scripts/jqueryui/jquery.ui.js"></script>
+<style type="text/css">
 
 
 .transgressTypeTitle{
@@ -197,7 +183,7 @@
                      	<td align="left">
 						<input type="radio" name="unionForce" id="unionForceTrue" value="true">关联</input>
 						<input type="radio" name="unionForce" id="unionForceFalse" value="false" checked="checked">不关联</input>
-						<input type="radio" name="unionForce" id="unionForceFalse" value="only" checked="checked">仅统计强制表</input>
+						<input type="radio" name="unionForce" id="unionForceFalse" value="only" >仅统计强制表</input>
                      </td>
                   	<td align="right" rowspan="2">号牌种类：</td>
                   	<td rowspan="2">
@@ -220,9 +206,9 @@
                   	 <td align="right">
                      	是否关联&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>非现场文本记录表：</td>
                      	<td align="left">
-						<input type="radio" name="unionForce" id="unionForceTrue" value="true">关联</input>
-						<input type="radio" name="unionForce" id="unionForceFalse" value="false" checked="checked">不关联</input>
-						<input type="radio" name="unionForce" id="unionForceFalse" value="only" checked="checked">仅统计非现场文本记录表</input>
+						<input type="radio" name="vioSurveil" id="unionForceTrue" value="true">关联</input>
+						<input type="radio" name="vioSurveil" id="unionForceFalse" value="false" checked="checked">不关联</input>
+						<input type="radio" name="vioSurveil" id="unionForceFalse" value="only" >仅统计非现场文本记录表</input>
                      </td>
                   </tr>
                   <tr>
