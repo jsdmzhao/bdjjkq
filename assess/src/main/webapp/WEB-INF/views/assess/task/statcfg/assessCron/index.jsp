@@ -30,7 +30,7 @@
 		<tr>
 			<td class="simple" align="center">考核时间：</td>
 			<td class="simple">
-			
+			<input type="hidden" name="model.id" value="${assessCron.id }"></input>
 			<input type="text" size="16" class="required" name="cronDate" id="cronDate" value='${cronDate}' />
 						<a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('cronDate'));return false;" HIDEFOCUS>
 					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 

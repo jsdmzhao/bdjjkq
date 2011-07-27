@@ -39,7 +39,7 @@
     </div>
 	<s:form id="saveFrm" action="save" method="post">
 	<s:hidden id="model.id" name="model.id"/>
-	<table width="800px" align="center">
+	<table width="1000px" align="center">
 		<tr>
 			<td align="center">
 			<fieldset> 
@@ -48,8 +48,33 @@
                   <tr>
                      <td align="right" width="15%">名称：</td>
                      <td align="left" width="20%"  ><s:textfield name="model.name"></s:textfield><span style="color: #ff0000;">*</span></td>
-                     <td rowspan="3"  width="15%" align="right">车辆使用性质：</td>
-                     <td rowspan="3" width="55%">
+                     <td></td>
+                     <td></td>
+                  </tr><!--
+                  
+                   <tr>
+                  	<td align="right" width="15%">违法代码：</td>
+                  	<td colspan="2" align="left">
+                  		<textarea rows="6" cols="50"  id="taCodes" name="taCodes"  ></textarea>                  		
+                  	</td>
+                  	<td align="left">
+                  		<span style="color: #070100;">
+                  		备注：您可以输入一系列违法行为代码,用逗号分隔开,例如:<font color="red">1712,17111</font></br>
+                  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;也可以通过点选违法行为来添加违法行为代码
+                  		</span>
+                  		
+                  	</td>
+                  </tr>          
+                  --><TR>
+                  	 <td align="right">类别：</td>
+                     <td align="left">
+                     	<s:select list="firstLevelTypes" id="firstLevelType"  headerKey ="" headerValue = "请选择" 
+                     	name="firstLevelType" listKey="id" listValue="descns" cssClass="m_t_b" 
+                     	cssStyle="width:200px;padding-left:2px;"  
+                     	onchange="initSubTypes($(this).val())"></s:select>
+                     </td>
+                     <td rowspan="2" width="15%" align="right">车辆使用性质：</td>
+                     <td rowspan="2" width="55%">
                      	<table  width="100%">
                      		<c:forEach items="${allVehicleUseCodes}" var="vuc" varStatus="status">              
                      				<c:if test="${status.index%5== 0}">
@@ -71,16 +96,6 @@
                      		</c:forEach>
                      	</table>
                      </td>
-                  </tr>
-                                 
-                  <TR>
-                  	 <td align="right">类别：</td>
-                     <td align="left">
-                     	<s:select list="firstLevelTypes" id="firstLevelType"  headerKey ="" headerValue = "请选择" 
-                     	name="firstLevelType" listKey="id" listValue="descns" cssClass="m_t_b" 
-                     	cssStyle="width:200px;padding-left:2px;"  
-                     	onchange="initSubTypes($(this).val())"></s:select>
-                     </td>
                   </TR>
                   <TR>
                   	 <td align="right">分类：</td>
@@ -93,15 +108,59 @@
                   </TR>   
                   <TR>
                   	 <td align="right">时间依据：</td>
-                  	 <td><input type="radio" name="timeCondition" value="FXSJ" ${model.findOrDealWith ne 'CLSJ' ?  'checked="checked"' : ''} >发现时间</input>						
-					<input type="radio" name="timeCondition" value="CLSJ" ${model.findOrDealWith eq 'CLSJ' ?  'checked="checked"' : ''}>处理时间</input></td>
-                     <td align="right">
+                  	 <td align="left">
+                  	 	<input type="radio" name="timeCondition" value="FXSJ" ${model.findOrDealWith ne 'CLSJ' ?  'checked="checked"' : ''} >发现时间</input>						
+						<input type="radio" name="timeCondition" value="CLSJ" ${model.findOrDealWith eq 'CLSJ' ?  'checked="checked"' : ''}>处理时间</input>
+					 </td>
+
+                  	<td></td>
+                  	<td></td>
+                  </TR>  
+                  <tr>
+                   <td align="right">
                      	是否关联&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>违法强制表：</td>
                      	<td align="left">
-						<input type="radio" name="unionForce"  value="true" ${model.unionForce ? 'checked="checked"' : '' }>关联</input>
-						<input type="radio" name="unionForce" value="" ${!model.unionForce ? 'checked="checked"' : '' }>不关联</input>
+						<input type="radio" name="unionForce" value="true"  id="unionForceTrue"   ${model.unionForce eq "true" ? 'checked="checked"' : '' }>关联</input>
+						<input type="radio" name="unionForce" value="false" id="unionForceFalse"  ${model.unionForce eq "false" or empty model.unionForce ? 'checked="checked"' : '' }>不关联</input>
+						<input type="radio" name="unionForce" value="only"  id="unionForceOnly"   ${model.unionForce eq "only" ? 'checked="checked"' : '' } >仅统计强制表</input>
                      </td>
-                  </TR>  
+                     <td align="right" rowspan="2">号牌种类：</td>
+                     <td rowspan="2">
+                  		<table  width="100%" style="margin-left: px;">
+                     		<c:forEach items="${flapperTypes}" var="ft" varStatus="status">              
+                     				<c:if test="${status.index%5== 0}">
+                     					<tr>
+                     				</c:if>
+                     				<td align="left">                     				
+	                  						<!--<input type="checkbox"  name="flapperTypes" value="${ft.code}"/>${ft.name}     
+	                  						
+	                  						-->
+	                  						<c:choose>
+	                  						<c:when test="${fn:indexOf(model.flapperTypes,ft.code)!= -1}">
+	                  						<input type="checkbox" checked="checked" name="flapperTypes" value="${ft.code}"/>${ft.name}
+	                  						</c:when>
+	                  						<c:otherwise>
+	                  						<input type="checkbox"  name="flapperTypes" value="${ft.code}"/>${ft.name}
+	                  						</c:otherwise>
+	                  					</c:choose>              				
+                     				</td>
+                     				<c:if test="${status.index%5== 4}">
+                     					</tr>
+                     				</c:if>               
+                     		</c:forEach>
+                     	</table>
+                  	</td>
+                  </tr>
+                  <tr>
+                  	 <td align="right">
+                     	是否关联&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br/>非现场文本记录表：</td>
+                     	<td align="left">
+						<input type="radio" name="vioSurveil" id="vioSurveilTrue"  value="true"  ${model.vioSurveil eq "true" ? 'checked="checked"' : '' }>关联</input>
+						<input type="radio" name="vioSurveil" id="vioSurveilFalse" value="false" ${model.vioSurveil eq "false"  or empty model.vioSurveil ? 'checked="checked"' : '' }>不关联</input>
+						<input type="radio" name="vioSurveil" id="vioSurveilOnly"  value="only"  ${model.vioSurveil eq "only" ? 'checked="checked"' : '' }>仅统计非现场文本记录表</input>
+	
+                     </td>
+                  </tr>
                    <TR>
                   	 <td align="right"></td>
                      <td align="left">
