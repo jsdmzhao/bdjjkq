@@ -12,16 +12,23 @@ import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.googlecode.jtiger.assess.AssessConstants;
 import com.googlecode.jtiger.assess.evaluate.service.EvaluateRecordManager;
 import com.googlecode.jtiger.core.service.BaseGenericsManager;
 import com.googlecode.jtiger.core.util.DateUtil;
+import com.googlecode.jtiger.modules.hr.dept.model.Dept;
+import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
 import com.googlecode.jtiger.modules.quartz.model.Cron;
+import com.ibm.icu.util.Calendar;
+
 @Service
 public class AssessCronManager extends BaseGenericsManager<Cron> {
 	@Autowired
 	private ApplicationContext ctx;
 	@Autowired
-	private EvaluateRecordManager evaluateRecordManager; 
+	private EvaluateRecordManager evaluateRecordManager;
+	@Autowired
+	private DeptManager deptManager;
 
 	/**
 	 * 添加新Cron实例
@@ -136,7 +143,19 @@ public class AssessCronManager extends BaseGenericsManager<Cron> {
 	 * 执行考核作业任务
 	 */
 	public void assess() {
-		logger.info("Assess任务执行时间 " + DateUtil.getDateTime("hh:mm:ss", new Date()));
-		
+
+		logger.info("Assess任务执行时间 "
+				+ DateUtil.getDateTime("yyyy-MM-dd HH:mm:ss", new Date()));
+		Calendar c = Calendar.getInstance();
+
+		String[] deptCodes = AssessConstants.ASSESS_DEPT_CODES.split(",");
+		for (String code : deptCodes) {
+			Dept dept = deptManager.getDeptByCode(code);
+			if (dept != null) {
+				evaluateRecordManager.eval(dept, c.get(Calendar.YEAR), c
+						.get(Calendar.MONTH));
+			}
+		}
 	}
+
 }

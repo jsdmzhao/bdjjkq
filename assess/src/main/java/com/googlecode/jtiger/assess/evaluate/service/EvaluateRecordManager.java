@@ -23,6 +23,7 @@ import com.googlecode.jtiger.assess.transgress.stat.dao.StatDao;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.core.service.BaseGenericsManager;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
+import com.ibm.icu.util.Calendar;
 
 @Service
 public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
@@ -56,7 +57,7 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 	 */
 	public Float evelDuty(Dept dept, Date beginDate, Date endDate,
 			EvaluateRecord evaluateRecord) {
-		
+
 		Float total = 0f;
 		String hql = "from EmployeeDutyRecord edr where edr.recordTime >= ? and edr.recordTime <= ? and edr.employee.dept.id = ?";
 		List<EmployeeDutyRecord> employeeDutyRecords = employeeDutyRecordManager
@@ -80,7 +81,7 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 	@Transactional
 	public void evelTaskConst(Dept dept, Date beginDate, Date endDate,
 			EvaluateRecord evaluateRecord) {
-		//Float total = 0f;
+		// Float total = 0f;
 		// 查出任务常量项
 		String hql = "from Task t where t.taskConstOrDuty = ?";
 		List<Task> tasks = taskManager.query(hql, AssessConstants.TASK_CONST);
@@ -123,5 +124,37 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 			ertc.setEvaluateRecord(evaluateRecord);
 			evaluateRecordTaskConstManager.save(ertc);
 		}
+	}
+	@Transactional
+	public void eval(Dept dept, int year, int month) {
+
+		EvaluateRecord evaluateRecord = new EvaluateRecord();
+		evaluateRecord.setDept(dept);
+		evaluateRecord.setRecordTime(new java.util.Date());
+		evaluateRecord.setYear(year);
+		evaluateRecord.setMonth(month);
+
+		save(evaluateRecord);
+
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.MONTH, month - 1);
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.DATE, 0);
+		c.set(Calendar.HOUR, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+
+		Date beginDate = c.getTime();
+
+		c.set(Calendar.MONTH, month);
+
+		Date endDate = c.getTime();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		logger.debug(sf.format(beginDate));
+		logger.debug(sf.format(endDate));
+
+		evalByDept(dept, beginDate, endDate, year, month, evaluateRecord);
+
 	}
 }

@@ -77,7 +77,7 @@ public class EvaluateRecordAction extends
 					deptCode).get(0);
 			List<EvaluateRecord> list = queryByDept(dept);
 			if (CollectionUtils.isEmpty(list)) {
-				eval(dept, year, month);
+				getManager().eval(dept, year, month);
 				list = queryByDept(dept);
 			}
 			items = list;
@@ -87,7 +87,7 @@ public class EvaluateRecordAction extends
 						"from Dept d where d.deptCode = ?", code).get(0);
 				List<EvaluateRecord> list = queryByDept(dept);
 				if (CollectionUtils.isEmpty(list)) {
-					eval(dept, year, month);
+					getManager().eval(dept, year, month);
 					list = queryByDept(dept);
 				}
 
@@ -104,39 +104,6 @@ public class EvaluateRecordAction extends
 		List<EvaluateRecord> list = getManager().query(hql,
 				new Object[] { dept.getId(), year, month });
 		return list;
-	}
-
-	private void eval(Dept dept, int year, int month) {
-
-		EvaluateRecord evaluateRecord = new EvaluateRecord();
-		evaluateRecord.setDept(dept);
-		evaluateRecord.setRecordTime(new java.util.Date());
-		evaluateRecord.setYear(year);
-		evaluateRecord.setMonth(month);
-
-		getManager().save(evaluateRecord);
-
-		Calendar c = Calendar.getInstance();
-		c.set(Calendar.MONTH, month - 1);
-		c.set(Calendar.YEAR, year);
-		c.set(Calendar.DATE, 0);
-		c.set(Calendar.HOUR, 0);
-		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND, 0);
-
-		Date beginDate = c.getTime();
-
-		c.set(Calendar.MONTH, month);
-
-		Date endDate = c.getTime();
-		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-		logger.debug(sf.format(beginDate));
-		logger.debug(sf.format(endDate));
-
-		getManager().evalByDept(dept, beginDate, endDate, year, month,
-				evaluateRecord);
-
 	}
 
 	public String evalAll() {
