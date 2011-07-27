@@ -14,9 +14,22 @@ import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.employee.model.Employee;
 import com.googlecode.jtiger.modules.security.user.model.User;
 
+/**
+ * 考核系统中,各个Action类都需要用到的根据当前用户得到部门和列出部门方法, 提取出公共父类.
+ * 
+ * @author DELPHI
+ * 
+ * @param <T>
+ * @param <M>
+ */
 @SuppressWarnings("serial")
 public abstract class AssessBaseAction<T extends BaseIdModel, M extends BaseGenericsManager<T>>
 		extends DefaultCrudAction<T, M> {
+	/**
+	 * 得到当前用户所在部门
+	 * 
+	 * @return
+	 */
 	protected Dept getUserDept() {
 		Dept dept = null;
 		User user = getUser();
@@ -30,6 +43,11 @@ public abstract class AssessBaseAction<T extends BaseIdModel, M extends BaseGene
 		return dept;
 	}
 
+	/**
+	 * 得到当前用户所在部门下的所有子部门
+	 * 
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	protected Map<String, String> getDeptCodeList() {
 		Map<String, String> map = new HashMap<String, String>(0);
