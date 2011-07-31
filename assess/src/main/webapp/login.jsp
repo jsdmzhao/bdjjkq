@@ -6,7 +6,7 @@
 <%@include file="/common/meta.jsp" %>
 <%@include file="/common/validator.jsp" %>
 <script src="${ctx}/scripts/jquery.form.js"></script>
-<title><jtiger:title title="用户登录"/></title>
+<title><jtiger:title title="保定市交警支队勤务考核系统--用户登录"/></title>
 
 <style type="text/css">
 <!--
@@ -78,13 +78,13 @@ body {
 	                <tr>
 	                  <td width="60" class="font_tt">用户名：</td>
 	                  <td width="190"><span class="font_tt">
-	                    <input name="j_username" id="j_username" type="text" value="admin" class="inputbb required" size="24" style="margin:2px;"/>
+	                    <input name="j_username" id="j_username" type="text" value="jjzd" class="inputbb required" size="24" style="margin:2px;"/>
 	                  </span></td>
 	                </tr>
 	                <tr>
 	                  <td class="font_tt">密&nbsp;&nbsp; 码：</td>
 	                  <td><span class="font_tt">
-	                    <input name="j_password" type="password" value="manager" class="inputbb required" size="24"  style="margin:2px;"/>
+	                    <input name="j_password" type="password" value="111111" class="inputbb required" size="24"  style="margin:2px;"/>
 	                  </span></td>
 	                </tr>
 	                <tr>
@@ -106,8 +106,8 @@ body {
                 <div id="divReg" style="display:none;">
 	                <table width="280" border="0" align="center" cellpadding="0" cellspacing="0" class="bottom_border">
 	                <tr>
-	                  <td height="48"><div align="center"><span class="login_tt">注册 </span></div></td>
-	                </tr>
+	                  <!--<td height="48"><div align="center"><span class="login_tt">注册 </span></div></td>
+	                --></tr>
 	              </table>
 	                <br />
 	                <s:form id="reg" action="/reg/save.htm" method="POST">
@@ -159,9 +159,9 @@ body {
                  <%--密码找回开始 --%>
                 <div id="findPwdX" style="display:none;">
                   <table width="280" border="0" align="center" cellpadding="0" cellspacing="0" class="bottom_border">
-	                <tr>
+	                <tr><!--
 	                  <td height="48"><div align="center"><span class="login_tt">找回密码 </span></div></td>
-	                </tr>
+	                --></tr>
 	              </table>
 	                <br />
                 <form action="${ctx}/restorePassword/findByAjax.htm" method="post" id="findPwd">
@@ -197,16 +197,17 @@ body {
 	            </table>
 	            </form>
                 </div>
+                <%--
                 <table width="280" height="24" border="0" align="center" cellpadding="0" cellspacing="0">
                   <tr>
                     <td><div align="center">
-                    <a href="javascript:;"  onclick="findPwd()">
+                    <!--<a href="javascript:;"  onclick="findPwd()">
                                                     忘记密码？</a>
                     &nbsp; 
-                    <a href="javascript:;" onclick="regX()">注册 </a></div></td>
-                  </tr>
+                    --><!--<a href="javascript:;" onclick="regX()">注册 </a></div></td>
+                  --></tr>
                 </table>
-               
+                --%>
                 </td>
             </tr>
           </table></td>
