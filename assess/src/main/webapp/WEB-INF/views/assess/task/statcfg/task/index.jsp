@@ -36,7 +36,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 <body>
 <s:form id="removeForm" action="role/remove" method="POST"></s:form>
 <div class="x-panel">
-  <div class="x-panel-header">B组考核标准管理</div>
+  <div class="x-panel-header">考核标准管理</div>
     <div class="x-toolbar" style="height:26px;">
       <table width="99%" >
   	  <tr style="margin-top:  7px;"> 		

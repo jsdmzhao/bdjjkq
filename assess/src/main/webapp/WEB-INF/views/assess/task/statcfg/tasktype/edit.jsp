@@ -33,7 +33,7 @@
 </head>
 <body>
 <div class="x-panel">
-    <div class="x-panel-header">任务类型管理</div>
+    <div class="x-panel-header">考核标准类别管理</div>
     <div class="x-toolbar" style="text-align: right;">
 		<a href="index.htm">管理首页</a>
     </div>
@@ -43,7 +43,7 @@
 		<tr>
 			<td align="center">
 			<fieldset> 
-              <legend>任务类别信息</legend>
+              <legend>考核标准类别信息</legend>
                 <table cellpadding="3" cellspacing="2" width="100%">
                   <tr>
                      <td align="right" width="15%">名称：</td>
