@@ -33,7 +33,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 <body>
 <s:form id="removeForm" action="role/remove" method="POST"></s:form>
 <div class="x-panel">
-  <div class="x-panel-header">任务类型</div>
+  <div class="x-panel-header">考核标准类别类型</div>
     <div class="x-toolbar" style="height:26px;">
       <table width="99%" >
   	  <tr style="margin-top:  7px;"> 		
@@ -60,7 +60,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 			<tr>
 				<td><span class="ytb-sep"></span></td>
 				<td>
-					<a href="${ctx}/assess/task/statcfg/tasktype/edit.htm"> 添加项目类型</a>	
+					<a href="${ctx}/assess/task/statcfg/tasktype/edit.htm"> 添加类别</a>	
 				</td>
 			</tr>
 		</table>

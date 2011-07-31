@@ -58,7 +58,7 @@
 	Date yesterday  = c.getTime();
 %>
 <div class="x-panel">
-    <div class="x-panel-header">统计项信息管理</div>
+    <div class="x-panel-header">单项统计</div>
     <div class="x-toolbar" style="text-align: right;">
 		<a href="index.htm">管理首页</a>
     </div>
@@ -68,7 +68,7 @@
 		<tr>
 			<td align="center">
 			<fieldset> 
-              <legend>编辑统计条件信息</legend>
+              <legend>单项统计</legend>
                 <table cellpadding="3" cellspacing="2" width="100%">
                   <tr>
                   	<td align="right" width="15%">

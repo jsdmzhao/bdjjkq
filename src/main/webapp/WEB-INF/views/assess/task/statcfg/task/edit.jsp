@@ -36,7 +36,7 @@
 </head>
 <body>
 <div class="x-panel">
-    <div class="x-panel-header">B组考核标准管理</div>
+    <div class="x-panel-header">考核标准管理</div>
     <div class="x-toolbar" style="text-align: right;">
 		<a href="taskDutyIndex.htm">管理首页</a>
     </div>
@@ -46,7 +46,7 @@
 		<tr>
 			<td align="center">
 			<fieldset> 
-              <legend>B组考核标准信息</legend>
+              <legend>考核标准信息</legend>
                 <table cellpadding="3" cellspacing="2" width="100%" id="formTable">
                   <tr>
                      <td align="right" width="20%">名&nbsp;&nbsp;&nbsp;&nbsp;称：</td>
