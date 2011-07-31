@@ -5,19 +5,7 @@
 <%@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <div id="menu" style="display:none">    
-	<div id="hr">
-		<div style="padding-left:5px;">
-			<div style="padding-top:2px">
-				<img src="${ctx}/images/arrow_3.png" class="icon">
-				<a href="${ctx}/hr/dept/index.htm" target="main">部门管理</a>
-			</div>
-			
-			<div style="padding-top:2px">
-				<img src="${ctx}/images/arrow_3.png" class="icon">
-				<a href="${ctx}/hr/employee/layout.htm" target="main">警员管理</a>
-			</div>					
-		</div>
-	</div>	
+	
     <div id="menu_constStat">
 		<div style="padding-left:5px;">  
 			 <div style="padding-top:2px">
@@ -31,15 +19,15 @@
 		</div>
 	</div>
 	<div id="menu_constStat_cfg">
-		<div style="padding-left:5px;">
-		  <div style="padding-top:2px">
-					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/transgress/statcfg/condition/list.htm" target="main">统计时间设置</a>
-			</div>	
+		<div style="padding-left:5px;">		  
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
 					<a href="${ctx}/assess/transgress/statcfg/statItem/index.htm" target="main">统计条件</a>
 			</div>		
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/transgress/statcfg/condition/list.htm" target="main">统计时间设置</a>
+			</div>	
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
 					<a href="${ctx}/assess/transgress/properties/edit.htm" target="main">报表表头及备注</a>
@@ -61,16 +49,29 @@
 					<a href="${ctx}/assess/task/statcfg/task/taskConstIndex.htm" target="main">任务常量管理</a>
 			</div>
 			<div style="padding-top:2px">
-				<img src="${ctx}/images/arrow_3.png" class="icon">
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
 				<a href="${ctx}/assess/task/statcfg/assessCron/index.htm" target="main">考核时间设置</a>
 			</div>	
 		</div>
 	</div>
+	<div id="hr">
+		<div style="padding-left:5px;">
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/arrow_3.png" class="icon">
+				<a href="${ctx}/hr/dept/index.htm" target="main">部门管理</a>
+			</div>
+			
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/arrow_3.png" class="icon">
+				<a href="${ctx}/hr/employee/layout.htm" target="main">警员管理</a>
+			</div>					
+		</div>
+	</div>	
 	<div id="menu_sys">
 		<div style="padding-left:5px;">   		
 			<div style="padding-top:2px">
 				<img src="${ctx}/images/icons/user.gif" class="icon">
-				<a href="${ctx}/security/user/index.htm" target="main">超级用户</a>
+				<a href="${ctx}/security/user/index.htm" target="main">用户管理</a>
 			</div>			
 			<div style="padding-top:2px">
 					<img src="${ctx}/images/icons/role.gif" class="icon">
