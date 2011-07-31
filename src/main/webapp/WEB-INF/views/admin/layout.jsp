@@ -39,25 +39,19 @@
                     layoutConfig:{
                         animate:true
                     },
-                    items: [{                    
-                        title:'组织机构',
-                        html:document.getElementById('hr').innerHTML,
-                        border:false,
-                        iconCls:'hr'
-                    },                                       
-                    {                    
+                    items: [   
+					{                    
+					    title:'常量考核统计设置',
+					    html:document.getElementById('menu_constStat_cfg').innerHTML,
+					    border:false,
+					    iconCls:'permit'
+					},                                
+					{                    
                         title:'常量考核查询统计',
                         html:document.getElementById('menu_constStat').innerHTML,
                         border:false,
                         iconCls:'permit'
-                    },
-                
-                    {                    
-                        title:'常量考核统计设置',
-                        html:document.getElementById('menu_constStat_cfg').innerHTML,
-                        border:false,
-                        iconCls:'permit'
-                    },
+                    },                                   
                     {                    
                         title:'考核任务设置',
                         html:document.getElementById('menu_task_cfg').innerHTML,
@@ -76,6 +70,12 @@
                         border:false,
                         iconCls:'permit'
                     },
+                    {                    
+                        title:'组织机构',
+                        html:document.getElementById('hr').innerHTML,
+                        border:false,
+                        iconCls:'permit'
+                    },    
                     {                    
                         title:'系统配置',
                         html:document.getElementById('menu_sys').innerHTML,
