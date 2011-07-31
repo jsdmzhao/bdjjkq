@@ -127,5 +127,6 @@ public class CronManager extends BaseGenericsManager<Cron> {
    */
   public void testMethod() {
     //System.out.println("测试任务执行时间 " + DateUtil.getDateTime("hh:mm:ss", new Date()));
+	  
   }
 }
