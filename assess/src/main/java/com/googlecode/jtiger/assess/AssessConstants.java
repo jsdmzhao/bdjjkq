@@ -53,7 +53,7 @@ public final class AssessConstants {
 		CAST_LEADER_MAP.put("1", "包岗领导同扣");
 	}
 	/** 用于定时考核的cron */
-	public static final String CRON_ASSESS = "aeeseeQuartz";
+	public static final String CRON_ASSESS = "assessQuartz";
 	/** 默认cron表达式 */
 	public static final String CRON_ASSESS_DEFAULT = "0 0 0 1 * ?";
 	/** 考核涉及的大队的编号,如果是"all"则涉及全部大队,现阶段默认为市区6个大队 */

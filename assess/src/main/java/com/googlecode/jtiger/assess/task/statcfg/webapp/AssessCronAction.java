@@ -3,6 +3,7 @@ package com.googlecode.jtiger.assess.task.statcfg.webapp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.commons.lang.xwork.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
@@ -42,6 +43,15 @@ public class AssessCronAction extends CronAction {
 
 	public String index() {
 		assessCron = cronManager.getCronByMarker(AssessConstants.CRON_ASSESS);
+		StringBuffer buf = new StringBuffer();
+		if (assessCron != null && StringUtils.isNotBlank(assessCron.getCron())) {
+			String[] ary = assessCron.getCron().split(" ");
+			buf.append("每月 ").append(ary[3] + "日    ").append(ary[2] + "点")
+					.append(ary[1] + "分").append(ary[0] + "秒");
+		}
+
+		getRequest().setAttribute("cronStr", buf.toString());
+
 		return "index";
 	}
 
