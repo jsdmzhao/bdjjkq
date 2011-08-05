@@ -1,6 +1,7 @@
 package com.googlecode.jtiger.assess.task.stat.empduty.webapp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 
+import com.googlecode.jtiger.assess.core.webapp.AssessBaseAction;
 import com.googlecode.jtiger.assess.task.stat.empduty.model.EmployeeDutyRecord;
 import com.googlecode.jtiger.assess.task.stat.empduty.service.EmployeeDutyRecordManager;
 import com.googlecode.jtiger.assess.task.statcfg.model.Task;
@@ -22,7 +24,6 @@ import com.googlecode.jtiger.assess.task.statcfg.service.TaskDetailManager;
 import com.googlecode.jtiger.assess.task.statcfg.service.TaskManager;
 import com.googlecode.jtiger.assess.task.statcfg.service.TaskTypeManager;
 import com.googlecode.jtiger.core.util.ReflectUtil;
-import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 import com.googlecode.jtiger.modules.hr.HrConstants;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
@@ -33,7 +34,7 @@ import com.googlecode.jtiger.modules.hr.employee.service.EmployeeManager;
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class EmployeeDutyRecordAction extends
-		DefaultCrudAction<EmployeeDutyRecord, EmployeeDutyRecordManager> {
+		AssessBaseAction<EmployeeDutyRecord, EmployeeDutyRecordManager> {
 	@Autowired
 	private TaskTypeManager taskTypeManager;
 	@Autowired
@@ -47,6 +48,10 @@ public class EmployeeDutyRecordAction extends
 	private List<TaskType> taskTypes;
 	private List<Task> tasks = new ArrayList<Task>();
 	private List<Dept> depts;
+	// 查询起始时间
+	private Date beginTime;
+	// 查询截至时间
+	private Date endTime;
 
 	public String index() {
 		StringBuffer buf = new StringBuffer(
@@ -64,9 +69,21 @@ public class EmployeeDutyRecordAction extends
 			buf.append("and edr.task.id = ? ");
 			args.add(getModel().getTask().getId());
 		}
-		if (StringUtils.isNotBlank(getModel().getYearAndMonth())) {
-			buf.append("and edr.yearAndMonth = ? ");
-			args.add(getModel().getYearAndMonth());
+		// 按部门查询
+		if (getModel().getEmployee().getDept() != null
+				&& getModel().getEmployee().getDept().getId() != null) {
+			buf.append("and edr.employee.dept.id = ? ");
+			args.add(getModel().getEmployee().getDept().getId());
+		}
+
+		// 记录时间区间
+		if (beginTime != null) {
+			buf.append("and edr.recordTime >= ? ");
+			args.add(beginTime);
+		}
+		if (endTime != null) {
+			buf.append("and edr.recordTime <= ? ");
+			args.add(endTime);
 		}
 
 		buf.append("order by edr.yearAndMonth,id desc ");
@@ -220,6 +237,22 @@ public class EmployeeDutyRecordAction extends
 
 	public void setDepts(List<Dept> depts) {
 		this.depts = depts;
+	}
+
+	public Date getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 
 }

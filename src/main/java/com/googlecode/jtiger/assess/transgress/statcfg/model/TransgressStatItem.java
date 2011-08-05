@@ -1,12 +1,17 @@
 package com.googlecode.jtiger.assess.transgress.statcfg.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.googlecode.jtiger.assess.task.statcfg.model.Task;
 import com.googlecode.jtiger.core.model.BaseIdModel;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 
@@ -47,6 +52,10 @@ public class TransgressStatItem extends BaseIdModel {
 	private String descn;
 	/** 统计条件类别(任务常量/自定义统计条件) */
 	private String type;
+	/**关联任务*/
+	private Set<Task> tasks = new HashSet<Task>();
+	/**关联任务特殊项*/
+	private Set<Task> taskSpecial = new HashSet<Task>();
 
 	public String getName() {
 		return name;
@@ -150,6 +159,22 @@ public class TransgressStatItem extends BaseIdModel {
 
 	public void setFlapperTypes(String flapperTypes) {
 		this.flapperTypes = flapperTypes;
+	}
+	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "transgressStatItem")
+	public Set<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(Set<Task> tasks) {
+		this.tasks = tasks;
+	}
+	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "specialTransgressStatItem")
+	public Set<Task> getTaskSpecial() {
+		return taskSpecial;
+	}
+
+	public void setTaskSpecial(Set<Task> taskSpecial) {
+		this.taskSpecial = taskSpecial;
 	}
 
 }
