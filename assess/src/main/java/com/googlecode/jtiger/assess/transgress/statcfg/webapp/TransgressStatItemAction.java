@@ -120,8 +120,9 @@ public class TransgressStatItemAction extends
 
 	@Override
 	public String index() {
-		String hql = "from TransgressStatItem tsi where 1=1";
+		String hql = "from TransgressStatItem tsi where tsi.type = ?";
 		List<Object> args = new ArrayList<Object>();
+		args.add(StatCfgConstants.STAT_ITEM_TYPE_COMMON);
 		if (getModel() != null && getModel().getName() != null) {
 			hql += " and tsi.name like ?";
 			args.add(MatchMode.ANYWHERE.toMatchString(getModel().getName()));
@@ -216,8 +217,8 @@ public class TransgressStatItemAction extends
 			getModel().setUnionForce(unionForce);
 
 		}
-		//是否关联vioSurveil表 
-		if(StringUtils.isNotBlank(vioSurveil)){
+		// 是否关联vioSurveil表
+		if (StringUtils.isNotBlank(vioSurveil)) {
 			getModel().setVioSurveil(vioSurveil);
 		}
 		// 发现时间/处理时间
@@ -300,14 +301,26 @@ public class TransgressStatItemAction extends
 	}
 
 	/**
-	 * 重新初始化选择框-----------------------------未完成啊。。。。
+	 * 重新初始化选择框
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public String reInitStatItemSelectAjax() {
 		String hql = "from TransgressStatItem tsi where tsi.type = ?";
 		List<TransgressStatItem> list = getManager().query(hql,
 				StatCfgConstants.STAT_ITEM_TYPE_COMMON);
+		List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
+		for (TransgressStatItem tsi : list) {
+			Map<String, Object> map = ReflectUtil.toMap(tsi, new String[] {},
+					true);
+			mapList.add(map);
+		}
+		if (CollectionUtils.isNotEmpty(mapList)) {
+			String json = toJson(mapList);
+			logger.debug(json);
+			renderJson(json);
+		}
 		return null;
 
 	}
@@ -346,6 +359,7 @@ public class TransgressStatItemAction extends
 		String vehicleUseCodes = getRequest().getParameter("vehicleUseCodes");
 		String unionForce = getRequest().getParameter("unionForce");
 		String statConditionId = getRequest().getParameter("statConditionId");
+		String flapperTypes = getRequest().getParameter("flapperTypes");
 		TransgressStatItem tsi = null;
 		// 如果id不为空，则为修改，否则，添加新
 		if (StringUtils.isNotBlank(statConditionId)) {
@@ -364,7 +378,10 @@ public class TransgressStatItemAction extends
 
 		if (StringUtils.isNotBlank(unionForce)) {
 			getModel().setUnionForce(unionForce);
-
+			tsi.setUnionForce(unionForce);
+		}
+		if (StringUtils.isNotBlank(flapperTypes)) {
+			tsi.setFlapperTypes(flapperTypes);
 		}
 		tsi.setFindOrDealWith(getRequest().getParameter("timeCondition"));
 

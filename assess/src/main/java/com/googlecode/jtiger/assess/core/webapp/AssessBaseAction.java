@@ -49,7 +49,7 @@ public abstract class AssessBaseAction<T extends BaseIdModel, M extends BaseGene
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	protected Map<String, String> getDeptCodeList() {
+	public Map<String, String> getDeptCodeList() {
 		Map<String, String> map = new HashMap<String, String>(0);
 		StringBuffer buf = new StringBuffer(
 				"from Dept d where d.parentDept.id = ? and d.deptType = ? ");

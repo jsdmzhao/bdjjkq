@@ -27,7 +27,10 @@
 	<package name="admin.assess.task.statcfg.assessCron" extends="default"
 	         namespace="/assess/task/statcfg/assessCron">
 		<action name="*" class="assessCronAction" method="{1}">
-		    <result name="index">/WEB-INF/views/assess/task/statcfg/assessCron/index.jsp</result>
+		    <result name="indexMonthly">/WEB-INF/views/assess/task/statcfg/assessCron/indexMonthly.jsp</result>
+		    <result name="indexDaily">/WEB-INF/views/assess/task/statcfg/assessCron/indexDaily.jsp</result>
+		    <result name="dailySuccess" type="redirect">indexDaily.htm</result>
+		    <result name="monthlySuccess" type="redirect">indexMonthly.htm</result>
 		    <result name="input">/WEB-INF/views/assess/task/statcfg/assessCron/index.jsp</result>		  		  		   	    
 		</action>		
 	</package>

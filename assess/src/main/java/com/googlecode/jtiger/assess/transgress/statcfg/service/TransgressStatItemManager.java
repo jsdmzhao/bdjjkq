@@ -92,8 +92,6 @@ public class TransgressStatItemManager extends
 		return getDao().query(hql);
 	}
 
-	
-
 	/**
 	 * 根据违法类别代码，得到违法类别实体
 	 * 
@@ -109,5 +107,17 @@ public class TransgressStatItemManager extends
 		} else {
 			return null;
 		}
+	}
+
+	/**
+	 * 根据类型得到统计项
+	 * 
+	 * @param type
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<TransgressStatItem> getStatItemByType(String type) {
+		String hql = "from TransgressStatItem tt where tt.type = ?";
+		return getDao().query(hql, type);
 	}
 }

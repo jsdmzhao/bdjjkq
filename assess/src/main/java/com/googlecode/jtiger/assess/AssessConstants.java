@@ -54,6 +54,10 @@ public final class AssessConstants {
 	}
 	/** 用于定时考核的cron */
 	public static final String CRON_ASSESS = "assessQuartz";
+	/** 用于定时日报考核的cron */
+	public static final String CRON_ASSESS_DAILY = "assessDailyQuartz";
+	/**默认日报cron表达式*/
+	public static final String CRON_ASSESS_DAILY_DEFAULT = "0 0 6 * * ?";
 	/** 默认cron表达式 */
 	public static final String CRON_ASSESS_DEFAULT = "0 0 0 1 * ?";
 	/** 考核涉及的大队的编号,如果是"all"则涉及全部大队,现阶段默认为市区6个大队 */

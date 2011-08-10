@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -38,6 +39,8 @@ public class EvaluateRecord extends BaseIdModel {
 
 	private Set<EvaluateRecordTaskConst> consts = new HashSet<EvaluateRecordTaskConst>(
 			0);
+	
+	private String recordType;
 
 	public Date getRecordTime() {
 		return recordTime;
@@ -96,6 +99,14 @@ public class EvaluateRecord extends BaseIdModel {
 
 	public void setMonth(int month) {
 		this.month = month;
+	}
+	@Column(name = "record_type",columnDefinition = "varchar2(8) default 'monthly'")
+	public String getRecordType() {
+		return recordType;
+	}
+
+	public void setRecordType(String recordType) {
+		this.recordType = recordType;
 	}
 
 }

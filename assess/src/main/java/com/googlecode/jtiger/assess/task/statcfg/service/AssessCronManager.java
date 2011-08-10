@@ -158,4 +158,34 @@ public class AssessCronManager extends BaseGenericsManager<Cron> {
 		}
 	}
 
+	/**
+	 * 执行考核作业任务
+	 */
+	public void assessDaily() {
+
+		logger.info("AssessDaily任务执行时间 "
+				+ DateUtil.getDateTime("yyyy-MM-dd HH:mm:ss", new Date()));
+		Calendar c = Calendar.getInstance();
+
+		Cron cron = getCronByMarker(AssessConstants.CRON_ASSESS_DAILY);
+		if (cron != null) {
+			String cronStr = cron.getCron();
+			String[] ary = cronStr.split(" ");
+			int day = c.get(Calendar.DATE);
+			int hour = Integer.valueOf(ary[2]);
+			int minute = Integer.valueOf(ary[1]);
+			int second = Integer.valueOf(ary[0]);
+
+			String[] deptCodes = AssessConstants.ASSESS_DEPT_CODES.split(",");
+			for (String code : deptCodes) {
+				Dept dept = deptManager.getDeptByCode(code);
+				if (dept != null) {
+					evaluateRecordManager.evalDaily(dept, new Date(), c
+							.get(Calendar.YEAR), c.get(Calendar.MONTH), day,
+							hour, minute, second);
+				}
+			}
+		}
+
+	}
 }

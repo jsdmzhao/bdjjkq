@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -154,7 +155,15 @@ public class SimpleTransgressStatAction extends
 		statCondition.setTimeCondition(getRequest().getParameter(
 				"timeCondition"));
 		// 得到当前登录用户所在部门的子部门代码编号,名称集合
-		Map<String, String> deptCodeMap = getDeptCodeList();
+		Map<String, String> deptCodeMap = null;
+		if(StringUtils.isNotBlank(deptId)){
+			Dept dept = deptManager.get(Integer.valueOf(deptId));
+			deptCodeMap = new HashMap<String,String>();
+			deptCodeMap.put(dept.getDeptCode(), dept.getName());
+		}else{
+			deptCodeMap= getDeptCodeList();
+		}
+	
 		Iterator<String> itr = deptCodeMap.keySet().iterator();
 		BigDecimal total = new BigDecimal(0);
 		List itemResult = new ArrayList();

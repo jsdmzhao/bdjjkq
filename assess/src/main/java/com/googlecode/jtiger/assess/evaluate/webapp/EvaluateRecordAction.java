@@ -57,14 +57,19 @@ public class EvaluateRecordAction extends
 	 */
 	public String front() {
 		Calendar c = Calendar.getInstance();
-		int month = c.get(Calendar.MONTH);
+		int month = c.get(Calendar.MONTH) + 1;
+		int date = c.get(Calendar.DATE);
 		int year = c.get(Calendar.YEAR);
+		c.set(Calendar.HOUR, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
 
-		String hql = "from EvaluateRecord er where er.year = ? and er.month = ? order by er.total desc";
+		String hql = "from EvaluateRecord er where er.recordType = 'daily' and er.recordTime >= ? order by er.total desc";
 		List<EvaluateRecord> list = getManager().query(hql,
-				new Object[] { year, month });
+				new Object[] { c.getTime() });
 		getRequest().setAttribute("year", year);
 		getRequest().setAttribute("month", month);
+		getRequest().setAttribute("date", date);
 		getRequest().setAttribute("list", list);
 
 		return "front";
