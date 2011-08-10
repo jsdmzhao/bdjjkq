@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>考核时间配置</title>
+<title>日考核时间配置</title>
 <%@include file="/common/validator.jsp" %>
 <%@include file="/common/ec.jsp" %>
 <%@include file="/common/meta.jsp"%>
@@ -18,17 +18,18 @@
 
 <body>
 <div class="x-panel">
-<div class="x-panel-header">编辑考核时间</div>
+<div class="x-panel-header">编辑日考核时间</div>
 
 <div class="x-panel-body">
 <div><%@ include file="/common/messages.jsp"%>
 </div> 
 <s:form action="save" namespace="/assess/task/statcfg/assessCron" theme="simple" name="statCfgForm" id="statCfgForm"  method="POST">
 <s:hidden name="assessCron.id"></s:hidden>
-	<fieldset style="margin: 30px;"><legend>考核时间信息</legend>
+<s:hidden name="cronType" value="assessDailyQuartz"></s:hidden>
+	<fieldset style="margin: 30px;"><legend>日考核时间信息</legend>
 	<table width="100%" >
 		<tr>
-			<td class="simple" align="center">考核时间：</td>
+			<td class="simple" align="center">日考核时间：</td>
 			<td class="simple">
 			${cronStr}
 			<input type="hidden" name="model.id" value="${assessCron.id }"></input>

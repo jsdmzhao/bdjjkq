@@ -43,7 +43,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 					<tr> 
 						<td>
 							单位名称：
-							<select name="deptCode">
+							<!--<select name="deptCode">
 								<option value="">请选择</option>
 								<option value="130604">一大队</option>
 								<option value="130603">二大队</option>
@@ -52,6 +52,9 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 								<option value="130642">五大队</option>
 								<option value="130643">六大队</option>								
 							</select>
+							--><s:select list="deptCodeList" id="deptCodeList" headerKey="" headerValue="请选择" 
+                     	name="deptCode" listKey="key" listValue="value"  cssClass="m_t_b" 
+                     	cssStyle="width:200px;padding-left:2px;"  ></s:select>
 						</td> 
 						<td>
 						考核年月：
