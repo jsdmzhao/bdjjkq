@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.googlecode.jtiger.assess.AssessConstants;
+import com.googlecode.jtiger.assess.evaluate.EvaluateConstants;
 import com.googlecode.jtiger.assess.evaluate.model.EvaluateRecord;
 import com.googlecode.jtiger.assess.evaluate.model.EvaluateRecordTaskConst;
 import com.googlecode.jtiger.assess.task.stat.empduty.model.EmployeeDutyRecord;
@@ -19,7 +19,7 @@ import com.googlecode.jtiger.assess.task.stat.empduty.service.EmployeeDutyRecord
 import com.googlecode.jtiger.assess.task.statcfg.model.Task;
 import com.googlecode.jtiger.assess.task.statcfg.service.TaskManager;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
-import com.googlecode.jtiger.assess.transgress.stat.dao.StatDao;
+import com.googlecode.jtiger.assess.transgress.stat.dao.TransgressSatDao;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.core.service.BaseGenericsManager;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
@@ -30,7 +30,7 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 	@Autowired
 	private EmployeeDutyRecordManager employeeDutyRecordManager;
 	@Autowired
-	private StatDao statDao;
+	private TransgressSatDao statDao;
 	@Autowired
 	private TaskManager taskManager;
 	@Autowired
@@ -125,6 +125,7 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 			evaluateRecordTaskConstManager.save(ertc);
 		}
 	}
+
 	@Transactional
 	public void eval(Dept dept, int year, int month) {
 
@@ -133,6 +134,7 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 		evaluateRecord.setRecordTime(new java.util.Date());
 		evaluateRecord.setYear(year);
 		evaluateRecord.setMonth(month);
+		evaluateRecord.setRecordType(EvaluateConstants.EVAL_TYPE_MONTHLY);
 
 		save(evaluateRecord);
 
@@ -147,6 +149,47 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 		Date beginDate = c.getTime();
 
 		c.set(Calendar.MONTH, month);
+
+		Date endDate = c.getTime();
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+		logger.debug(sf.format(beginDate));
+		logger.debug(sf.format(endDate));
+
+		evalByDept(dept, beginDate, endDate, year, month, evaluateRecord);
+
+	}
+
+	/**
+	 * 考核日报
+	 * 
+	 * @param dept
+	 * @param evalDate
+	 */
+	@Transactional
+	public void evalDaily(Dept dept, Date evalDate, int year, int month,
+			int day, int hour, int minute, int second) {
+		EvaluateRecord evaluateRecord = new EvaluateRecord();
+		evaluateRecord.setDept(dept);
+		evaluateRecord.setRecordTime(new java.util.Date());
+
+		evaluateRecord.setRecordType(EvaluateConstants.EVAL_TYPE_DAILY);
+
+		save(evaluateRecord);
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.MONTH, month);
+		c.set(Calendar.YEAR, year);
+		c.set(Calendar.DATE, 0);
+		c.set(Calendar.HOUR, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+
+		Date beginDate = c.getTime();
+
+		c.set(Calendar.DATE, day);
+		c.set(Calendar.HOUR, hour);
+		c.set(Calendar.MINUTE, minute);
+		c.set(Calendar.SECOND, second);
 
 		Date endDate = c.getTime();
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

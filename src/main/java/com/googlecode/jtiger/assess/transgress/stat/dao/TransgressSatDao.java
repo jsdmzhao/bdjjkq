@@ -44,7 +44,7 @@ public class TransgressSatDao extends BaseJdbcDao {
 		} else if (TransgressConstants.UNION_FORCE_TRUE.equals(condition
 				.getUnionForce())) {
 			// 关联非现场文本记录表
-			if (TransgressConstants.UNION_SURVIL_FALSE.equals(condition
+			if (TransgressConstants.UNION_SURVIL_TRUE.equals(condition
 					.getVioSurveil())) {
 				return summary(statViolation(condition), statForce(condition),
 						statSurveil(condition));

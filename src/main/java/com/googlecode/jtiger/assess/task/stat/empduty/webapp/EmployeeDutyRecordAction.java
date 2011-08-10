@@ -52,6 +52,8 @@ public class EmployeeDutyRecordAction extends
 	private Date beginTime;
 	// 查询截至时间
 	private Date endTime;
+	
+	private String deptCode;
 
 	public String index() {
 		StringBuffer buf = new StringBuffer(
@@ -69,12 +71,12 @@ public class EmployeeDutyRecordAction extends
 			buf.append("and edr.task.id = ? ");
 			args.add(getModel().getTask().getId());
 		}
-		// 按部门查询
-		if (getModel().getEmployee().getDept() != null
-				&& getModel().getEmployee().getDept().getId() != null) {
+		if(StringUtils.isNotBlank(deptCode)){
+			Dept dept = deptManager.getDeptByCode(deptCode);
 			buf.append("and edr.employee.dept.id = ? ");
-			args.add(getModel().getEmployee().getDept().getId());
+			args.add(dept.getId());
 		}
+		
 
 		// 记录时间区间
 		if (beginTime != null) {
@@ -89,6 +91,8 @@ public class EmployeeDutyRecordAction extends
 		buf.append("order by edr.yearAndMonth,id desc ");
 		page = getManager().pageQuery(pageOfBlock(), buf.toString(),
 				args.toArray());
+		
+
 		restorePageData(page);
 
 		return INDEX;
@@ -253,6 +257,14 @@ public class EmployeeDutyRecordAction extends
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getDeptCode() {
+		return deptCode;
+	}
+
+	public void setDeptCode(String deptCode) {
+		this.deptCode = deptCode;
 	}
 
 }

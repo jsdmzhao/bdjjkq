@@ -20,6 +20,7 @@ import com.googlecode.jtiger.assess.core.webapp.AssessBaseAction;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
 import com.googlecode.jtiger.assess.transgress.stat.model.TransgressStat;
 import com.googlecode.jtiger.assess.transgress.stat.service.TransgressStatManager;
+import com.googlecode.jtiger.assess.transgress.statcfg.StatCfgConstants;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressCustomStatCondition;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressCustomStatConditionManager;
@@ -110,20 +111,19 @@ public class TransgressStatAction extends
 
 		title.add("");// 第一行第一列
 		title.add("合计");
-		for(String str : getDeptCodeList().values()){
+		for (String str : getDeptCodeList().values()) {
 			title.add(str);
 		}
-/*		title.add("一大队");
-		title.add("二大队");
-		title.add("三大队");
-		title.add("四大队");
-		title.add("五大队");
-		title.add("六大队");*/
+		/*
+		 * title.add("一大队"); title.add("二大队"); title.add("三大队");
+		 * title.add("四大队"); title.add("五大队"); title.add("六大队");
+		 */
 
 		// result.add(title);
 
 		// 1.得到所有统计项
-		List<TransgressStatItem> tsItems = itemManager.get();
+		List<TransgressStatItem> tsItems = itemManager
+				.getStatItemByType(StatCfgConstants.STAT_ITEM_TYPE_COMMON);
 		if (CollectionUtils.isNotEmpty(tsItems)) {
 			// 迭代各个统计项
 			for (TransgressStatItem itm : tsItems) {

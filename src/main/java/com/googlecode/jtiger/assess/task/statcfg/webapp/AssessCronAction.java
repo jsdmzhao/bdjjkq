@@ -41,7 +41,7 @@ public class AssessCronAction extends CronAction {
 	@Autowired
 	private CronManager cronManager;
 
-	public String index() {
+	public String indexMonthly() {
 		assessCron = cronManager.getCronByMarker(AssessConstants.CRON_ASSESS);
 		StringBuffer buf = new StringBuffer();
 		if (assessCron != null && StringUtils.isNotBlank(assessCron.getCron())) {
@@ -52,7 +52,22 @@ public class AssessCronAction extends CronAction {
 
 		getRequest().setAttribute("cronStr", buf.toString());
 
-		return "index";
+		return "indexMonthly";
+	}
+
+	public String indexDaily() {
+		assessCron = cronManager
+				.getCronByMarker(AssessConstants.CRON_ASSESS_DAILY);
+		StringBuffer buf = new StringBuffer();
+		if (assessCron != null && StringUtils.isNotBlank(assessCron.getCron())) {
+			String[] ary = assessCron.getCron().split(" ");
+			buf.append("每天 ").append(ary[2] + "点").append(ary[1] + "分").append(
+					ary[0] + "秒");
+		}
+
+		getRequest().setAttribute("cronStr", buf.toString());
+
+		return "indexDaily";
 	}
 
 	public String save() {
@@ -66,12 +81,19 @@ public class AssessCronAction extends CronAction {
 		String dd = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
 
 		StringBuffer buf = new StringBuffer();
-		buf.append(ss).append(" ").append(mm).append(" ").append(hh)
-				.append(" ").append(dd).append(" ").append("*").append(" ")
-				.append("?");
+		String cronType = getRequest().getParameter("cronType");
+		if (AssessConstants.CRON_ASSESS.equals(cronType)) {
+			buf.append(ss).append(" ").append(mm).append(" ").append(hh)
+					.append(" ").append(dd).append(" ").append("*").append(" ")
+					.append("?");
+		} else {
+			buf.append(ss).append(" ").append(mm).append(" ").append(hh)
+					.append(" ").append("*").append(" ").append("*")
+					.append(" ").append("?");
+		}
 
 		assessCron.setCron(buf.toString());
-		assessCron.setMarker(AssessConstants.CRON_ASSESS);
+		// assessCron.setMarker(AssessConstants.CRON_ASSESS);
 		assessCron.setName(AssessConstants.CRON_ASSESS);
 
 		try {
@@ -82,7 +104,11 @@ public class AssessCronAction extends CronAction {
 			render(e.getMessage(), "text/plain");
 		}
 
-		return null;
+		if (AssessConstants.CRON_ASSESS.equals(cronType)) {
+			return "monthlySuccess";
+		} else {
+			return "dailySuccess";
+		}
 	}
 
 	public Cron getAssessCron() {
