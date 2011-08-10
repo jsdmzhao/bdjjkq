@@ -109,4 +109,41 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!--
+		执行考核Cron配置 
+	 -->
+	 <!-- 考核日报作业 -->
+	 <bean id="assessDailyJobDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="assessCronManager" />
+		<property name="targetMethod" value="assessDaily" />
+		<property name="concurrent" value="false" />
+	</bean>
+	<!-- 使用CronTriggerBeanEx -->
+	<!-- Trigger(触发器) -->
+	<bean id="assessDailyCronTrigger" 
+		  class="com.googlecode.jtiger.assess.task.statcfg.service.AssessCronTriggerEx">
+		<property name="jobDetail">
+			<ref bean="assessDailyJobDetail"/><!-- 引用考核作业 -->
+		</property>
+		<!-- 从数据库中取得cron，如果数据库没有，则新建一个，新建的定义在每月1日0点0分启动 -->
+		<property name="cron">
+			<bean class="com.googlecode.jtiger.assess.task.statcfg.service.AssessCronExpressionFactory">
+			    <!-- 这个marker很重要 --><!-- 根据value值,由assessCronManager从数据库中取得cron -->
+			    <property name="cronMarker" value="assessDailyQuartz"></property>
+			</bean>
+		</property>
+	</bean>
+	<!-- 动态配置的任务，每个任务都要一个单独的SchedulerFactory，id为markerSchedulerFactory -->
+	<bean id="assessDailySchedulerFactory"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">		
+		<property name="dataSource"><null/></property>
+		<property name="autoStartup" value="true"/>
+		<property name="triggers">
+			<list>
+				<ref local="assessDailyCronTrigger" />				
+			</list>
+		</property>
+	</bean>
 </beans>
