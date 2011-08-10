@@ -17,7 +17,7 @@
 </head>
 <body>
 	<table id="table_info" align="center" width="60%">
-		<caption>保定交警支队${year}年${month}月考核结果</caption>
+		<caption>截至${year}年${month}月${date }日,保定交警支队考核结果</caption>
 		<tr>
 			<th>名次</th>
 			<th>单位</th>

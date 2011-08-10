@@ -50,7 +50,11 @@
 			</div>
 			<div style="padding-top:2px">
 				<img src="${ctx}/images/icons/resource.gif" class="icon">
-				<a href="${ctx}/assess/task/statcfg/assessCron/index.htm" target="main">考核时间设置</a>
+				<a href="${ctx}/assess/task/statcfg/assessCron/indexMonthly.htm" target="main">月度考核时间设置</a>
+			</div>	
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
+				<a href="${ctx}/assess/task/statcfg/assessCron/indexDaily.htm" target="main">考核日报时间设置</a>
 			</div>	
 		</div>
 	</div>

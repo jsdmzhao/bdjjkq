@@ -89,12 +89,12 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	toolbarContent="navigation|pagejump|pagesize|export|refresh|extend|status">    
 	<ec:row>
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>	
-		<ec:column width="300" property="name" title="项目名称" tipTitle="${item.name}" ellipsis="true" sortable="false"/>
+		<ec:column width="300" property="name" title="类别名称" tipTitle="${item.name}" ellipsis="true" sortable="false"/>
 	 	<ec:column width="160" property="_1" title="操作" style="text-align:center" sortable="false">
 	 	<%--
 			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> | --%>
 			 <a title="编辑" href="${ctx}/assess/task/statcfg/tasktype/edit.htm?model.id=${item.id}">编辑 </a> |
-			 <a title="删除" href="#" onclick="remove('${item.id}')">删除</a>
+			 <a title="删除" href="#" onclick="remove('${item.id}',${not empty item.tasks })">删除</a>
 		</ec:column>	   	
 	</ec:row>
 	</ec:table>
@@ -102,12 +102,16 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
   </div>
 </div>
 <script type="text/javascript">
-function remove(id) {
+function remove(id,isRef) {
     /*Ext.MessageBox.confirm('提示','确认要删除此项目吗？删除后不能恢复！', function(btn){
         if (btn == 'yes') {
           window.location = "${ctx}/assess/transgress/statcfg/statItem/remove.htm?model.id=" + id;
         }
     });*/
+    if(isRef){
+        alert("该任务类型下有任务信息,不能删除!");
+        return;
+    }
     if(!confirm("确定要删除该任务类型吗?")){
         return;
     }

@@ -94,7 +94,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	 	<%--
 			 <a title="查看" href="${ctx}/assess/transgress/statcfg/statItem/view.htm?model.id=${item.id}">查看 </a> | --%>
 			 <a title="编辑" href="${ctx}/assess/transgress/statcfg/statItem/edit.htm?model.id=${item.id}">编辑 </a> |
-			 <a title="删除" href="#" onclick="remove('${item.id}')">删除</a>
+			 <a title="删除" href="#" onclick="remove('${item.id}',${not empty item.tasks or not empty item.taskSpecial })">删除</a>
 		</ec:column>	   	
 	</ec:row>
 	</ec:table>
@@ -102,12 +102,16 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
   </div>
 </div>
 <script type="text/javascript">
-function remove(id) {
+function remove(id,isRef) {
     /*Ext.MessageBox.confirm('提示','确认要删除此项目吗？删除后不能恢复！', function(btn){
         if (btn == 'yes') {
           window.location = "${ctx}/assess/transgress/statcfg/statItem/remove.htm?model.id=" + id;
         }
     });*/
+    if(isRef == true){
+        alert("该统计条件已经被引用,不能删除!");
+        return;
+    }
     if(!confirm("确定要删除该统计项目吗?")){
         return;
     }

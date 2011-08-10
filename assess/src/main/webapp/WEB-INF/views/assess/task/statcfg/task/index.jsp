@@ -95,7 +95,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>	
 		<ec:column width="380" property="name" title="考核标准名称" tipTitle="${item.name}" ellipsis="true" sortable="false" style="text-align:center"/>
 		<ec:column width="80" property="taskType.name" title="所属类别" tipTitle="${item.taskType.name}" ellipsis="true" sortable="false" style="text-align:center"/>
-		<ec:column width="400"  property="_88" title="评分明细"  tipTitle="评分明细"   sortable="false" style="text-align:center;height:${fn:length(item.taskDutyDetails)*13}px;">							
+		<ec:column width="400"  property="_88" title="评分明细"  tipTitle="评分明细"   sortable="false" style="text-align:center;height:${fn:length(item.taskDutyDetails)*19}px;">							
 			<div style="width: 400px;">							
 				<c:forEach items="${item.taskDutyDetails}" var="detail">	
 					<div style="float:clear;width: 400px; ">

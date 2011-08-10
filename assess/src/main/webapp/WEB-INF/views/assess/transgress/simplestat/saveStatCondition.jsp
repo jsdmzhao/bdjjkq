@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@include file="/common/taglibs.jsp" %>
-
+<%@include file="/common/meta.jsp" %>
 <script type="text/javascript">
 //用以保存用户所选择的统计条件的描述
 var statConditionName = '';
@@ -42,7 +42,12 @@ var SaveStatCondtionWindow = new Ext.Window({
 				var vehicleUseCodes ='';
 				$("[name='vehicleUseCodes'][checked]").each(function(){  
 					vehicleUseCodes+=$(this).val()+",";  
-					alert($(this).val());  
+					//alert($(this).val());  
+				});
+				var flapperTypes = '';
+				$("[name='flapperTypes'][checked]").each(function(){  
+					flapperTypes+=$(this).val()+",";  
+					//alert($(this).val());  
 				});
 				var statConditionName = $('#statConditionName').val();
 				var statConditionDescn = $('#statConditionDescn').val();
@@ -51,6 +56,7 @@ var SaveStatCondtionWindow = new Ext.Window({
 				var statConditionId = $('#selectStatItem').val(); 
 				$.ajax({					
 					url:'${ctx}/assess/transgress/statcfg/statItem/saveStatCondition.htm',
+					type:'post',
 					data:{
 						'statConditionName':statConditionName,
 						'statConditionDescn':statConditionDescn,
@@ -59,11 +65,13 @@ var SaveStatCondtionWindow = new Ext.Window({
 						'vehicleUseCodes':vehicleUseCodes,
 						'timeCondition':timeCondition,
 						'unionForce':unionForce,
-						'statConditionId':statConditionId
+						'statConditionId':statConditionId,
+						'flapperTypes':flapperTypes
 						},
 					success:function(result){
 						if(result == 'success'){
 							Ext.my().msg('提示','您已经成功保存统计条件.');
+							location.reload();
 						}else{
 							Ext.Msg.alert('错误', "保存失败");
 						}
@@ -205,17 +213,37 @@ $(function(){
 					}else{						
 						$("#CLSJ").attr('checked','checked');					
 					}
-					if(data.unionForce == true){					
+					if(data.unionForce == 'true'){					
 						$("#unionForceTrue").attr('checked','checked');
-					}else{											
+					}else if(data.unionForce == 'false'){											
 						$("#unionForceFalse").attr('checked','checked');					
+					}else {
+						$("#unionForceOnly").attr('checked','checked');
+					}
+					if(data.vioSurveil == 'true' ){
+						$("#vioSurveilTrue").attr('checked','checked');
+					}else if(data.vioSurveil == 'false'){
+						$("#vioSurveilFalse").attr('checked','checked');
+					}else{
+						$("#vioSurveilOnly").attr('checked','checked');
 					}
 					$("[name='vehicleUseCodes']").attr("checked",false);
+					
 					if(data.vehicleUseCodes){
 						var vehicleUseCodesArr = data.vehicleUseCodes.split(",");						
 						$.each(vehicleUseCodesArr,function(){
-							var code = this.replace("'","").replace("'",""); 													
+							var code = this.replace("'","").replace("'",""); 		
+							//alert(code);											
 							$("[name='vehicleUseCodes'][value='"+code+"']").attr("checked",true);
+						});
+					}
+					$("[name='flapperTypes']").attr("checked",false);
+					if(data.flapperTypes){
+						var flapperTypes = data.flapperTypes.split(",");						
+						$.each(flapperTypes,function(){
+							var code = this.replace("'","").replace("'",""); 
+							//alert(code);													
+							$("[name='flapperTypes'][value='"+code+"']").attr("checked",true);
 						});
 					}
 					/*if(data.secondLevelTypeIds){
@@ -265,6 +293,7 @@ function onRemoveStatCondition(){
 				success:function(result){
 					if(result == 'success'){
 						Ext.my().msg('提示','您已经成功删除统计条件.');
+						location.reload();
 					}else{
 						Ext.Msg.alert('错误', "删除失败");
 					}
