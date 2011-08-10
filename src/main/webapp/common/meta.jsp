@@ -8,5 +8,17 @@
 <script type="text/javascript" src="${ctx}/scripts/jquery.tools.min.js" ></script>
 <script type="text/javascript" src="${ctx}/scripts/utils.js" ></script>
 <script type="text/javascript" src="${ctx}/scripts/calendar/WdatePicker.js"></script>
+<script type="text/javascript">
+$(function(){
+	if($.browser.msie){
+		$.ajaxSetup({
+			contentType:"application/x-www-form-urlencoded;charset=utf-8"			
+		});
+	}
+});
+$.ajaxSetup({
+	contentType:"application/x-www-form-urlencoded;charset=utf-8"	
+});
+</script>
 
 
