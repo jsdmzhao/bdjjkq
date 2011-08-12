@@ -89,17 +89,20 @@ public class ConditionSqlUtil {
 				condition.getTransgressActionCodesStr()).append(
 				RIGHT_PPARENTHESIS);
 		// 违法/发现时间
-		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())) {
+		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())
+				|| "FXSJ".equals(condition.getTimeCondition())) {
 			buf.append(SQL_STAT_SURVEIL_BEGIN_TIME_WFSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
-					.append(SQL_STAT_SURVEIL_END_TIME_WFSJ).append(condition.getEndHourMinute()).append(
+					.append(SQL_STAT_SURVEIL_END_TIME_WFSJ).append(
+							condition.getEndHourMinute()).append(
 							TIME_EXPRESSION);
 
 			// 处理时间
 		} else {
 			buf.append(SQL_STAT_SURVEIL_BEGIN_TIME_CLSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
-					.append(SQL_STAT_SURVEIL_END_TIME_CLSJ).append(condition.getEndHourMinute()).append(
+					.append(SQL_STAT_SURVEIL_END_TIME_CLSJ).append(
+							condition.getEndHourMinute()).append(
 							TIME_EXPRESSION);
 		}
 		// 发现机关
@@ -130,17 +133,19 @@ public class ConditionSqlUtil {
 				condition.getTransgressActionCodesStr()).append(
 				RIGHT_PPARENTHESIS);
 		// 违法/发现时间
-		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())) {
+		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())|| "FXSJ".equals(condition.getTimeCondition())) {
 			buf.append(SQL_STAT_FORCE_BEGIN_TIME_WFSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
-					.append(SQL_STAT_FORCE_END_TIME_WFSJ).append(condition.getEndHourMinute()).append(
+					.append(SQL_STAT_FORCE_END_TIME_WFSJ).append(
+							condition.getEndHourMinute()).append(
 							TIME_EXPRESSION);
 
 			// 处理时间
 		} else {
 			buf.append(SQL_STAT_FORCE_BEGIN_TIME_JSCJSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
-					.append(SQL_STAT_FORCE_END_TIME_JSCJSJ).append(condition.getEndHourMinute()).append(
+					.append(SQL_STAT_FORCE_END_TIME_JSCJSJ).append(
+							condition.getEndHourMinute()).append(
 							TIME_EXPRESSION);
 		}
 		// 发现机关
@@ -171,17 +176,20 @@ public class ConditionSqlUtil {
 				condition.getTransgressActionCodesStr()).append(
 				RIGHT_PPARENTHESIS);
 		// 违法/发现时间
-		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())) {
+		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())
+				|| "FXSJ".equals(condition.getTimeCondition())) {
 			buf.append(SQL_STAT_VIOLATION_BEGIN_TIME_WFSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
-					.append(SQL_STAT_VIOLATION_END_TIME_WFSJ).append(condition.getEndHourMinute()).append(
+					.append(SQL_STAT_VIOLATION_END_TIME_WFSJ).append(
+							condition.getEndHourMinute()).append(
 							TIME_EXPRESSION);
 
 			// 处理时间
 		} else {
 			buf.append(SQL_STAT_VIOLATION_BEGIN_TIME_CLSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
-					.append(SQL_STAT_VIOLATION_END_TIME_CLSJ).append(condition.getEndHourMinute()).append(
+					.append(SQL_STAT_VIOLATION_END_TIME_CLSJ).append(
+							condition.getEndHourMinute()).append(
 							TIME_EXPRESSION);
 		}
 		// 发现机关

@@ -1,6 +1,5 @@
 package com.googlecode.jtiger.assess.evaluate.webapp;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,12 +26,14 @@ public class EvaluateRecordAction extends
 		AssessBaseAction<EvaluateRecord, EvaluateRecordManager> {
 	/** 考核日期 */
 	private Date evalDate;
-	/***/
+	/** 部门Manager */
 	@Autowired
 	private DeptManager deptManager;
-
+	/** 考核年份 */
 	private int year;
+	/** 考核月份 */
 	private int month;
+	/***/
 	private List<EvaluateRecord> items = new ArrayList<EvaluateRecord>(0);
 
 	/**
@@ -75,6 +76,11 @@ public class EvaluateRecordAction extends
 		return "front";
 	}
 
+	/**
+	 * 考核查询
+	 * 
+	 * @return
+	 */
 	public String query() {
 		String deptCode = getRequest().getParameter("deptCode");
 		if (StringUtils.isNotBlank(deptCode)) {
@@ -103,6 +109,12 @@ public class EvaluateRecordAction extends
 		return INDEX;
 	}
 
+	/**
+	 * 根据部门查询
+	 * 
+	 * @param dept
+	 * @return
+	 */
 	private List<EvaluateRecord> queryByDept(Dept dept) {
 
 		String hql = "from EvaluateRecord er where er.dept.id = ? and er.year = ? and er.month = ?";

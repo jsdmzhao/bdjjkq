@@ -1,6 +1,5 @@
 package com.googlecode.jtiger.assess.task.statcfg.webapp;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.lang.xwork.StringUtils;
