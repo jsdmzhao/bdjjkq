@@ -109,7 +109,7 @@
                   <TR>
                   	 <td align="right">时间依据：</td>
                   	 <td align="left">
-                  	 	<input type="radio" name="timeCondition" value="FXSJ" ${model.findOrDealWith ne 'CLSJ' ?  'checked="checked"' : ''} >发现时间</input>						
+                  	 	<input type="radio" name="timeCondition" value="WFSJ" ${model.findOrDealWith ne 'CLSJ' ?  'checked="checked"' : ''} >发现时间</input>						
 						<input type="radio" name="timeCondition" value="CLSJ" ${model.findOrDealWith eq 'CLSJ' ?  'checked="checked"' : ''}>处理时间</input>
 					 </td>
 
