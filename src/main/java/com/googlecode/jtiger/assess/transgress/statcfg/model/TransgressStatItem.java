@@ -44,8 +44,8 @@ public class TransgressStatItem extends BaseIdModel {
 	/** 是否关联到vioSurveil表,还是单独查询vioSurveil表 */
 	private String vioSurveil = "false";
 
-	/** 发现时间/处理时间 */
-	private String findOrDealWith = "FXSJ";
+	/** 违法时间/处理时间 */
+	private String findOrDealWith = "WFSJ";
 	/** 统计项关联的部门 */
 	private Dept dept;
 	/** 自定义统计条件描述 */
