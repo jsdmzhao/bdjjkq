@@ -31,7 +31,9 @@ public class EvaluateRecord extends BaseIdModel {
 	private Dept dept;
 	/** 总分 */
 	private Float total;
+	/** 评分年份 */
 	private int year;
+	/** 评分月份 */
 	private int month;
 	/** 关联评分明细 */
 	private Set<EvaluateRecordDetail> details = new HashSet<EvaluateRecordDetail>(
@@ -39,7 +41,7 @@ public class EvaluateRecord extends BaseIdModel {
 
 	private Set<EvaluateRecordTaskConst> consts = new HashSet<EvaluateRecordTaskConst>(
 			0);
-	
+
 	private String recordType;
 
 	public Date getRecordTime() {
@@ -49,6 +51,7 @@ public class EvaluateRecord extends BaseIdModel {
 	public void setRecordTime(Date recordTime) {
 		this.recordTime = recordTime;
 	}
+
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "dept_id")
 	public Dept getDept() {
@@ -100,7 +103,8 @@ public class EvaluateRecord extends BaseIdModel {
 	public void setMonth(int month) {
 		this.month = month;
 	}
-	@Column(name = "record_type",columnDefinition = "varchar2(8) default 'monthly'")
+
+	@Column(name = "record_type", columnDefinition = "varchar2(8) default 'monthly'")
 	public String getRecordType() {
 		return recordType;
 	}
