@@ -24,6 +24,8 @@ public final class AssessConstants {
 			Constants.RESOURCE_BUNDLE, "vio_surveil", "vio_admin.vio_surveil");
 	/** 任务常量 */
 	public static final String TASK_CONST = "TASK_CONST";
+	/** 任务常量名 */
+	public static final String TASK_CONST_NAME = "任务常量";
 	/** 日常勤务 */
 	public static final String TASK_DUTY = "TASK_DUTY";
 	/** B组考核标准 */
