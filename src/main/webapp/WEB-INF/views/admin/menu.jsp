@@ -110,6 +110,12 @@
 				<a href="${ctx}/assess/evaluate/front.htm" target="_blank">前台首页</a>
 			</div>						
 		</div>
+		<div style="padding-left:5px;">   		
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
+				<a href="${ctx}/assess/evaluate/toRank.htm" target="main">考核排名</a>
+			</div>						
+		</div>
 	</div>
 </div>
 	
