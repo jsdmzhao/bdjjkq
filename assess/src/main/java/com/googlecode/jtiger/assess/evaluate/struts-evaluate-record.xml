@@ -10,7 +10,9 @@
 		    <result name="index">/WEB-INF/views/assess/evaluate/index.jsp</result>
 		    <result name="success" type="redirect">index.htm</result>
 		    <result name="input">/WEB-INF/views/assess/evaluate/edit.jsp</result>
-			<result name="front">/WEB-INF/views/assess/evaluate/front.jsp</result>		    		   		   	    
+			<result name="front">/WEB-INF/views/assess/evaluate/front.jsp</result>	
+			<result name="toRank">/WEB-INF/views/assess/evaluate/rank.jsp</result>	
+			<result name="rank">/WEB-INF/views/assess/evaluate/rank.jsp</result>			    		   		   	    
 		</action>	
 	</package>
 	

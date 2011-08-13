@@ -12,10 +12,15 @@ import com.googlecode.jtiger.assess.task.statcfg.model.Task;
 import com.googlecode.jtiger.core.model.BaseIdModel;
 
 /**
- * 任务常量评分记录
+ * <pre>
+ * 任务常量评分记录,记录每项任务分别得到多少分,
+ * 由于关联了评分记录即形成这样一个关系:
+ * 
+ * 评分记录记载xx年xx月,xx部门考核总共xx分
+ * 作为子表,任务产量评分记录评分记录关联到的各个任务常量分别得到多少分
  * 
  * @author DELPHI
- * 
+ * </pre>
  */
 @SuppressWarnings("serial")
 @Entity
@@ -29,7 +34,7 @@ public class EvaluateRecordTaskConst extends BaseIdModel {
 	private Float point;
 	/** 录入时间 */
 	private Date recordDate;
-	/***/
+	/** 关联评分记录 */
 	private EvaluateRecord evaluateRecord;
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)

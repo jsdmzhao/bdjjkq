@@ -134,7 +134,9 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 	}
 
 	private List<TaskType> getTaskTypes() {
-		return taskTypeManager.get();
+		String hql = "from TaskType tt where tt.type = '0'";
+		return taskTypeManager.query(hql);
+		
 	}
 
 	/**

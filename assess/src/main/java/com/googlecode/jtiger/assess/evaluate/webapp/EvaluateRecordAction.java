@@ -2,6 +2,7 @@ package com.googlecode.jtiger.assess.evaluate.webapp;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,9 +13,12 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.googlecode.jtiger.assess.AssessConstants;
 import com.googlecode.jtiger.assess.core.webapp.AssessBaseAction;
 import com.googlecode.jtiger.assess.evaluate.model.EvaluateRecord;
 import com.googlecode.jtiger.assess.evaluate.service.EvaluateRecordManager;
+import com.googlecode.jtiger.assess.task.statcfg.model.TaskType;
+import com.googlecode.jtiger.assess.task.statcfg.service.TaskTypeManager;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
 import com.ibm.icu.util.Calendar;
@@ -29,12 +33,17 @@ public class EvaluateRecordAction extends
 	/** 部门Manager */
 	@Autowired
 	private DeptManager deptManager;
+	/** 考核标准类别Manager */
+	@Autowired
+	private TaskTypeManager taskTypeManager;
 	/** 考核年份 */
 	private int year;
 	/** 考核月份 */
 	private int month;
 	/***/
 	private List<EvaluateRecord> items = new ArrayList<EvaluateRecord>(0);
+	/** 查询排名条件,考核标准类型 */
+	private String taskTypeId;
 
 	/**
 	 * 评分
@@ -108,6 +117,45 @@ public class EvaluateRecordAction extends
 
 		return INDEX;
 	}
+	/**
+	 * 转到查询页面
+	 * @return
+	 */
+	public String toRank(){
+		return "toRank";
+	}
+	/**
+	 * 排名
+	 * 
+	 * @return
+	 */
+	public String rank() {
+		StringBuffer buf = new StringBuffer(
+				"from EvaluateRecordDetail erd  where 1=1 ");
+		List<Object> args = new ArrayList<Object>();
+		// 年份
+		if (year != 0) {
+			buf.append("and erd.evaluateRecord.year = ? ");
+			args.add(year);
+		}
+		// 月份
+		if (month != 0) {
+			buf.append("and erd.evaluateRecord.month = ? ");
+			args.add(month);
+		}
+		// 考核标准类别
+		if (StringUtils.isNotBlank(taskTypeId)) {
+			buf.append("and erd.type.id = ? ");
+			args.add(taskTypeId);
+		}
+		buf.append("order by erd.total desc");
+
+		page = getManager().pageQuery(pageOfBlock(), buf.toString(),
+				args.toArray());
+		restorePageData(page);
+
+		return "rank";
+	}
 
 	/**
 	 * 根据部门查询
@@ -157,6 +205,20 @@ public class EvaluateRecordAction extends
 
 	public void setItems(List<EvaluateRecord> items) {
 		this.items = items;
+	}
+
+	public String getTaskTypeId() {
+		return taskTypeId;
+	}
+
+	public void setTaskTypeId(String taskTypeId) {
+		this.taskTypeId = taskTypeId;
+	}
+
+	public List<TaskType> getTaskTypes() {
+		String hql = "from TaskType tt where tt.type = '0'";
+		
+		return taskTypeManager.query(hql);
 	}
 
 }

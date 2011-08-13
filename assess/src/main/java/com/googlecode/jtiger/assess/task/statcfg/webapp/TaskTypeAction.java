@@ -19,7 +19,7 @@ import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 public class TaskTypeAction extends
 		DefaultCrudAction<TaskType, TaskTypeManager> {
 	public String index() {
-		StringBuffer buf = new StringBuffer("from TaskType tt where 1=1 ");
+		StringBuffer buf = new StringBuffer("from TaskType tt where tt.type = '0' ");
 		List<Object> args = new ArrayList<Object>();
 		if (StringUtils.isNotBlank(getModel().getName())) {
 			buf.append("and tt.name like ?");
