@@ -12,7 +12,7 @@
     <grow_time>3</grow_time>
     <grow_effect>strong</grow_effect>    
     <balloon_text>                                                    
-      <![CDATA[共  {value} 件]]>
+      <![CDATA[{value}分]]>
     </balloon_text>    
   </column>
 
