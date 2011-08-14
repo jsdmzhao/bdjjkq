@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressCustomStatConditionManager;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressStatItemManager;
 import com.googlecode.jtiger.assess.transgress.statproperties.service.TransgressStatPropertiesManager;
-import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 
 @SuppressWarnings("serial")
 @Controller

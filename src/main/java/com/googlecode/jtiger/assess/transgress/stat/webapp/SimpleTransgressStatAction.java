@@ -248,6 +248,7 @@ public class SimpleTransgressStatAction extends
 	 * 
 	 * @return
 	 */
+	@SuppressWarnings("unused")
 	private String buildTaCodesStr() {
 		if (StringUtils.isBlank(taCodes)) {
 			return "";
