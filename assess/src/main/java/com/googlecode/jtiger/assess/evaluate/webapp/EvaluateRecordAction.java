@@ -2,7 +2,6 @@ package com.googlecode.jtiger.assess.evaluate.webapp;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.googlecode.jtiger.assess.AssessConstants;
 import com.googlecode.jtiger.assess.core.webapp.AssessBaseAction;
 import com.googlecode.jtiger.assess.evaluate.model.EvaluateRecord;
 import com.googlecode.jtiger.assess.evaluate.service.EvaluateRecordManager;
@@ -117,13 +115,16 @@ public class EvaluateRecordAction extends
 
 		return INDEX;
 	}
+
 	/**
 	 * 转到查询页面
+	 * 
 	 * @return
 	 */
-	public String toRank(){
+	public String toRank() {
 		return "toRank";
 	}
+
 	/**
 	 * 排名
 	 * 
@@ -217,7 +218,7 @@ public class EvaluateRecordAction extends
 
 	public List<TaskType> getTaskTypes() {
 		String hql = "from TaskType tt where tt.type = '0'";
-		
+
 		return taskTypeManager.query(hql);
 	}
 

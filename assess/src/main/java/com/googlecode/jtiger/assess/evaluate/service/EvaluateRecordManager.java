@@ -3,8 +3,10 @@ package com.googlecode.jtiger.assess.evaluate.service;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,9 @@ import com.googlecode.jtiger.assess.evaluate.model.EvaluateRecordTaskConst;
 import com.googlecode.jtiger.assess.task.stat.empduty.model.EmployeeDutyRecord;
 import com.googlecode.jtiger.assess.task.stat.empduty.service.EmployeeDutyRecordManager;
 import com.googlecode.jtiger.assess.task.statcfg.model.Task;
+import com.googlecode.jtiger.assess.task.statcfg.model.TaskType;
 import com.googlecode.jtiger.assess.task.statcfg.service.TaskManager;
+import com.googlecode.jtiger.assess.task.statcfg.service.TaskTypeManager;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
 import com.googlecode.jtiger.assess.transgress.stat.dao.TransgressSatDao;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressStatItem;
@@ -43,6 +47,10 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 	/** 任务Manager */
 	@Autowired
 	private TaskManager taskManager;
+
+	/** 考核标注类型Manager */
+	@Autowired
+	private TaskTypeManager taskTypeManager;
 	/** 任务常量评分记录Manager */
 	@Autowired
 	private EvaluateRecordTaskConstManager evaluateRecordTaskConstManager;
@@ -65,27 +73,35 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 	 *            评分月份
 	 * @param evaluateRecord
 	 *            关联评分记录
+	 * @param evalType
+	 *            评分类型,区分月考核,日考核
 	 */
 	@Transactional
 	private void evalByDept(Dept dept, Date beginDate, Date endDate, int year,
-			int month, EvaluateRecord evaluateRecord) {
+			int month, EvaluateRecord evaluateRecord, String evalType) {
 		// 日常勤务评分
-		Float total = evelDuty(dept, beginDate, endDate, evaluateRecord);
+		Float total = evelDuty(dept, beginDate, endDate, evaluateRecord,
+				evalType);
 		// 任务常量评分
 		evelTaskConst(dept, beginDate, endDate, evaluateRecord);
 
-		// 评分明细中任务常量项
-		EvaluateRecordDetail evaluateTaskConst = new EvaluateRecordDetail();
+		
 		// 累加任务常量各个分值
 		for (EvaluateRecordTaskConst c : evaluateRecord.getConsts()) {
 			total += c.getPoint();
-			evaluateTaskConst.setTotal(evaluateTaskConst.getTotal()
-					+ c.getPoint());
+		}
+		// 只在月考核时保存明细
+		if (EvaluateConstants.EVAL_TYPE_MONTHLY.equals(evalType)) {
+			// 评分明细中任务常量项
+			EvaluateRecordDetail evaluateTaskConst = new EvaluateRecordDetail();
+			//任务常量是考核标准中特殊的一项,类型为"1"
+			TaskType type = taskTypeManager.query("from TaskType tt where tt.type = '1'").get(0);
+			evaluateTaskConst.setTotal(total);
+			// 保存评分明细记录
+			saveDetail(evaluateRecord, evaluateTaskConst,
+					type);
 		}
 
-		// 保存评分明细记录
-		saveDetail(evaluateRecord, evaluateTaskConst,
-				AssessConstants.TASK_CONST);
 		// 设定总分
 		evaluateRecord.setTotal(total);
 		// 保存记录
@@ -101,14 +117,19 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 	 * </pre>
 	 */
 	private Float evelDuty(Dept dept, Date beginDate, Date endDate,
-			EvaluateRecord evaluateRecord) {
-		// 构建评分明细,以记载各个评分类别分别多少分(小计)
+			EvaluateRecord evaluateRecord,String evalType) {
+		List<TaskType> typeList = taskTypeManager.get();
+		Map<TaskType,EvaluateRecordDetail> erds = new HashMap<TaskType,EvaluateRecordDetail>();
+		for(TaskType tt :typeList){
+			erds.put(tt, new EvaluateRecordDetail());
+		}
+		/*// 构建评分明细,以记载各个评分类别分别多少分(小计)
 		EvaluateRecordDetail edTaskDuty = new EvaluateRecordDetail();// 日常勤务
 		EvaluateRecordDetail edGroupB = new EvaluateRecordDetail();// B组考核标准
 		EvaluateRecordDetail edAward = new EvaluateRecordDetail();// 重奖
 		EvaluateRecordDetail edReject = new EvaluateRecordDetail();// 一票否决
 		EvaluateRecordDetail edOther = new EvaluateRecordDetail();// 其他奖项
-
+*/
 		Float total = 0f;// 总分变量
 		// 查询日常勤务分数记录
 		String hql = "from EmployeeDutyRecord edr where edr.recordTime >= ? and edr.recordTime <= ? and edr.employee.dept.id = ?";
@@ -127,7 +148,18 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 				point = edr.getTaskDetail().getPoint();// 加分项,正分
 			}
 			total += point;// 累加,(正分加,负分减)
-			String typeName = edr.getTask().getTaskType().getName();
+			//月考核记录明细
+			if(EvaluateConstants.EVAL_TYPE_MONTHLY.equals(evalType)){
+				Set<TaskType> types = erds.keySet();
+				for(TaskType type : types){
+					if( edr.getTask().getTaskType().getId().equals(type.getId())){
+						erds.get(type).setTotal(edr.getTask().getTotal() + point);
+						erds.get(type).setTaskType(type);
+					}
+				}
+			}
+			
+		/*	String typeName = edr.getTask().getTaskType().getName();
 			// 日常勤务
 			if (AssessConstants.TASK_DUTY.equals(typeName)) {
 				edTaskDuty.setTotal(edTaskDuty.getTotal() + point);
@@ -143,14 +175,22 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 				// 其他奖项
 			} else if (AssessConstants.TASK_OTHER.equals(typeName)) {
 				edOther.setTotal(edOther.getTotal() + point);
+			}*/
+		}
+		
+		//月考核时记录明细
+		if(EvaluateConstants.EVAL_TYPE_MONTHLY.equals(evalType)){
+			/*saveDetail(evaluateRecord, edTaskDuty, AssessConstants.TASK_DUTY);
+			saveDetail(evaluateRecord, edGroupB, AssessConstants.TASK_GROUP_B);
+			saveDetail(evaluateRecord, edAward, AssessConstants.TASK_AWARD);
+			saveDetail(evaluateRecord, edReject, AssessConstants.TASK_REJECT);
+			saveDetail(evaluateRecord, edOther, AssessConstants.TASK_OTHER);	*/
+			Set<TaskType> types = erds.keySet();
+			for(TaskType type : types){
+				saveDetail(evaluateRecord, erds.get(type),type);									
 			}
 		}
-
-		saveDetail(evaluateRecord, edTaskDuty, AssessConstants.TASK_DUTY);
-		saveDetail(evaluateRecord, edGroupB, AssessConstants.TASK_GROUP_B);
-		saveDetail(evaluateRecord, edAward, AssessConstants.TASK_AWARD);
-		saveDetail(evaluateRecord, edReject, AssessConstants.TASK_REJECT);
-		saveDetail(evaluateRecord, edOther, AssessConstants.TASK_OTHER);
+		
 
 		return total;
 
@@ -164,8 +204,8 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 	 */
 	@Transactional
 	private void saveDetail(EvaluateRecord er, EvaluateRecordDetail erd,
-			String type) {
-		erd.setType(type);// 设定类型
+			TaskType type) {
+		erd.setTaskType(type);// 设定类型
 		er.getDetails().add(erd);// 设定和评分记录的关联
 		erd.setEvaluateRecord(er);//   	
 		evaluateRecordDetailManager.save(erd);// 保存
@@ -274,7 +314,8 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 		logger.debug(sf.format(endDate));
 
 		// 计算考核
-		evalByDept(dept, beginDate, endDate, year, month, evaluateRecord);
+		evalByDept(dept, beginDate, endDate, year, month, evaluateRecord,
+				EvaluateConstants.EVAL_TYPE_MONTHLY);
 
 	}
 
@@ -295,6 +336,8 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 		evaluateRecord.setRecordTime(new java.util.Date());// 时间
 		// 类型为考核日报
 		evaluateRecord.setRecordType(EvaluateConstants.EVAL_TYPE_DAILY);
+		evaluateRecord.setYear(year);
+		evaluateRecord.setMonth(month);
 
 		// 保存记录
 		save(evaluateRecord);
@@ -321,7 +364,8 @@ public class EvaluateRecordManager extends BaseGenericsManager<EvaluateRecord> {
 		logger.debug(sf.format(endDate));
 
 		// 计算考核
-		evalByDept(dept, beginDate, endDate, year, month, evaluateRecord);
+		evalByDept(dept, beginDate, endDate, year, month, evaluateRecord,
+				EvaluateConstants.EVAL_TYPE_DAILY);
 
 	}
 }
