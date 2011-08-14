@@ -6,6 +6,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.googlecode.jtiger.assess.task.statcfg.model.TaskType;
 import com.googlecode.jtiger.core.model.BaseIdModel;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.employee.model.Employee;
@@ -38,9 +39,9 @@ public class EvaluateRecordDetail extends BaseIdModel {
 	/** 被评分警员 */
 	private Employee employee;
 	/** 类别,任务常量-日常勤务-B组-重奖-一票否决-其他 */
-	private String type;
+	private TaskType taskType;
 	/** 小计 */
-	private Float total;
+	private Float total  = 0f;
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "evaluate_Record_id")
@@ -70,13 +71,6 @@ public class EvaluateRecordDetail extends BaseIdModel {
 		this.dept = dept;
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
 
 	public Float getTotal() {
 		return total;
@@ -84,5 +78,14 @@ public class EvaluateRecordDetail extends BaseIdModel {
 
 	public void setTotal(Float total) {
 		this.total = total;
+	}
+	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "task_type_id")
+	public TaskType getTaskType() {
+		return taskType;
+	}
+
+	public void setTaskType(TaskType taskType) {
+		this.taskType = taskType;
 	}
 }
