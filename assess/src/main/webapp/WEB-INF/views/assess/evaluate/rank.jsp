@@ -44,7 +44,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 						<td>
 							考核标准类别：
 							<s:select list="taskTypes" id="taskType" headerKey="" headerValue="请选择" 
-                     	name="taskTypes" listKey="id" listValue="name" cssClass="m_t_b" 
+                     	name="taskTypeId" listKey="id" listValue="name" cssClass="m_t_b" 
                      	cssStyle="width:200px;padding-left:2px;"  ></s:select>
 						</td> 
 						<td>
@@ -117,10 +117,10 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	toolbarContent="navigation|pagejump|pagesize|export|refresh|extend|status">    
 	<ec:row>
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>
-	   	<ec:column width="300" property="_8" title="考核年月" tipTitle="" ellipsis="true" sortable="false">
-	   		${item.year}年${item.month}月
+	   	<ec:column width="100" property="_8" title="考核年月" tipTitle="" ellipsis="true" sortable="false">
+	   		${item.evaluateRecord.year}年${item.evaluateRecord.month}月
 	   	</ec:column>
-	    <ec:column width="100" property="dept.name" title="单位名称" tipTitle="" ellipsis="true" sortable="false"/>
+	    <ec:column width="100" property="evaluateRecord.dept.name" title="单位名称" tipTitle="" ellipsis="true" sortable="false"/>
 	    <ec:column width="100" property="total" title="总分" tipTitle="" ellipsis="true" sortable="false"/>
 			   	
 	</ec:row>
