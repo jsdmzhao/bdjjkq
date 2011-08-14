@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings> 
+  <data_type>csv</data_type> 
+  <font>Tahoma</font>   
+  <text_size>11</text_size>
+  <depth>30</depth>
+  <angle>25</angle>
+  
+  <column>
+    <width>30</width>     
+    <spacing>0</spacing> 
+    <grow_time>3</grow_time>
+    <grow_effect>strong</grow_effect>    
+    <balloon_text>                                                    
+      <![CDATA[{value}分]]>
+    </balloon_text>    
+  </column>
+
+  <plot_area>
+    <margins>
+      <left>40</left>
+      <right>20</right>
+    </margins>
+  </plot_area>
+  
+  <grid>                 
+    <category>                                                                
+      <alpha>10</alpha>  
+      <dashed>true</dashed>
+    </category>
+    <value>                      
+      <alpha>10</alpha>    
+      <dashed>true</dashed>
+    </value>
+  </grid>
+  
+  <values>                 
+    <category>             
+      <color>999999</color>
+    </category>
+    <value>                    
+      <min>0</min>             
+    </value>
+  </values>
+  
+  <axes>                       
+    <category>                 
+      <color>E7E7E7</color>    
+      <width>1</width>         
+    </category>
+    <value>                    
+      <color>#E7E7E7</color>       
+      <width>1</width>         
+    </value>
+  </axes>  
+  
+  <balloon>                    
+    <text_color>000000</text_color>
+    <corner_radius>4</corner_radius>
+    <border_width>3</border_width>
+    <border_alpha>50</border_alpha>
+    <border_color>#000000</border_color>
+    <alpha>80</alpha>
+  </balloon>
+  <strings>
+    <no_data>对不起，没有查到数据.</no_data>    
+  </strings>    
+  <labels>                         
+    <label>
+      <x>0</x>
+      <y>7</y>
+      <text_color>000000</text_color>
+      <text_size>13</text_size>
+      <align>center</align>
+      <text>
+        <![CDATA[<b></b>]]>
+      </text>        
+    </label>
+  </labels>
+  
+  <legend>
+    <enabled>false</enabled>
+    <align></align>
+    <border_alpha>100</border_alpha>
+    <border_color>E7E7E7</border_color>
+    <margins>5</margins>
+  </legend>
+
+  <graphs>
+    <graph>                          
+      <type></type>                                                      
+      <title><![CDATA[部门]]></title>             
+      <color>add981</color>                  
+    </graph>      
+    <graph>                          
+      <type></type>                                                      
+      <title><![CDATA[Column]]></title>             
+      <color>7F8DA9</color>                  
+    </graph>
+    <graph>                          
+      <type></type>                                                      
+      <title><![CDATA[Line]]></title>             
+      <color>FEC514</color>                  
+    </graph>
+    <graph>                          
+      <type></type>                                                      
+      <title><![CDATA[Pie]]></title>             
+      <color>DB4C3C</color>                  
+    </graph>
+    <graph>                          
+      <type></type>                                                      
+      <title><![CDATA[Scatter]]></title>             
+      <color>DAF0FD</color>                  
+    </graph>
+    <graph>                          
+      <type></type>                                                      
+      <title><![CDATA[Radar]]></title>             
+      <color></color>                  
+    </graph>    
+  </graphs>          
+</settings>
