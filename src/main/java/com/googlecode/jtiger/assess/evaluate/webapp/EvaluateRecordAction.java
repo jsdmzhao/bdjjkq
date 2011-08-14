@@ -146,7 +146,7 @@ public class EvaluateRecordAction extends
 		}
 		// 考核标准类别
 		if (StringUtils.isNotBlank(taskTypeId)) {
-			buf.append("and erd.type.id = ? ");
+			buf.append("and erd.taskType.id = ? ");
 			args.add(taskTypeId);
 		}
 		buf.append("order by erd.total desc");
