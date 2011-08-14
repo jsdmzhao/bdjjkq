@@ -420,6 +420,7 @@ public class TransgressStatItemAction extends
 		return null;
 	}
 
+	@SuppressWarnings("unused")
 	private String getSecondLevelTypeIdsFromCodes(String codes) {
 		if (StringUtils.isBlank(codes)) {
 			return null;
