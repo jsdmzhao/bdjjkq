@@ -116,6 +116,12 @@
 				<a href="${ctx}/assess/evaluate/toRank.htm" target="main">考核排名</a>
 			</div>						
 		</div>
+		<div style="padding-left:5px;">   		
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
+				<a href="${ctx}/assess/evaluate/stat/index.htm" target="main">考核得分环比</a>
+			</div>						
+		</div>
 	</div>
 </div>
 	
