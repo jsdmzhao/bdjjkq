@@ -108,7 +108,7 @@ public class TransgressStatItem extends BaseIdModel {
 		this.unionForce = unionForce;
 	}
 
-	@Column(columnDefinition = "varchar2(10) default 'FXSJ'")
+	@Column(columnDefinition = "varchar2(10) default 'WFSJ'")
 	public String getFindOrDealWith() {
 		return findOrDealWith;
 	}

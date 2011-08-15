@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -70,7 +71,7 @@ public class EvaluateRecord extends BaseIdModel {
 		this.total = total;
 	}
 
-	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "evaluateRecord")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "evaluateRecord")
 	public Set<EvaluateRecordDetail> getDetails() {
 		return details;
 	}
@@ -79,7 +80,7 @@ public class EvaluateRecord extends BaseIdModel {
 		this.details = details;
 	}
 
-	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "evaluateRecord")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "evaluateRecord")
 	public Set<EvaluateRecordTaskConst> getConsts() {
 		return consts;
 	}

@@ -53,6 +53,18 @@ public class TransgressStatAction extends
 	@Override
 	public String index() {
 		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
+		Calendar c = Calendar.getInstance();
+		
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND,0);
+		
+		endTime = c.getTime();
+		c.add(Calendar.DAY_OF_MONTH, -1);
+		beginTime = c.getTime();
+		
+		getRequest().setAttribute("beginTime", beginTime);
+		getRequest().setAttribute("endTime",  endTime);
 		return INDEX;
 	}
 
@@ -179,6 +191,10 @@ public class TransgressStatAction extends
 				statCondition.getEndHourMinute());
 
 		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
+		
+		getRequest().setAttribute("beginTime", beginTime);
+		getRequest().setAttribute("endTime",  endTime);
+		
 		return INDEX;
 	}
 

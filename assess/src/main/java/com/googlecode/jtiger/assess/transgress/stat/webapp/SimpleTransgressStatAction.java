@@ -98,6 +98,19 @@ public class SimpleTransgressStatAction extends
 		// 号牌种类
 		getRequest().setAttribute("flapperTypes",
 				flapperTypeManager.getAllFlapperTypes());
+		Calendar c = Calendar.getInstance();
+		
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND,0);
+		
+		endTime = c.getTime();
+		c.add(Calendar.DAY_OF_MONTH, -1);
+		beginTime = c.getTime();
+		
+		getRequest().setAttribute("beginTime", beginTime);
+		getRequest().setAttribute("endTime",  endTime);
+		
 		return INDEX;
 	}
 
@@ -138,7 +151,10 @@ public class SimpleTransgressStatAction extends
 		 * if ("true".equals(unionForce)) { statCondition.setUnionForce(true); }
 		 * else { statCondition.setUnionForce(false); }
 		 */
+		//是否关联违法强制表,只统计违法强制表
 		statCondition.setUnionForce(unionForce);
+		//是否关联非现场文本记录表
+		statCondition.setVioSurveil(vioSurveil);
 		// title.add("");
 		title.add("合计");
 		// 违法行为代码
@@ -192,6 +208,10 @@ public class SimpleTransgressStatAction extends
 		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
 		getRequest().setAttribute("title", title);
 
+		
+		getRequest().setAttribute("beginTime", beginTime);
+		getRequest().setAttribute("endTime",  endTime);
+		
 		return "stat";
 	}
 

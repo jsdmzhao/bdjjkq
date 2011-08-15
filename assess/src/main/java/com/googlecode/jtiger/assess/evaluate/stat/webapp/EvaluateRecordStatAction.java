@@ -39,11 +39,13 @@ public class EvaluateRecordStatAction extends
 		int year = c.get(Calendar.YEAR);
 		List<EvaluateRecord> list = getEvaluateRecords(year, dept);
 		for (EvaluateRecord er : list) {
-			buf.append(year + "年-" + er.getMonth() + "月;").append(
+			buf.append(er.getMonth() + "月;").append(
 					er.getTotal() + "\\n");
 		}
 
 		getRequest().setAttribute("csvData", buf.toString());
+		getRequest().setAttribute("year",year);
+		getRequest().setAttribute("deptName", dept.getName());
 
 		return "linkRelatie";
 	}
