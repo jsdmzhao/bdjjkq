@@ -208,8 +208,8 @@ $(function(){
 					}				
 					statConditionId = data.id;		
 					//$("input[name='timeCondition']").attr('checked',data.findOrDealWith);//经典方法，但是怎么就不对呢？
-					if(data.findOrDealWith ==  'FXSJ'){
-						$("#FXSJ").attr('checked','checked');
+					if(data.findOrDealWith ==  'WFSJ'){
+						$("#WFSJ").attr('checked','checked');
 					}else{						
 						$("#CLSJ").attr('checked','checked');					
 					}

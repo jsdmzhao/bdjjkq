@@ -21,7 +21,7 @@ function strParser(){
 	for(var i = 0; i < itemList.length - 1; i++){
 		var item = itemList[i].split(";");
 		itemNums[i] = item[1];
-		staticInfo += '<b>' + item[0] + '</b>考核:<b>' + item[1] + '分</b>' + '；';
+		staticInfo += '<b>' + item[0] + '</b><b>' + item[1] + '分</b>' + '；';
 		}
 	//alert(staticInfo);
 	document.getElementById("staticInfo").innerHTML = staticInfo;
@@ -50,6 +50,9 @@ function strParser(){
   </tr>
 </table>
 </div>
+<div style="margin-left: auto;margin-right: auto;margin-top: 30px; margin-bottom: 20px;text-align: center;">
+	<font size="5" face="宋体" >${year }年${deptName }考核记录</font>	
+</div>
 <table width="100%">
 	<tr>
 		<td align="center">
@@ -65,7 +68,7 @@ function strParser(){
 
 <script type="text/javascript">
 	// <![CDATA[		
-	var so = new SWFObject("${ctx}/amcharts/amcolumn.swf", "amcolumn", "500", "400",
+	var so = new SWFObject("${ctx}/amcharts/amcolumn.swf", "amcolumn", "700", "400",
 			"8", "#FFFFFF");
 	so.addVariable("path", "${ctx}/amcharts/");
 	so.addVariable("settings_file",

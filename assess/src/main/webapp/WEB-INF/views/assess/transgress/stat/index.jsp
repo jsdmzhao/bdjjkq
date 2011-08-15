@@ -42,20 +42,8 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 </style>
 </head>
 <body>
-<%
-	Calendar c = Calendar.getInstance();
-	
-	c.set(Calendar.HOUR_OF_DAY, 0);
-	c.set(Calendar.MINUTE, 0);
-	c.set(Calendar.SECOND,0);
-	
-	Date today= c.getTime();
-	
-	c.add(Calendar.DAY_OF_MONTH, -1);
-	Date yesterday  = c.getTime();
-%>
 <div class="x-panel">
-  <div class="x-panel-header">违法统计</div>
+  <div class="x-panel-header">违法统计1</div>
     <div class="x-toolbar" style="height:26px;">
       <table width="99%" >
   	  <tr style="margin-top:  7px;"> 		
@@ -65,7 +53,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 					<tr> 
 						<td>&nbsp;&nbsp;&nbsp;&nbsp;
 						从<%--<s:date name="beginTime"format="yyyy-MM-dd HH:mm"/> --%>
-						<input type="text" size="16" name="beginTime" id="beginTime" value="<fmt:formatDate value="<%=yesterday%>" pattern="yyyy-MM-dd HH:mm"/>" />
+						<input type="text" size="16" name="beginTime" id="beginTime" value="<fmt:formatDate value="${beginTime}"  pattern="yyyy-MM-dd HH:mm"/>" />
 						<a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('beginTime'));return false;" HIDEFOCUS>
 					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
 					width="34" height="22" border="0" align="absmiddle"></a>
@@ -79,7 +67,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 								<input type="text" name="beginTime" value="<s:date name="beginTime"format="yyyy-MM-dd HH:mm"/>" readOnly onClick="setDayHM(this);">
 								&nbsp;&nbsp;&nbsp;&nbsp;--%>
 						&nbsp;&nbsp;&nbsp;&nbsp;到&nbsp;&nbsp;&nbsp;&nbsp;
-						<input type="text" size="16" name="endTime" id="endTime" value="<fmt:formatDate value="<%=today%>" pattern="yyyy-MM-dd HH:mm"/>" />
+						<input type="text" size="16" name="endTime" id="endTime" value="<fmt:formatDate value="${endTime}" pattern="yyyy-MM-dd HH:mm"/>" />
 						<a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('endTime'));return false;" HIDEFOCUS>
 					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
 					width="34" height="22" border="0" align="absmiddle"></a>
