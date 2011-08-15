@@ -85,12 +85,15 @@ public class ConditionSqlUtil {
 	 */
 	private String sqlSurveil(StatCondition condition) {
 		StringBuffer buf = new StringBuffer();
-		buf.append(SQL_STAT_SURVEIL).append(SQL_STAT_SURVEIL_WFXW).append(
-				condition.getTransgressActionCodesStr()).append(
-				RIGHT_PPARENTHESIS);
+		buf.append(SQL_STAT_SURVEIL);
+		if (StringUtils.isNotBlank(condition.getTransgressActionCodesStr())) {
+			buf.append(SQL_STAT_SURVEIL_WFXW).append(
+					condition.getTransgressActionCodesStr()).append(
+					RIGHT_PPARENTHESIS);
+		}
+
 		// 违法/发现时间
-		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())
-				|| "FXSJ".equals(condition.getTimeCondition())) {
+		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())) {
 			buf.append(SQL_STAT_SURVEIL_BEGIN_TIME_WFSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
 					.append(SQL_STAT_SURVEIL_END_TIME_WFSJ).append(
@@ -129,11 +132,14 @@ public class ConditionSqlUtil {
 	 */
 	private String sqlForce(StatCondition condition) {
 		StringBuffer buf = new StringBuffer();
-		buf.append(SQL_STAT_FORCE).append(SQL_STAT_FORCE_WFXW).append(
-				condition.getTransgressActionCodesStr()).append(
-				RIGHT_PPARENTHESIS);
+		buf.append(SQL_STAT_FORCE);
+		if (StringUtils.isNotBlank(condition.getTransgressActionCodesStr())) {
+			buf.append(SQL_STAT_FORCE_WFXW).append(
+					condition.getTransgressActionCodesStr()).append(
+					RIGHT_PPARENTHESIS);
+		}
 		// 违法/发现时间
-		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())|| "FXSJ".equals(condition.getTimeCondition())) {
+		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())) {
 			buf.append(SQL_STAT_FORCE_BEGIN_TIME_WFSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
 					.append(SQL_STAT_FORCE_END_TIME_WFSJ).append(
@@ -172,12 +178,14 @@ public class ConditionSqlUtil {
 	 */
 	private String sqlViolation(StatCondition condition) {
 		StringBuffer buf = new StringBuffer();
-		buf.append(SQL_STAT_VIOLATION).append(SQL_STAT_VIOLATION_WFXW).append(
-				condition.getTransgressActionCodesStr()).append(
-				RIGHT_PPARENTHESIS);
+		buf.append(SQL_STAT_VIOLATION);
+		if (StringUtils.isNotBlank(condition.getTransgressActionCodesStr())) {
+			buf.append(SQL_STAT_VIOLATION_WFXW).append(
+					condition.getTransgressActionCodesStr()).append(
+					RIGHT_PPARENTHESIS);
+		}
 		// 违法/发现时间
-		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())
-				|| "FXSJ".equals(condition.getTimeCondition())) {
+		if (TransgressConstants.WFSJ.equals(condition.getTimeCondition())) {
 			buf.append(SQL_STAT_VIOLATION_BEGIN_TIME_WFSJ).append(
 					condition.getBeginHourMinute()).append(TIME_EXPRESSION)
 					.append(SQL_STAT_VIOLATION_END_TIME_WFSJ).append(

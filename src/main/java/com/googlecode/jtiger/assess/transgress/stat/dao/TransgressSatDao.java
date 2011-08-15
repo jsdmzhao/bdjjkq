@@ -39,7 +39,7 @@ public class TransgressSatDao extends BaseJdbcDao {
 		// 仅统计强制表
 		if (TransgressConstants.UNION_FORCE_ONLY.equals(condition
 				.getUnionForce())) {
-			return statForce(condition);
+			return summary(statForce(condition));
 			// 关联强制表
 		} else if (TransgressConstants.UNION_FORCE_TRUE.equals(condition
 				.getUnionForce())) {
