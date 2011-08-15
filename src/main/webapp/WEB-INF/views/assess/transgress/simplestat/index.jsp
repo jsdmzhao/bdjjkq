@@ -45,18 +45,6 @@
 </style>
 </head>
 <body>
-<%
-	Calendar c = Calendar.getInstance();
-	
-	c.set(Calendar.HOUR_OF_DAY, 0);
-	c.set(Calendar.MINUTE, 0);
-	c.set(Calendar.SECOND,0);
-	
-	Date today= c.getTime();
-	
-	c.add(Calendar.DAY_OF_MONTH, -1);
-	Date yesterday  = c.getTime();
-%>
 <div class="x-panel">
     <div class="x-panel-header">单项统计</div>
     <div class="x-toolbar" style="text-align: right;">
@@ -75,7 +63,7 @@
 						起始时间：
 					</td>
 					<td align="left" width="15%">
-						<input type="text" size="16"  name="beginTime" id="beginTime" value="<fmt:formatDate value="<%=yesterday%>" pattern="yyyy-MM-dd HH:mm"/>" />
+						<input type="text" size="16"  name="beginTime" id="beginTime" value="<fmt:formatDate value="${beginTime }" pattern="yyyy-MM-dd HH:mm"/>" />
 						<a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('beginTime'));return false;" HIDEFOCUS>
 					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
 					width="34" height="22" border="0" align="absmiddle"></a>
@@ -84,7 +72,7 @@
 						截至时间：
 					</td>
 					<td align="left" width="55%"><%-- <s:date name="endTime"format="yyyy-MM-dd HH:mm"/>--%>
-						<input type="text" size="16"  name="endTime" id="endTime" value="<fmt:formatDate value="<%=today%>" pattern="yyyy-MM-dd HH:mm"/>" />
+						<input type="text" size="16"  name="endTime" id="endTime" value="<fmt:formatDate value="${endTime }" pattern="yyyy-MM-dd HH:mm"/>" />
 						<a href="javascript:void(0)" onClick="if(self.gfPop)gfPop.fPopCalendar(document.getElementById('endTime'));return false;" HIDEFOCUS>
 					<img src="${ctx}/js/calendar/calbtn.gif" alt="" name="popcal" id="popcal" 
 					width="34" height="22" border="0" align="absmiddle"></a>
@@ -169,7 +157,7 @@
                   
                    <TR>
                   	 <td align="right">时间依据：</td>
-                  	 <td><input type="radio" name="timeCondition" id="FXSJ" value="FXSJ" checked="checked">发现时间</input>						
+                  	 <td><input type="radio" name="timeCondition" id="WFSJ" value="WFSJ" checked="checked">违法时间</input>						
 						 <input type="radio" name="timeCondition" id="CLSJ" value="CLSJ">处理时间</input></td>
                      <td align="right">
                      	</td>
@@ -208,8 +196,8 @@
                      	<td align="left">
 						<input type="radio" name="vioSurveil" id="vioSurveilTrue" value="true">关联</input>
 						<input type="radio" name="vioSurveil" id="vioSurveilFalse" value="false" checked="checked">不关联</input>
-						<input type="radio" name="vioSurveil" id="vioSurveilOnly" value="only" >仅统计非现场文本记录表</input>
-                     </td>
+						<!--<input type="radio" name="vioSurveil" id="vioSurveilOnly" value="only" >仅统计非现场文本记录表</input>
+                     --></td>
                   </tr>
                   <tr>
                   	<td colspan="4">

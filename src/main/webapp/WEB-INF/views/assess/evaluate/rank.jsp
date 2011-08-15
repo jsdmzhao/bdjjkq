@@ -50,28 +50,15 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 						<td>
 						考核年月：
 						<select name="year">
-								
-								<option value="2011">2011</option>
-								<option value="2012">2012</option>
-								<option value="2013">2013</option>
-								<option value="2014">2014</option>
-								<option value="2015">2015</option>
-								<option value="2016">2016</option>								
+								<c:forEach begin="2011" end="2016" step="1" var="i">
+									<option value="${i}" ${i eq year ? 'selected="selected"':'' }>${i}</option>
+								</c:forEach>																				
 						</select>
 						年
 						<select name="month">
-								<option value="1">1</option>
-								<option value="2">2</option>
-								<option value="3">3</option>
-								<option value="4">4</option>
-								<option value="5">5</option>
-								<option value="6">6</option>	
-								<option value="7">7</option>
-								<option value="8">8</option>
-								<option value="9">9</option>
-								<option value="10">10</option>
-								<option value="11">11</option>
-								<option value="12">12</option>							
+								<c:forEach begin="1" end="12" step="1" var="i">
+									<option value="${i}" ${i eq month ? 'selected="selected"':'' }>${i}</option>
+								</c:forEach>												
 						</select>
 						</td>
 						
@@ -100,7 +87,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
    <div class="x-panel-body">
      <div style="margin-left:-3px;" align="center">
 	<ec:table items="items" var="item" retrieveRowsCallback="limit" sortRowsCallback="limit" 
-	action="index.htm"
+	action="rank.htm"
 	useAjax="true" doPreload="false"
 	maxRowsExported="1000" 
 	pageSizeList="20,50,100" 
@@ -119,6 +106,9 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 	   	<ec:column width="30" property="_s" title="No." value="${GLOBALROWCOUNT}" sortable="false" style="text-align:center"/>
 	   	<ec:column width="100" property="_8" title="考核年月" tipTitle="" ellipsis="true" sortable="false">
 	   		${item.evaluateRecord.year}年${item.evaluateRecord.month}月
+	   	</ec:column>
+	   	 <ec:column width="100" property="taskType.name" title="考核标准类别" tipTitle="" ellipsis="true" sortable="false">
+
 	   	</ec:column>
 	    <ec:column width="100" property="evaluateRecord.dept.name" title="单位名称" tipTitle="" ellipsis="true" sortable="false"/>
 	    <ec:column width="100" property="total" title="总分" tipTitle="" ellipsis="true" sortable="false"/>
