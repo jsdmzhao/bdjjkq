@@ -174,7 +174,7 @@ public class DeptManager extends BaseGenericsManager<Dept> {
 	}
 
 	/**
-	 * 根据部门编号活的部门实体
+	 * 根据部门编号获得部门实体
 	 * 
 	 * @param deptCode
 	 * @return
