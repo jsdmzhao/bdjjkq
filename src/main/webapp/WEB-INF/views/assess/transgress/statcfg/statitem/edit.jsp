@@ -109,7 +109,7 @@
                   <TR>
                   	 <td align="right">时间依据：</td>
                   	 <td align="left">
-                  	 	<input type="radio" name="timeCondition" value="WFSJ" ${model.findOrDealWith ne 'CLSJ' ?  'checked="checked"' : ''} >发现时间</input>						
+                  	 	<input type="radio" name="timeCondition" value="WFSJ" ${model.findOrDealWith ne 'CLSJ' ?  'checked="checked"' : ''} >违法时间</input>						
 						<input type="radio" name="timeCondition" value="CLSJ" ${model.findOrDealWith eq 'CLSJ' ?  'checked="checked"' : ''}>处理时间</input>
 					 </td>
 
@@ -157,9 +157,9 @@
                      	<td align="left">
 						<input type="radio" name="vioSurveil" id="vioSurveilTrue"  value="true"  ${model.vioSurveil eq "true" ? 'checked="checked"' : '' }>关联</input>
 						<input type="radio" name="vioSurveil" id="vioSurveilFalse" value="false" ${model.vioSurveil eq "false"  or empty model.vioSurveil ? 'checked="checked"' : '' }>不关联</input>
-						<input type="radio" name="vioSurveil" id="vioSurveilOnly"  value="only"  ${model.vioSurveil eq "only" ? 'checked="checked"' : '' }>仅统计非现场文本记录表</input>
+						<!--<input type="radio" name="vioSurveil" id="vioSurveilOnly"  value="only"  ${model.vioSurveil eq "only" ? 'checked="checked"' : '' }>仅统计非现场文本记录表</input>
 	
-                     </td>
+                     --></td>
                   </tr>
                    <TR>
                   	 <td align="right"></td>
