@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.xwork.StringUtils;
@@ -43,6 +44,8 @@ public class EvaluateRecordAction extends
 	/** 查询排名条件,考核标准类型 */
 	private String taskTypeId;
 
+	private String deptCode;
+
 	/**
 	 * 评分
 	 * 
@@ -52,7 +55,7 @@ public class EvaluateRecordAction extends
 
 		Map<String, String> map = getDeptCodeList();
 		getRequest().setAttribute("depts", map);
-		page = getManager().pageQuery(pageOfBlock(), "from EvaluateRecord er");
+		page = getManager().pageQuery(pageOfBlock(), "from EvaluateRecord er order by er.year desc er.month desc er.dept.deptCode");
 		restorePageData(page);
 
 		return INDEX;
@@ -89,28 +92,18 @@ public class EvaluateRecordAction extends
 	 * @return
 	 */
 	public String query() {
-		String deptCode = getRequest().getParameter("deptCode");
+		deptCode = getRequest().getParameter("deptCode");
 		if (StringUtils.isNotBlank(deptCode)) {
-			Dept dept = deptManager.query("from Dept d where d.deptCode = ?",
-					deptCode).get(0);
-			List<EvaluateRecord> list = queryByDept(dept);
-			if (CollectionUtils.isEmpty(list)) {
-				getManager().eval(dept, year, month);
-				list = queryByDept(dept);
-			}
-			items = list;
+			Dept dept = deptManager.getDeptByCode(deptCode);
+			queryByDept(dept);
 		} else {
-			for (String code : getDeptCodeList().keySet()) {
-				Dept dept = deptManager.query(
-						"from Dept d where d.deptCode = ?", code).get(0);
-				List<EvaluateRecord> list = queryByDept(dept);
-				if (CollectionUtils.isEmpty(list)) {
-					getManager().eval(dept, year, month);
-					list = queryByDept(dept);
-				}
+			String hql = "from EvaluateRecord er where er.year = ? and er.month = ?"
+					+ buildDeptParamStr(getDeptCodeList().keySet())+"order by er.dept.deptCode";
 
-				items.addAll(list);
-			}
+			page = getManager().pageQuery(pageOfBlock(), hql,
+					new Object[] { year, month });
+			restorePageData(page);
+
 		}
 
 		return INDEX;
@@ -164,12 +157,26 @@ public class EvaluateRecordAction extends
 	 * @param dept
 	 * @return
 	 */
-	private List<EvaluateRecord> queryByDept(Dept dept) {
+	private void queryByDept(Dept dept) {
 
 		String hql = "from EvaluateRecord er where er.dept.id = ? and er.year = ? and er.month = ?";
-		List<EvaluateRecord> list = getManager().query(hql,
+
+		page = getManager().pageQuery(pageOfBlock(), hql,
 				new Object[] { dept.getId(), year, month });
-		return list;
+		restorePageData(page);
+
+	}
+
+	private String buildDeptParamStr(Set<String> deptCodeSet) {
+		StringBuffer buf = new StringBuffer(" and er.dept.deptCode in (");
+		Object[] codes = deptCodeSet.toArray();
+
+		for (int i = 0; i < codes.length - 1; i++) {
+			buf.append("'").append(codes[i]).append("'").append(",");
+		}
+		buf.append("'").append(codes[codes.length - 1]).append("')");
+
+		return buf.toString();
 	}
 
 	public String evalAll() {
@@ -220,6 +227,14 @@ public class EvaluateRecordAction extends
 		String hql = "from TaskType tt where tt.type = '0'";
 
 		return taskTypeManager.query(hql);
+	}
+
+	public String getDeptCode() {
+		return deptCode;
+	}
+
+	public void setDeptCode(String deptCode) {
+		this.deptCode = deptCode;
 	}
 
 }

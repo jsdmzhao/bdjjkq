@@ -54,7 +54,7 @@ public class ConditionSqlUtil {
 	private static final String SQL_STAT_SURVEIL_END_TIME_WFSJ = "and VS.WFSJ <= to_date('";
 	private static final String SQL_STAT_SURVEIL_END_TIME_CLSJ = "and VS.CLSJ <= to_date('";
 
-	private static final String SQL_STAT_SURVEIL_CJJG = " and trim(VS.CJJG) like ";
+	private static final String SQL_STAT_SURVEIL_CJJG = " and VS.CLBJ = '0' and trim(VS.CJJG) like ";
 	private static final String SQL_STAT_SURVEIL_VEHICLE_SYXZ = " and VS.SYXZ IN(";
 
 	private static final String SQL_STAT_SURVEIL_STAT_HPZL = " and VS.HPZL IN(";
