@@ -10,6 +10,7 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
  * @author catstiger@gmail.com
  *
  */
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "assess_crons")
 public class Cron extends BaseIdModel {
