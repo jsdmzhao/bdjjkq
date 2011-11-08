@@ -5,7 +5,11 @@ import org.apache.commons.lang.xwork.StringUtils;
 import com.googlecode.jtiger.assess.AssessConstants;
 import com.googlecode.jtiger.assess.transgress.TransgressConstants;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
-
+/**
+ * 构建sql语句工具类
+ * @author DELPHI
+ *
+ */
 public class ConditionSqlUtil {
 
 	// ----------VIOLATION表sql语句

@@ -16,8 +16,11 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
 @Entity
 @Table(name = "vehicle_use_code")
 public class VehicleUseCode extends BaseIdModel {
+	/** 代码 */
 	private String code;
+	/** 名称 */
 	private String name;
+	/** 描述 */
 	private String descns;
 
 	@Column(columnDefinition = "varchar2(1)")

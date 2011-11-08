@@ -36,8 +36,6 @@ public class TransgressType extends BaseIdModel {
 	/** 关联违法行为 */
 	private Set<TransgressAction> transgressActions = new HashSet<TransgressAction>(
 			0);
-	/** 所属违法统计项目 */
-	private TransgressStatItem transgressStatItem;
 
 	public String getCode() {
 		return code;
@@ -65,7 +63,7 @@ public class TransgressType extends BaseIdModel {
 		this.parentTransgressType = parentTransgressType;
 	}
 
-	@OneToMany(cascade = {},  fetch = FetchType.LAZY, mappedBy = "parentTransgressType")
+	@OneToMany(cascade = {}, fetch = FetchType.LAZY, mappedBy = "parentTransgressType")
 	@OrderBy(value = "id ASC")
 	public Set<TransgressType> getChildsTransgressTypes() {
 		return childsTransgressTypes;
@@ -93,13 +91,4 @@ public class TransgressType extends BaseIdModel {
 		this.transgressActions = transgressActions;
 	}
 
-	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
-	@JoinColumn(name = "transgress_item_id")
-	public TransgressStatItem getTransgressStatItem() {
-		return transgressStatItem;
-	}
-
-	public void setTransgressStatItem(TransgressStatItem transgressStatItem) {
-		this.transgressStatItem = transgressStatItem;
-	}
 }

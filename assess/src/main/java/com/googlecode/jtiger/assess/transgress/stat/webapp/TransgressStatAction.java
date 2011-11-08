@@ -26,6 +26,12 @@ import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressCustomS
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressStatItemManager;
 import com.googlecode.jtiger.assess.transgress.statproperties.service.TransgressStatPropertiesManager;
 
+/**
+ * 违法统计Action
+ * 
+ * @author DELPHI
+ * 
+ */
 @SuppressWarnings("serial")
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -42,29 +48,34 @@ public class TransgressStatAction extends
 	private Date beginTime;
 	/** 选定时间区间查询--截至时间 */
 	private Date endTime;
-
+	/** 违法统计项 */
 	@SuppressWarnings("unchecked")
 	private List items = new ArrayList();
+	/***/
 	@SuppressWarnings("unchecked")
 	private List title = new ArrayList();
+	/** 违法统计报表属性Manager */
 	@Autowired
 	private TransgressStatPropertiesManager tspm;
 
+	/**
+	 * index方法,为统计准备时间条件
+	 */
 	@Override
 	public String index() {
 		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
 		Calendar c = Calendar.getInstance();
-		
+
 		c.set(Calendar.HOUR_OF_DAY, 0);
 		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND,0);
-		
+		c.set(Calendar.SECOND, 0);
+
 		endTime = c.getTime();
 		c.add(Calendar.DAY_OF_MONTH, -1);
 		beginTime = c.getTime();
-		
+
 		getRequest().setAttribute("beginTime", beginTime);
-		getRequest().setAttribute("endTime",  endTime);
+		getRequest().setAttribute("endTime", endTime);
 		return INDEX;
 	}
 
@@ -191,10 +202,10 @@ public class TransgressStatAction extends
 				statCondition.getEndHourMinute());
 
 		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
-		
+
 		getRequest().setAttribute("beginTime", beginTime);
-		getRequest().setAttribute("endTime",  endTime);
-		
+		getRequest().setAttribute("endTime", endTime);
+
 		return INDEX;
 	}
 

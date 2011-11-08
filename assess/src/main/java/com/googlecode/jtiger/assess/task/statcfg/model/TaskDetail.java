@@ -9,14 +9,25 @@ import javax.persistence.Table;
 
 import com.googlecode.jtiger.core.model.BaseIdModel;
 
+/**
+ * 任务(考核标准)明细
+ * 
+ * @author DELPHI
+ * 
+ */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "assess_task_detail")
 public class TaskDetail extends BaseIdModel {
+	/** 关联任务 */
 	private Task task;
+	/** 任务明细名称 */
 	private String name;
+	/** 加分/减分 */
 	private String addOrDecrease;
+	/** 分值 */
 	private Float point;
+	/** 是否包岗领导同扣 */
 	private String decreaseLeader;
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
@@ -44,6 +55,7 @@ public class TaskDetail extends BaseIdModel {
 	public void setPoint(Float point) {
 		this.point = point;
 	}
+
 	@Column(columnDefinition = "char(1)")
 	public String getAddOrDecrease() {
 		return addOrDecrease;
@@ -52,6 +64,7 @@ public class TaskDetail extends BaseIdModel {
 	public void setAddOrDecrease(String addOrDecrease) {
 		this.addOrDecrease = addOrDecrease;
 	}
+
 	@Column(columnDefinition = "char(1) default ''")
 	public String getDecreaseLeader() {
 		return decreaseLeader;

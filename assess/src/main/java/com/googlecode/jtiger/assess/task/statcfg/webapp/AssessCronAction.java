@@ -35,11 +35,19 @@ import com.ibm.icu.util.Calendar;
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class AssessCronAction extends CronAction {
+	/**用户选定的时间*/
 	private Date cronDate;
+	/**Cron实体*/
 	private Cron assessCron = new Cron();
+	
 	@Autowired
 	private CronManager cronManager;
 
+	/**
+	 * 按月考核的时间设置
+	 * 
+	 * @return
+	 */
 	public String indexMonthly() {
 		assessCron = cronManager.getCronByMarker(AssessConstants.CRON_ASSESS);
 		StringBuffer buf = new StringBuffer();
@@ -54,6 +62,11 @@ public class AssessCronAction extends CronAction {
 		return "indexMonthly";
 	}
 
+	/**
+	 * 每天考核的时间
+	 * 
+	 * @return
+	 */
 	public String indexDaily() {
 		assessCron = cronManager
 				.getCronByMarker(AssessConstants.CRON_ASSESS_DAILY);
@@ -68,17 +81,21 @@ public class AssessCronAction extends CronAction {
 
 		return "indexDaily";
 	}
-
+	/**
+	 * 保存操作
+	 */
 	public String save() {
 		// SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		assessCron = cronManager.get(assessCron.getId());
+		//设定用户选择的时间
 		Calendar c = Calendar.getInstance();
 		c.setTime(cronDate);
 		String ss = String.valueOf(c.get(Calendar.SECOND));
 		String mm = String.valueOf(c.get(Calendar.MINUTE));
 		String hh = String.valueOf(c.get(Calendar.HOUR_OF_DAY) - 1);
 		String dd = String.valueOf(c.get(Calendar.DAY_OF_MONTH));
-
+		
+		//根据用户选择的时间,构建cron表达式
 		StringBuffer buf = new StringBuffer();
 		String cronType = getRequest().getParameter("cronType");
 		if (AssessConstants.CRON_ASSESS.equals(cronType)) {

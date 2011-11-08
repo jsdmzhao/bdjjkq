@@ -2,6 +2,12 @@ package com.googlecode.jtiger.assess.transgress.stat;
 
 import java.util.Date;
 
+/**
+ * 统计条件类,封装各个统计条件
+ * 
+ * @author DELPHI
+ * 
+ */
 public final class StatCondition {
 	/** 是否是每天统计(每天定制统计/选定日期区间统计) */
 	private boolean isEachDayStat;

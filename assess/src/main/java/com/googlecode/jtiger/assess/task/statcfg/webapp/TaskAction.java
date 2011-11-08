@@ -24,15 +24,25 @@ import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressStatIte
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 import com.mchange.v1.util.ArrayUtils;
 
+/**
+ * 任务(考核标准)Action
+ * 
+ * @author DELPHI
+ * 
+ */
 @SuppressWarnings("serial")
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
+	/** 违法统计项Manager */
 	@Autowired
 	private TransgressStatItemManager tsiManager;
+	/** 统计项列表 */
 	private List<TransgressStatItem> transgressStatItems;
+	/** 任务明细Manager */
 	@Autowired
 	private TaskDetailManager taskDetailManager;
+	/** 任务类型Manager */
 	@Autowired
 	private TaskTypeManager taskTypeManager;
 	private String[] detailIds;
@@ -42,9 +52,10 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 	private String[] decreaseLeaders;
 
 	/**
-	 * 
+	 * 列出任务方法
 	 */
 	public String index() {
+		// 构建hql语句
 		StringBuffer buf = new StringBuffer("from Task t where 1=1 ");
 		List<Object> args = new ArrayList<Object>();
 		if (StringUtils.isNotBlank(getModel().getName())) {
@@ -102,8 +113,8 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 		}
 
 		// getModel().setTaskConstOrDuty(AssessConstants.TASK_GROUP_B);
-		//getModel().setTaskType(
-		//		taskTypeManager.get(getModel().getTaskType().getId()));
+		// getModel().setTaskType(
+		// taskTypeManager.get(getModel().getTaskType().getId()));
 
 		super.save();
 		// 剩余的是新添加的
@@ -133,10 +144,15 @@ public class TaskAction extends DefaultCrudAction<Task, TaskManager> {
 		return INPUT;
 	}
 
+	/**
+	 * 得到所有任务(考核标准)类型
+	 * 
+	 * @return
+	 */
 	private List<TaskType> getTaskTypes() {
 		String hql = "from TaskType tt where tt.type = '0'";
 		return taskTypeManager.query(hql);
-		
+
 	}
 
 	/**

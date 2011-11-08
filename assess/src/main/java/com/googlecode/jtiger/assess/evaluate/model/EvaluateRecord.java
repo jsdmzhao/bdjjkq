@@ -42,7 +42,7 @@ public class EvaluateRecord extends BaseIdModel {
 
 	private Set<EvaluateRecordTaskConst> consts = new HashSet<EvaluateRecordTaskConst>(
 			0);
-
+	/**评分类别,月考核评分/每日评分*/
 	private String recordType;
 
 	public Date getRecordTime() {
