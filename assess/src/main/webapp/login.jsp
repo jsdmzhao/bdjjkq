@@ -78,13 +78,13 @@ body {
 	                <tr>
 	                  <td width="60" class="font_tt">用户名：</td>
 	                  <td width="190"><span class="font_tt">
-	                    <input name="j_username" id="j_username" type="text" value="jjzd" class="inputbb required" size="24" style="margin:2px;"/>
+	                    <input name="j_username" id="j_username" type="text" value="" class="inputbb required" size="24" style="margin:2px;"/>
 	                  </span></td>
 	                </tr>
 	                <tr>
 	                  <td class="font_tt">密&nbsp;&nbsp; 码：</td>
 	                  <td><span class="font_tt">
-	                    <input name="j_password" type="password" value="111111" class="inputbb required" size="24"  style="margin:2px;"/>
+	                    <input name="j_password" type="password" value="" class="inputbb required" size="24"  style="margin:2px;"/>
 	                  </span></td>
 	                </tr>
 	                <tr>
