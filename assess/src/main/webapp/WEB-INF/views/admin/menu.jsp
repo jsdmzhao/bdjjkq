@@ -14,8 +14,12 @@
 			</div>
 			 <div style="padding-top:2px">
 					<img src="${ctx}/images/icons/resource.gif" class="icon">
-					<a href="${ctx}/assess/transgress/simpleStat/index.htm" target="main">单项统计</a>
+					<a href="${ctx}/assess/transgress/simpleStat/index.htm?arg=khb" target="main">单项统计-考核办</a>
 			</div>						
+			<div style="padding-top:2px">
+					<img src="${ctx}/images/icons/resource.gif" class="icon">
+					<a href="${ctx}/assess/transgress/simpleStat/index.htm?arg=xdd" target="main">单项统计-县大队</a>
+			</div>
 		</div>
 	</div>
 	<div id="menu_constStat_cfg">
@@ -122,6 +126,18 @@
 				<a href="${ctx}/assess/evaluate/stat/index.htm" target="main">考核得分环比</a>
 			</div>						
 		</div>		
+		<div style="padding-left:5px;">   		
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
+				<a href="${ctx}/assess/evaluate/stat/indexByTaskType.htm" target="main">考核标准类别统计环比</a>
+			</div>						
+		</div>
+		<div style="padding-left:5px;">   		
+			<div style="padding-top:2px">
+				<img src="${ctx}/images/icons/resource.gif" class="icon">
+				<a href="${ctx}/assess/evaluate/stat/indexByTaskConst.htm" target="main">任务常量统计环比</a>
+			</div>						
+		</div>
 	</div>
 </div>
 	

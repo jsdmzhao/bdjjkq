@@ -16,8 +16,7 @@
 <script type="text/javascript"><!--
     Ext.onReady(function(){
 
-       Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
-       
+       Ext.state.Manager.setProvider(new Ext.state.CookieProvider());       
        var viewport = new Ext.Viewport({
             layout:'border',
             items:[
@@ -40,24 +39,34 @@
                         animate:true
                     },
                     items: [   
+					
 					{                    
 					    title:'常量考核统计设置',
 					    html:document.getElementById('menu_constStat_cfg').innerHTML,
 					    border:false,
 					    iconCls:'permit'
-					},                                
+					},
+					
 					{                    
                         title:'常量考核查询统计',
                         html:document.getElementById('menu_constStat').innerHTML,
                         border:false,
                         iconCls:'permit'
-                    },                                   
+                    },    
+                   
                     {                    
                         title:'考核任务设置',
                         html:document.getElementById('menu_task_cfg').innerHTML,
                         border:false,
                         iconCls:'permit'
-                    },
+                    },                                                      
+                    {                    
+                        title:'组织机构',
+                        html:document.getElementById('hr').innerHTML,
+                        border:false,
+                        iconCls:'permit'
+                    },                        
+                    
                     {                    
                         title:'日常勤务考核',
                         html:document.getElementById('assess_input').innerHTML,
@@ -69,19 +78,17 @@
                         html:document.getElementById('assess_query').innerHTML,
                         border:false,
                         iconCls:'permit'
-                    },
-                    {                    
-                        title:'组织机构',
-                        html:document.getElementById('hr').innerHTML,
-                        border:false,
-                        iconCls:'permit'
-                    },    
+                    }
+                    <sec:authorize ifAllGranted="ROLE_ADMIN">
+                    ,
+                    
                     {                    
                         title:'系统配置',
                         html:document.getElementById('menu_sys').innerHTML,
                         border:false,
                         iconCls:'permit'
                     }
+                    </sec:authorize>
                     ]
                 },
                 

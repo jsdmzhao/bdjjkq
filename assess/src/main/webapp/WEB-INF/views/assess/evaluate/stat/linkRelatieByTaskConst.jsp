@@ -21,7 +21,7 @@ function strParser(){
 	for(var i = 0; i < itemList.length - 1; i++){
 		var item = itemList[i].split(";");
 		itemNums[i] = item[1];
-		staticInfo += '<b>' + item[0] + '</b><b>' + item[1] + '分</b>' + '；';
+		staticInfo += '<b>' + item[0] + '</b><b>' + item[1] + '人</b>' + '；';
 		}
 	//alert(staticInfo);
 	document.getElementById("staticInfo").innerHTML = staticInfo;
@@ -35,8 +35,15 @@ function strParser(){
   <tr>
    <td>
    
-   <s:form name="frm" id="frm" namespace="/assess/evaluate/stat" action="linkRelatie" theme="simple">
+   <s:form name="frm" id="frm" namespace="/assess/evaluate/stat" action="linkRelatieByTaskConst" theme="simple">
  <table> <tr>
+<td>
+							任务常量：
+							<s:select list="taskCosnts" id="taskConst" headerKey="" headerValue="请选择" 
+                     	name="task.id" listKey="id" listValue="name" cssClass="m_t_b" 
+                     	cssStyle="width:200px;padding-left:2px;"  ></s:select>
+						</td> 
+						<td>
 		<td>考核单位:<s:select list="deptCodeList" id="deptCodeList" headerKey="" headerValue="请选择" 
                      	name="deptCode" listKey="key" listValue="value"  cssClass="m_t_b" 
                      	cssStyle="width:200px;padding-left:2px;"  ></s:select></td>
@@ -72,7 +79,7 @@ function strParser(){
 			"8", "#FFFFFF");
 	so.addVariable("path", "${ctx}/amcharts/");
 	so.addVariable("settings_file",
-			encodeURIComponent("${ctx}/amcharts/linkRelatie.xml"));
+			encodeURIComponent("${ctx}/amcharts/linkRelatieTaskConst.xml"));
 	//alert("${csvData}");
 	so.addVariable("chart_data", "${csvData}");
 	so.write("flashcontent");

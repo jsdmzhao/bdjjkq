@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>统计条件配置</title>
+<title>统计时间配置</title>
 <%@include file="/common/validator.jsp" %>
 <%@include file="/common/ec.jsp" %>
 <%@include file="/common/meta.jsp"%>
@@ -18,14 +18,14 @@
 
 <body>
 <div class="x-panel">
-<div class="x-panel-header">编辑统计条件</div>
+<div class="x-panel-header">编辑统计时间</div>
 
 <div class="x-panel-body">
 <div><%@ include file="/common/messages.jsp"%>
 </div> 
 <s:form action="save" namespace="/assess/transgress/statcfg/condition" theme="simple" name="statCfgForm" id="statCfgForm"  method="POST">
 <s:hidden name="model.id"></s:hidden>
-	<fieldset style="margin: 30px;"><legend>统计条件信息</legend>
+	<fieldset style="margin: 30px;"><legend>统计时间信息</legend>
 	<table width="100%" >
 		<tr>
 			<td class="simple" align="center">起始时间：</td>

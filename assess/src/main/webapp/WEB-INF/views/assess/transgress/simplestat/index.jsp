@@ -83,13 +83,21 @@
                   <tr>
                      <td align="right" width="15%">单位名称：</td>
                      <td align="left" width="15%"  >
+                     	<c:choose>
+                     		<c:when test="${param['arg'] eq 'khb'}">
+	                     		<select name="deptId" style="width:200px;padding-left:2px;">
+		                     		<option value="">请选择</option>
+		                     		<c:forEach items="${depts}" var="dept">
+		                     			<option value=${dept.id }>${dept.name }</option>
+		                     		</c:forEach>
+	                     		</select>
+                     		</c:when>
+                     		<c:otherwise>
+                     			<input type="hidden" name="deptId" value="${depts[0].id }">
+                     			${depts[0].name }
+                     		</c:otherwise>
+                     	</c:choose>
                      	
-                     	<select name="deptId" style="width:200px;padding-left:2px;">
-                     		<option value="">请选择</option>
-                     		<c:forEach items="${depts}" var="dept">
-                     			<option value=${dept.id }>${dept.name }</option>
-                     		</c:forEach>
-                     	</select>
 					 </td>
                     <td align="right" width="15%">已保存的统计条件：</td>
                      <td align="left" width="15%"  >                     	
@@ -300,7 +308,13 @@ function initTransgressActionOptions(secondLevelTypeId,secondLevelTypeDescn){
 <script type="text/javascript">
 function checkMe(arg){
 	if(arg.checked){
-		$('#taCodes').val($('#taCodes').val()+arg.value+",");
+		if($('#taCodes').val() != ""){
+			//alert($('#taCodes').val());
+			$('#taCodes').val($('#taCodes').val()+","+arg.value);
+		}else{
+			$('#taCodes').val($('#taCodes').val()+arg.value);
+		}	
+		
 	}else{
 		$('#taCodes').val($('#taCodes').val().replace(arg.value+",",""));
 	}
@@ -312,7 +326,7 @@ function statItOld(){
 	//var checkArr ;
 	//checkArr = document.getElementsByName("transgressActionCodes");
 	var tmp = $('[name="vehicleUseCodes"]').val();
-	alert(tmp);
+	//alert(tmp);
 	return;
 	if(checkArr.length==0){
 		alert("请选择违法行为!");
@@ -403,11 +417,11 @@ function closeTable(arg){
 	 
 }
 function saveStatCondition(){
-	alert('a');
+	//alert('a');
 }
 
 </script>
-				<iframe width=188 height=166 
+			<iframe width=188 height=166 
 				name="gToday:datetime:${ctx}/js/calendar/agenda.js:gfPop:${ctx}/js/calendar/plugins_time.js" 
 				id="gToday:datetime:${ctx}/js/calendar/agenda.js:gfPop:${ctx}/js/calendar/plugins_time.js" 
 				src="${ctx}/js/calendar/ipopeng.html" scrolling="no" frameborder="0" 

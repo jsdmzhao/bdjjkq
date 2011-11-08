@@ -163,6 +163,7 @@
 </div>
 
 <script type="text/javascript">
+<%--
 $(document).ready(
 		<c:if test="${empty model.dutyItemName2}">
 		 function(){
@@ -189,6 +190,7 @@ $(document).ready(
         </c:if>
   
 );
+--%>
 function enableIt(arg1,arg2){
 	if(arg2.checked){
 		$("#"+arg1).children().attr("disabled","");
