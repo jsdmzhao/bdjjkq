@@ -98,7 +98,7 @@ public class Dept extends BaseModel implements Serializable {
 	/**
 	 * 网站
 	 */
-	private String homePage;
+	private String homePage = "xdd";
 	/**
 	 * 电子信箱
 	 */

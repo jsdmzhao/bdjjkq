@@ -54,7 +54,7 @@ public class User extends BasePicModel implements UserDetails, Serializable {
 	/**
 	 * 密码
 	 */
-	private String password;
+	private String password ;
 
 	/**
 	 * 确认密码
@@ -135,7 +135,7 @@ public class User extends BasePicModel implements UserDetails, Serializable {
 	/**
 	 * 用户描述
 	 */
-	private String descn;
+	private String descn = "xdd";
 
 	/**
 	 * 用户可以共享的最多文件数
