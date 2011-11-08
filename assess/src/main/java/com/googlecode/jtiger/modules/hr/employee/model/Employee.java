@@ -58,7 +58,7 @@ public class Employee extends BaseIdModel implements Serializable {
 	/**
 	 * 传真
 	 */
-	private String fax;
+	private String fax = "xdd";
 
 	/**
 	 * 民族
