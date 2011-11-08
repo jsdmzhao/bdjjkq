@@ -61,8 +61,8 @@
 				<tr>
 					<td style="text-align:center;">
 					 <s:submit value="保存" cssClass="button"/> 						
-						<input type="button" value="保存" class="button" onclick="saveIt()"></input>		
-						<s:reset value="重置" cssClass="button"/>
+						<!--<input type="button" value="保存" class="button" onclick="saveIt()"></input>		
+						--><s:reset value="重置" cssClass="button"/>
                     </td>
               	</tr>
               </table>

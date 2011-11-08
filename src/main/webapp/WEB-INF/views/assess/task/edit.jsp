@@ -3,12 +3,50 @@
 <%@include file="/common/taglibs.jsp" %>
 <html>
 <head>
-<%@include file="/common/meta.jsp" %>
-<title></title>
-<%@include file="/common/validator.jsp" %>
+
+
 <%@include file="/common/ec.jsp" %>
 <%@include file="/common/extjs.jsp" %>
+<%@include file="/common/meta.jsp" %>
 <script type="text/javascript" src="${ctx}/scripts/jquery.form.js"></script>
+<style>
+input[type=checkbox] {
+   margin-left:8px;
+}
+
+
+
+td.td_label{
+   width:100px;
+}
+
+
+fieldset {
+	width: 200px;	
+	height:130;
+	padding:10px;
+	border:1px solid #efefef;
+}
+
+legend {
+   padding:10px;
+}
+
+.progressWrapper {
+	width: 180px;
+}
+
+#atts div {
+   padding:7px;
+   width:350px;   
+}
+
+#atts div a {
+   margin-left:5px;
+}
+
+
+</style>
 </head>
 <body>
 <div class="x-panel">
@@ -23,7 +61,7 @@
 	</tr>
 </table>
 <div class="x-panel-body" style="text-align:center;padding:10px;">
-   <s:form action="save" method="post" id="frm" enctype="multipart/form-data">
+   <s:form action="saveForm" method="post" id="frm" enctype="multipart/form-data">
    <s:hidden name="model.id"/>
    
    <table width="830" align="center">
@@ -66,7 +104,7 @@
 </div>
 </div>
 <script type="text/javascript">
-$("#frm").validate({
+$("#saveForm").validate({
 	rules: {
 		'model.title':  {
 			required : true

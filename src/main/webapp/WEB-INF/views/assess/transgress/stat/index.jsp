@@ -7,6 +7,9 @@
 <head>
 <style type="text/css">
 td {padding:3px;}
+.remarkItem{
+	padding-left: 20px;
+}
 </style>
 <title></title>
 <%@include file="/common/ec.jsp" %>
@@ -43,7 +46,7 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 </head>
 <body>
 <div class="x-panel">
-  <div class="x-panel-header">违法统计1</div>
+  <div class="x-panel-header">违法统计</div>
     <div class="x-toolbar" style="height:26px;">
       <table width="99%" >
   	  <tr style="margin-top:  7px;"> 		
@@ -89,10 +92,11 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 				</tr> 
 			</table> 
 		</td>
-		<td>
-			&nbsp;&nbsp;&nbsp;&nbsp;		
-			<input type="button" value="统计" onclick="statIt()" class="button" style="margin-top: 3px;">
-			&nbsp;&nbsp;&nbsp;&nbsp;
+		<td>&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="radio" name="statScope" checked="checked" value="city">市区大队
+			<input type="radio" name="statScope" value="all">全部大队(统计范围增大,将很耗时,请耐心等待)
+				&nbsp;&nbsp;&nbsp;&nbsp;		
+			<input type="button" value="统计" onclick="statIt()" class="button" style="margin-top: 3px;">			
 			<!-- 
 			<a href="#" onClick="onStat()" id="import">定制报表</a>
 			 -->		   				
@@ -125,10 +129,22 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
     <ec:extendrow location="top">
 	  	<tr bgcolor="#FFFFFF" height="50px;">
 	  		
-	  		<td colspan="8" height="50px;"  >		  					
-	 			<div align="center" style="float: left;width: 35%;vertical-align: bottom;height: 50px; padding-top: 30px;">${statDate }</div> 	
-	  			<div align="center" style="font-size: 28;float: left;line-height: 50px;	">${transgressStatProperties.title }</div> 			
-	  		</td>
+	  		
+	  		<c:choose>
+	  			<c:when test="${not empty( items)}">
+	  				<td colspan="${fn:length(title)}" height="50px;"  >	
+		  			<div align="center" style="float: left;width: 35%;vertical-align: bottom;height: 50px; padding-top: 30px;">${statDate }</div> 	
+		  			<div align="center" style="font-size: 28;float: left;line-height: 50px;	">${transgressStatProperties.title }</div> 	
+		  			</td>	
+	  			</c:when>
+	  			<c:otherwise>
+	  				<td colspan="8" height="50px;"  >	
+		  			<div align="center" style="float: left;width: 35%;vertical-align: bottom;height: 50px; padding-top: 30px;">${statDate }</div> 	
+		  			<div align="center" style="font-size: 28;float: left;line-height: 50px;	">${transgressStatProperties.title }</div> 	
+		  			</td>	
+	  			</c:otherwise>
+	  		</c:choose>	
+	  	 					
 	  	</tr>	  	
 	  	<tr>
 	  		<c:if test="${not empty( items)}">	  		
@@ -173,12 +189,16 @@ em{font-style:normal;display:block;position:absolute;top:-25px;left:-90px;width:
 		
 		<ec:extendrow location="bottom" >
 			<tr>
-				<td colspan="${fn:length(title)==0?9:fn:length(title)}"></td>
+				<td colspan="${fn:length(title) eq 0 ? 9 : fn:length(title)}"> </td>
 			</tr>
-		   ${transgressStatProperties.remark }
 		  
+		  	<tr>		  	
+		  		<td colspan="${fn:length(title) eq 0 ? 9 : fn:length(title)}">
+		  		${transgressStatProperties.remark }
+		  		</td>		  					  	
+		  	</tr>
 		   <tr>		   
-		   	<td colspan="${fn:length(title)==0?9:fn:length(title)}" width="800" align="right">
+		   	<td colspan="${fn:length(title) eq 0 ? 9 : fn:length(title)}" width="800" align="right">
 		   		统计日期区间: ${statBeginTime }  --  ${statEndTime }&nbsp;&nbsp;
 		   	</td>
 		   </tr>
