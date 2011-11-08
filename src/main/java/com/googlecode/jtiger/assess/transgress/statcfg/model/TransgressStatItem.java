@@ -50,7 +50,7 @@ public class TransgressStatItem extends BaseIdModel {
 	private Dept dept;
 	/** 自定义统计条件描述 */
 	private String descn;
-	/** 统计条件类别(任务常量/自定义统计条件) */
+	/** 统计条件类别(综合统计条件/自定义统计条件) */
 	private String type;
 	/**关联任务*/
 	private Set<Task> tasks = new HashSet<Task>();

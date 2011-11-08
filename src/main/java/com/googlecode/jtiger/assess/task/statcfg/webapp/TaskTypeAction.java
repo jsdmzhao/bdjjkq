@@ -12,12 +12,19 @@ import org.springframework.stereotype.Controller;
 import com.googlecode.jtiger.assess.task.statcfg.model.TaskType;
 import com.googlecode.jtiger.assess.task.statcfg.service.TaskTypeManager;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
-
+/**
+ * 任务(考核标准)类型Action
+ * @author DELPHI
+ *
+ */
 @SuppressWarnings("serial")
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
 public class TaskTypeAction extends
 		DefaultCrudAction<TaskType, TaskTypeManager> {
+	/**
+	 * 列出任务类型方法
+	 */
 	public String index() {
 		StringBuffer buf = new StringBuffer("from TaskType tt where tt.type = '0' ");
 		List<Object> args = new ArrayList<Object>();

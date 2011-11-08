@@ -1,10 +1,8 @@
 package com.googlecode.jtiger.assess.task.stat.empduty.model;
 
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.googlecode.jtiger.assess.task.statcfg.model.TaskDetail;
 import com.googlecode.jtiger.core.model.BaseIdModel;
@@ -16,8 +14,14 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
  * 
  */
 @SuppressWarnings("serial")
-@Entity
-@Table(name = "assess_emp_duty_rec_detail")
+/*
+ * @SuppressWarnings("serial")
+ * 
+ * @Entity
+ * 
+ * @Table(name = "assess_emp_duty_rec_detail")
+ */
+@Deprecated
 public class EmployeeDutyRecordDetail extends BaseIdModel {
 	/** 关联记录 */
 	private EmployeeDutyRecord employeeDutyRecord;

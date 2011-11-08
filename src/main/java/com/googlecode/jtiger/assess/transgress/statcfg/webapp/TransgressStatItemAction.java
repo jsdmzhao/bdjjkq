@@ -23,6 +23,12 @@ import com.googlecode.jtiger.assess.util.CodesStringUtil;
 import com.googlecode.jtiger.core.util.ReflectUtil;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
 
+/**
+ * 违法统计项Action
+ * 
+ * @author DELPHI
+ * 
+ */
 @SuppressWarnings("serial")
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -48,6 +54,9 @@ public class TransgressStatItemAction extends
 	/** 是否关联到vioSurveil表,还是单独查询vioSurveil表 */
 	private String vioSurveil;
 
+	/**
+	 * 编辑统计项
+	 */
 	@Override
 	public String edit() {
 		if (getModel() != null && getModel().getId() != null) {
@@ -118,6 +127,9 @@ public class TransgressStatItemAction extends
 				secondLevelTypeId);
 	}
 
+	/**
+	 * 列出统计项
+	 */
 	@Override
 	public String index() {
 		String hql = "from TransgressStatItem tsi where tsi.type = ?";
@@ -138,6 +150,9 @@ public class TransgressStatItemAction extends
 		return INDEX;
 	}
 
+	/**
+	 * 保存统计项
+	 */
 	@Override
 	public String save() {
 		/*
@@ -236,6 +251,9 @@ public class TransgressStatItemAction extends
 		return SUCCESS;
 	}
 
+	/**
+	 * 删除统计项
+	 */
 	public String remove() {
 		super.remove();
 		return SUCCESS;
@@ -345,7 +363,7 @@ public class TransgressStatItemAction extends
 	}
 
 	/**
-	 * 保存同及条件Ajax请求
+	 * 保存统计条件Ajax请求
 	 * 
 	 * @return
 	 */

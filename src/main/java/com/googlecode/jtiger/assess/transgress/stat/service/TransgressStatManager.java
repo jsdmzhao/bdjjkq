@@ -20,7 +20,9 @@ public class TransgressStatManager extends BaseGenericsManager<TransgressStat> {
 	private StatDao statDao;
 	@Autowired
 	private TransgressSatDao transgressStatDao;
+
 	@SuppressWarnings("unchecked")
+	@Deprecated
 	public void stat() {
 		List<Map<String, Object>> list = statDao.stat1();
 		if (CollectionUtils.isNotEmpty(list)) {
@@ -36,6 +38,13 @@ public class TransgressStatManager extends BaseGenericsManager<TransgressStat> {
 
 	}
 
+	/**
+	 * 统计方法
+	 * 
+	 * @param condition
+	 *            统计条件
+	 * @return 统计结果
+	 */
 	public List<Map<String, Object>> stat(StatCondition condition) {
 
 		return transgressStatDao.stat(condition);

@@ -33,7 +33,7 @@ public class EmployeeDutyRecord extends BaseIdModel {
 	private Date recordTime;
 	/** 考核年月 */
 	private String yearAndMonth;
-	
+	/** 日常勤务明细 */
 	private TaskDetail taskDetail;
 
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
@@ -71,6 +71,7 @@ public class EmployeeDutyRecord extends BaseIdModel {
 	public void setYearAndMonth(String yearAndMonth) {
 		this.yearAndMonth = yearAndMonth;
 	}
+
 	@ManyToOne(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "task_detail_id")
 	public TaskDetail getTaskDetail() {

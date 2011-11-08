@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.xwork.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -22,6 +21,12 @@ import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
 import com.ibm.icu.util.Calendar;
 
+/**
+ * 考核记录Action
+ * 
+ * @author DELPHI
+ * 
+ */
 @SuppressWarnings("serial")
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -52,21 +57,30 @@ public class EvaluateRecordAction extends
 	 * @return
 	 */
 	public String index() {
-
+		// 得到部门列表,用于用户作为查询条件
 		Map<String, String> map = getDeptCodeList();
 		getRequest().setAttribute("depts", map);
-		page = getManager().pageQuery(pageOfBlock(), "from EvaluateRecord er order by er.year desc er.month desc er.dept.deptCode");
+		page = getManager()
+				.pageQuery(pageOfBlock(),
+						"from EvaluateRecord er order by er.year desc er.month desc er.dept.deptCode");
 		restorePageData(page);
 
 		return INDEX;
 	}
 
 	/**
+	 * <pre>
 	 * 前台展示页面
+	 * 前台展示,如果只是展示月考核,那么只能是上个月的数据,没有意义
+	 * 如果展示当月数据,则每次查看时都执行考核操作显然也是没有必要和浪费资源的,
+	 * 解决办法是,每天在指定时间,由系统自动执行一个"考核",得到每个大队的当天成绩.
+	 * 那么前台展示的就是查询这个当前成绩,列到界面中
 	 * 
 	 * @return
+	 * </pre>
 	 */
 	public String front() {
+		// 得到当前日期
 		Calendar c = Calendar.getInstance();
 		int month = c.get(Calendar.MONTH) + 1;
 		int date = c.get(Calendar.DATE);
@@ -74,7 +88,7 @@ public class EvaluateRecordAction extends
 		c.set(Calendar.HOUR, 0);
 		c.set(Calendar.MINUTE, 0);
 		c.set(Calendar.SECOND, 0);
-
+		// 查询考核记录中当天的"每日统计"
 		String hql = "from EvaluateRecord er where er.recordType = 'daily' and er.recordTime >= ? order by er.total desc";
 		List<EvaluateRecord> list = getManager().query(hql,
 				new Object[] { c.getTime() });
@@ -98,7 +112,8 @@ public class EvaluateRecordAction extends
 			queryByDept(dept);
 		} else {
 			String hql = "from EvaluateRecord er where er.year = ? and er.month = ?"
-					+ buildDeptParamStr(getDeptCodeList().keySet())+"order by er.dept.deptCode";
+					+ buildDeptParamStr(getDeptCodeList().keySet())
+					+ "order by er.dept.deptCode";
 
 			page = getManager().pageQuery(pageOfBlock(), hql,
 					new Object[] { year, month });
@@ -167,6 +182,12 @@ public class EvaluateRecordAction extends
 
 	}
 
+	/**
+	 * 构建查询部门参数
+	 * 
+	 * @param deptCodeSet
+	 * @return
+	 */
 	private String buildDeptParamStr(Set<String> deptCodeSet) {
 		StringBuffer buf = new StringBuffer(" and er.dept.deptCode in (");
 		Object[] codes = deptCodeSet.toArray();
@@ -224,7 +245,7 @@ public class EvaluateRecordAction extends
 	}
 
 	public List<TaskType> getTaskTypes() {
-		String hql = "from TaskType tt where tt.type = '0'";
+		String hql = "from TaskType";
 
 		return taskTypeManager.query(hql);
 	}

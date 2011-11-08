@@ -16,16 +16,20 @@ import com.googlecode.jtiger.core.model.BaseIdModel;
 @Entity
 @Table(name = "assess_flapper_type")
 public class FlapperType extends BaseIdModel {
+	/** 代码 */
 	private String code;
+	/** 名称 */
 	private String name;
 
 	public String getCode() {
 		return code;
 	}
+
 	@Column(columnDefinition = "varchar2(4)")
 	public void setCode(String code) {
 		this.code = code;
 	}
+
 	@Column(columnDefinition = "varchar2(50)")
 	public String getName() {
 		return name;

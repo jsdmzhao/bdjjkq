@@ -16,6 +16,12 @@ import com.googlecode.jtiger.assess.transgress.TransgressConstants;
 import com.googlecode.jtiger.assess.transgress.stat.StatCondition;
 import com.googlecode.jtiger.core.dao.jdbc.BaseJdbcDao;
 
+/**
+ * 违法统计Dao
+ * 
+ * @author DELPHI
+ * 
+ */
 @Repository
 public class TransgressSatDao extends BaseJdbcDao {
 	private ConditionSqlUtil util = new ConditionSqlUtil();
@@ -26,9 +32,17 @@ public class TransgressSatDao extends BaseJdbcDao {
 		return AssessConstants.ASSESS_DS;
 	}
 
+	/**
+	 * 违法统计方法
+	 * 
+	 * @param condition
+	 *            统计条件
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> stat(StatCondition condition) {
-		//List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		// List<Map<String, Object>> list = new ArrayList<Map<String,
+		// Object>>();
 		/*
 		 * String actionCodesStr = condition.getTransgressActionCodesStr() ==
 		 * null ? "''" : condition.getTransgressActionCodesStr();
@@ -65,17 +79,28 @@ public class TransgressSatDao extends BaseJdbcDao {
 		}
 	}
 
+	/**
+	 * 统计违法行为表
+	 * 
+	 * @param condition
+	 * @return
+	 */
 	private List<Map<String, Object>> statViolation(StatCondition condition) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		// 违法表
 		String sqlViolation = util.buildSql(condition,
 				AssessConstants.VIO_VIOLATION);
 		logger.debug(sqlViolation);
-		list = getJdbcTemplate().query(sqlViolation,
-				new ColumnMapRowMapper());
+		list = getJdbcTemplate().query(sqlViolation, new ColumnMapRowMapper());
 		return list;
 	}
 
+	/**
+	 * 统计违法强制表
+	 * 
+	 * @param condition
+	 * @return
+	 */
 	private List<Map<String, Object>> statForce(StatCondition condition) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		String sql = util.buildSql(condition, AssessConstants.VIO_FORCE);
@@ -84,14 +109,19 @@ public class TransgressSatDao extends BaseJdbcDao {
 		return list;
 	}
 
+	/**
+	 * 统计非现场文本记录表
+	 * 
+	 * @param condition
+	 * @return
+	 */
 	private List<Map<String, Object>> statSurveil(StatCondition condition) {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		// 非现场文本记录表
 		String sqlSurveil = util.buildSql(condition,
 				AssessConstants.VIO_SURVEIL);
 		logger.debug(sqlSurveil);
-		list = getJdbcTemplate().query(sqlSurveil,
-				new ColumnMapRowMapper());
+		list = getJdbcTemplate().query(sqlSurveil, new ColumnMapRowMapper());
 
 		return list;
 	}
@@ -108,8 +138,11 @@ public class TransgressSatDao extends BaseJdbcDao {
 		List<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
 		for (List<Map<String, Object>> list : lists) {
 			BigDecimal current = (BigDecimal) list.get(0).get("ROWS_COUNT");
+			int count = current.intValue();
+			logger.info("rows_count---->" + count);
 			total = total.add(current);
 		}
+		logger.info("total---->" + total);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("TOTAL_COUNT", total);
 		result.add(map);

@@ -7,7 +7,11 @@
 	         namespace="/assess/evaluate/stat">
 		<action name="*" class="evaluateRecordStatAction" method="{1}">		    
 		    <result name="index">/WEB-INF/views/assess/evaluate/stat/index.jsp</result>		 
-		    <result name="linkRelatie">/WEB-INF/views/assess/evaluate/stat/linkRelatie.jsp</result>		    		   		   	    
+		    <result name="linkRelatie">/WEB-INF/views/assess/evaluate/stat/linkRelatie.jsp</result>		
+		    <result name="indexByTaskType">/WEB-INF/views/assess/evaluate/stat/indexByTaskType.jsp</result>		 
+		    <result name="linkRelatieByTaskType">/WEB-INF/views/assess/evaluate/stat/linkRelatieByTaskType.jsp</result>	
+		    <result name="indexByTaskConst">/WEB-INF/views/assess/evaluate/stat/indexByTaskConst.jsp</result>		 
+		    <result name="linkRelatieByTaskConst">/WEB-INF/views/assess/evaluate/stat/linkRelatieByTaskConst.jsp</result>	    		   		   	    
 		</action>	
 	</package>
 	

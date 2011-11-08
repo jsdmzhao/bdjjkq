@@ -36,6 +36,12 @@ import com.googlecode.jtiger.assess.util.CodesStringUtil;
 import com.googlecode.jtiger.modules.hr.dept.model.Dept;
 import com.googlecode.jtiger.modules.hr.dept.service.DeptManager;
 
+/**
+ * 违法统计Action
+ * 
+ * @author DELPHI
+ * 
+ */
 @SuppressWarnings("serial")
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
@@ -82,9 +88,18 @@ public class SimpleTransgressStatAction extends
 	/** 号牌种类 */
 	private String[] flapperTypes;
 
+	/**
+	 * 统计首页面,需要初始化一系列界面中的统计条件
+	 */
 	public String index() {
-		List<Dept> depts = deptManager
-				.query("from Dept d where d.deptType = '1'");
+		String arg = getRequest().getParameter("arg");
+		List<Dept> depts = null;
+		if ("khb".equals(arg)) {
+			depts = deptManager.query("from Dept d where d.deptType = '1'");			
+		} else {
+			depts = new ArrayList<Dept>(1);
+			depts.add(getUserDept());
+		}
 		getRequest().setAttribute("depts", depts);
 		List<TransgressType> firstLevelTypes = ttManager.getFirstLevelTypes();
 		getRequest().setAttribute("firstLevelTypes", firstLevelTypes);
@@ -99,21 +114,26 @@ public class SimpleTransgressStatAction extends
 		getRequest().setAttribute("flapperTypes",
 				flapperTypeManager.getAllFlapperTypes());
 		Calendar c = Calendar.getInstance();
-		
+
 		c.set(Calendar.HOUR_OF_DAY, 0);
 		c.set(Calendar.MINUTE, 0);
-		c.set(Calendar.SECOND,0);
-		
+		c.set(Calendar.SECOND, 0);
+
 		endTime = c.getTime();
 		c.add(Calendar.DAY_OF_MONTH, -1);
 		beginTime = c.getTime();
-		
+
 		getRequest().setAttribute("beginTime", beginTime);
-		getRequest().setAttribute("endTime",  endTime);
-		
+		getRequest().setAttribute("endTime", endTime);
+
 		return INDEX;
 	}
 
+	/**
+	 * 单项统计
+	 * 
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public String simpleStat() {
 		List items = new ArrayList();
@@ -151,9 +171,9 @@ public class SimpleTransgressStatAction extends
 		 * if ("true".equals(unionForce)) { statCondition.setUnionForce(true); }
 		 * else { statCondition.setUnionForce(false); }
 		 */
-		//是否关联违法强制表,只统计违法强制表
+		// 是否关联违法强制表,只统计违法强制表
 		statCondition.setUnionForce(unionForce);
-		//是否关联非现场文本记录表
+		// 是否关联非现场文本记录表
 		statCondition.setVioSurveil(vioSurveil);
 		// title.add("");
 		title.add("合计");
@@ -172,17 +192,18 @@ public class SimpleTransgressStatAction extends
 				"timeCondition"));
 		// 得到当前登录用户所在部门的子部门代码编号,名称集合
 		Map<String, String> deptCodeMap = null;
-		if(StringUtils.isNotBlank(deptId)){
+		if (StringUtils.isNotBlank(deptId)) {
 			Dept dept = deptManager.get(Integer.valueOf(deptId));
-			deptCodeMap = new HashMap<String,String>();
+			deptCodeMap = new HashMap<String, String>();
 			deptCodeMap.put(dept.getDeptCode(), dept.getName());
-		}else{
-			deptCodeMap= getDeptCodeList();
+		} else {
+			deptCodeMap = getDeptCodeList();
 		}
-	
+		// 得到部门集合
 		Iterator<String> itr = deptCodeMap.keySet().iterator();
 		BigDecimal total = new BigDecimal(0);
 		List itemResult = new ArrayList();
+		// 迭代统计各个部门
 		while (itr.hasNext()) {
 			String code = itr.next();
 			// String name = deptCodeMap.get(code);
@@ -208,10 +229,9 @@ public class SimpleTransgressStatAction extends
 		getRequest().setAttribute("transgressStatProperties", tspm.getIt());
 		getRequest().setAttribute("title", title);
 
-		
 		getRequest().setAttribute("beginTime", beginTime);
-		getRequest().setAttribute("endTime",  endTime);
-		
+		getRequest().setAttribute("endTime", endTime);
+
 		return "stat";
 	}
 
@@ -232,6 +252,12 @@ public class SimpleTransgressStatAction extends
 		return buf.toString();
 	}
 
+	/**
+	 * 通过字符串数组,构建逗号分割的字符串
+	 * 
+	 * @param arr
+	 * @return
+	 */
 	private String buildStrByStrArry(String[] arr) {
 		StringBuffer buf = new StringBuffer();
 		if (arr != null && arr.length > 0) {
@@ -256,8 +282,8 @@ public class SimpleTransgressStatAction extends
 			for (int i = 0; i < transgressActionCodes.length - 1; i++) {
 				buf.append("'").append(transgressActionCodes[i]).append("',");
 			}
-			buf.append("'").append(
-					transgressActionCodes[transgressActionCodes.length - 1])
+			buf.append("'")
+					.append(transgressActionCodes[transgressActionCodes.length - 1])
 					.append("'");
 		}
 		return buf.toString();
@@ -298,6 +324,11 @@ public class SimpleTransgressStatAction extends
 		return buf.toString();
 	}
 
+	/**
+	 * 列出单项统计条件
+	 * 
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	private List<TransgressStatItem> getSimpleTsItems() {
 		String hql = "from TransgressStatItem tsi where tsi.type = ?";

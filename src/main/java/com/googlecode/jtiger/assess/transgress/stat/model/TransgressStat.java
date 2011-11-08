@@ -17,7 +17,11 @@ import javax.persistence.Table;
 import com.googlecode.jtiger.core.model.BaseIdModel;
 import com.googlecode.jtiger.modules.cms.article.model.Article;
 import com.googlecode.jtiger.modules.security.user.model.User;
-
+/**
+ * 违法统计
+ * @author DELPHI
+ *
+ */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "transgress_stat")

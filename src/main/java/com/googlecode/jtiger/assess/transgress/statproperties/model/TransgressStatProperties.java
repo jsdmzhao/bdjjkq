@@ -6,6 +6,7 @@ import javax.persistence.Table;
 
 import com.googlecode.jtiger.core.model.BaseIdModel;
 
+/** 违法统计报表属性 */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "transgress_stat_properties")

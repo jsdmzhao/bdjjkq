@@ -10,7 +10,11 @@ import org.springframework.stereotype.Controller;
 import com.googlecode.jtiger.assess.transgress.statcfg.model.TransgressCustomStatCondition;
 import com.googlecode.jtiger.assess.transgress.statcfg.service.TransgressCustomStatConditionManager;
 import com.googlecode.jtiger.core.webapp.struts2.action.DefaultCrudAction;
-
+/**
+ * 自定义统计条件Action,
+ * @author DELPHI
+ *
+ */
 @SuppressWarnings("serial")
 @Controller
 @Scope(BeanDefinition.SCOPE_PROTOTYPE)
